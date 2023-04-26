@@ -15,6 +15,8 @@ return new class extends Migration
     {
         Schema::create('work_types', function (Blueprint $table) {
             $table->id();
+            $table->string('name')->nullable();
+            $table->integer('status')->nullable(0);
             $table->timestamps();
         });
     }

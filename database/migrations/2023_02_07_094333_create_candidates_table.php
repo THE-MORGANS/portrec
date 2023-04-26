@@ -15,6 +15,20 @@ return new class extends Migration
     {
         Schema::create('candidates', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained();
+            $table->integer('work_type_id')->nullable();
+            $table->foreignId('location_id')->constrained();
+            $table->string('image_path')->nullable();
+            $table->string('phone')->nullable();
+            $table->integer('availability_id')->nullable();
+            $table->text('preference')->nullable();
+            $table->double('Salary_expectation')->nullable();
+            $table->string('language_id')->nullable();
+            $table->foreignId('job_function_id')->constrained();
+            $table->string('gender_id')->nullable();
+            $table->string('professional_headline')->nullable();
+            $table->string('years_experience')->nullable();
+            $table->strin('experience_level')->nullable();
             $table->timestamps();
         });
     }

@@ -15,6 +15,8 @@ return new class extends Migration
     {
         Schema::create('associations', function (Blueprint $table) {
             $table->id();
+            $table->string('name')->nullable();
+            $table->text('decription')->nullable();
             $table->timestamps();
         });
     }
