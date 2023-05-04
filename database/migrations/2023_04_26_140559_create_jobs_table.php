@@ -14,6 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('jobs', function (Blueprint $table) {
+            //jobs posted by the recuiter 
             $table->id();
             $table->foreignId('recuiter_id')->constrained();
             $table->foreignId('company_id')->constrained();
@@ -22,8 +23,7 @@ return new class extends Migration
             $table->string('qualifications')->nullable();
             $table->string('locaiton')->nullable();
             $table->foreignId('work_type_id')->constrained();
-            $table->integer('min_experieince')->nullable();
-            $table->integer('max_experience')->nullable();
+            $table->string('experieince')->nullable();
             $table->string('term')->nullable();
             $table->double('min_salary')->nullable();
             $table->double('max_salary')->nullable();

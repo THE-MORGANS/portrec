@@ -14,6 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('hiring_stages', function (Blueprint $table) {
+            //the admin defines the hiring stages,  eg. In-review, shortlisted, interview etc
             $table->id();
             $table->string('name')->nullable();
             $table->timestamps();

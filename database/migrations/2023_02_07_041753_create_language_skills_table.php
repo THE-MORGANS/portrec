@@ -14,6 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('language_skills', function (Blueprint $table) {
+            //candidate languages 
             $table->id();
             $table->timestamps();
         });

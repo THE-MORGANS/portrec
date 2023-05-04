@@ -13,9 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('company_types', function (Blueprint $table) {
+        Schema::create('application_answers', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->nullable();
+            $table->foreignId('user_id')->nullable();
+            $table->foreignId('application_id')->nullable();
+            $table->text('questions')->nullable();
+            $table->string('answers')->nullable();
             $table->timestamps();
         });
     }
@@ -27,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('company_types');
+        Schema::dropIfExists('application_answers');
     }
 };

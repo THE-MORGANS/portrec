@@ -14,6 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('interviews', function (Blueprint $table) {
+            //schedule interview for a candidate
             $table->id();
             $table->foreignId('user_id')->constrained();
             $table->foreignId('recruiter_id')->constrained();

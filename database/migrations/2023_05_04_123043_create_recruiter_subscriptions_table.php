@@ -13,15 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('education', function (Blueprint $table) {
-            //candidaes educational qualifications
+        Schema::create('recruiter_subscriptions', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->nullable();
-            $table->string('institution')->nullable();
-            $table->foreignId('qualification_id')->constrained();
+            $table->foreignId('subscription_id')->constrained();
+            $table->foreignId('recruiter_id')->constrained();
             $table->dateTime('start_date')->nullable();
             $table->dateTime('end_date')->nullable();
-            $table->tinyText('description')->nullable();
+            $table->integer('status')->nullable()->comment('1 = active, -1 = cancel, 0 =active');
+            $table->integer('is_paid')->nullable();
             $table->timestamps();
         });
     }
@@ -33,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('education');
+        Schema::dropIfExists('recruiter_subscriptions');
     }
 };

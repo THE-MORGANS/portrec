@@ -14,6 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('availabilities', function (Blueprint $table) {
+            //date candidate will be available to resume if hired
             $table->id();
             $table->string('name')->nullable();
             $table->timestamps();

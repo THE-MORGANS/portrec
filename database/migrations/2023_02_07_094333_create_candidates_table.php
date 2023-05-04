@@ -14,6 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('candidates', function (Blueprint $table) {
+            //candidate table that extends users table
             $table->id();
             $table->foreignId('user_id')->constrained();
             $table->integer('work_type_id')->nullable();

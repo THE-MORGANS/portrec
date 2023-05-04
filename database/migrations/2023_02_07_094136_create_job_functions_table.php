@@ -14,6 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('job_functions', function (Blueprint $table) {
+            //jobs functionalities
             $table->id();
             $table->foreignId('industries_id')->constrained();
             $table->string('name')->nullable();

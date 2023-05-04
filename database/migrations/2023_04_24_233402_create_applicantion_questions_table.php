@@ -13,11 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('acquired_skills', function (Blueprint $table) {
-            //get all the skills the candidate has acquired 
+        Schema::create('applicantion_questions', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained();
-            $table->foreignId('skill_id')->constrained();
+            $table->foreignId('recruiter_id')->nullable();
+            $table->foreignId('job_id')->nullable();
+            $table->text('questions')->nullable();
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('acquired_skills');
+        Schema::dropIfExists('applicantion_questions');
     }
 };

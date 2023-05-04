@@ -14,6 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('menus', function (Blueprint $table) {
+            //website menus 
             $table->id();
             $table->string('name')->nullable();
             $table->string('slug')->nullable();

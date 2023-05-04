@@ -14,6 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('industries', function (Blueprint $table) {
+            
             $table->id();
             $table->string('name')->nullable();
             $table->integer('status')->default(0);

@@ -14,6 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('portfolios', function (Blueprint $table) {
+            //candidates portfolios
             $table->id();
             $table->string('project_title')->nullable();
             $table->string('project_role')->nullable();

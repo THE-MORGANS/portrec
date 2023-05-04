@@ -14,6 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('recruiter_levels', function (Blueprint $table) {
+            //check the recruiter levels based on subscriptions paid
             $table->id();
             $table->string('name')->nullable();
             $table->timestamps();

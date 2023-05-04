@@ -13,11 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('applicantion_questions', function (Blueprint $table) {
+        Schema::create('user_subscriptions', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('recruiter_id')->nullable();
-            $table->foreignId('application_id')->nullable();
-            $table->text('questions')->nullable();
+            $table->string('plan_name')->nullable();
+            $table->double('amount')->nullable();
+            $table->integer('duration')->nullable();
+            $table->integer('period')->nullable();
             $table->timestamps();
         });
     }
@@ -29,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('applicantion_questions');
+        Schema::dropIfExists('user_subscriptions');
     }
 };

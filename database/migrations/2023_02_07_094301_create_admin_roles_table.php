@@ -14,6 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('admin_roles', function (Blueprint $table) {
+            //Admin roles - Super Admin,  Business Development, Accounting 
             $table->id();
             $table->string('name')->nullable();
             $table->timestamps();

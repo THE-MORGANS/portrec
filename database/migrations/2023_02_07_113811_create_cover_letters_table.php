@@ -14,6 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('cover_letters', function (Blueprint $table) {
+            //candidates cover lette, this cover letter can be selected when d candidate is applying for a job
             $table->id();
             $table->foreignId('user_id')->constrained();
             $table->text('content')->nullable();

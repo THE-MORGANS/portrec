@@ -14,6 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('associations', function (Blueprint $table) {
+            //assouciations the candidate may belong like clubs, communities etc
             $table->id();
             $table->string('name')->nullable();
             $table->text('decription')->nullable();

@@ -13,11 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('acquired_skills', function (Blueprint $table) {
-            //get all the skills the candidate has acquired 
+        Schema::create('subscriptions', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained();
-            $table->foreignId('skill_id')->constrained();
+            $table->string('plan_name')->nullable();
+            $table->integer('duration')->nullable();
+            $table->integer('period')->nullable();
+            $table->double('amount')->nullable();
             $table->timestamps();
         });
     }
@@ -29,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('acquired_skills');
+        Schema::dropIfExists('subscriptions');
     }
 };

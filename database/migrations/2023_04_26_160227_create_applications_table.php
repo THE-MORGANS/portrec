@@ -25,7 +25,7 @@ return new class extends Migration
             $table->string('status')->nullable();
             $table->text('answers')->nullable();
             $table->string('status')->nullable();
-            $table->integer('is_view')->nullable();
+            $table->integer('is_viewed')->nullable();
             $table->timestamps();
         });
     }

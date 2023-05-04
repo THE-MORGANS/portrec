@@ -14,6 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('sub_menus', function (Blueprint $table) {
+            //website sub menus
             $table->id();
             $table->foreignId('menu_id')->nullable();
             $table->string('name')->nullable();

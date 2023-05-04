@@ -14,6 +14,10 @@ return new class extends Migration
     public function up()
     {
         Schema::create('companies', function (Blueprint $table) {
+            //when a recuiter creates an account, they must create a company profile before the can post jobs, 
+            //each company hold the jobs posted under them
+            //the recuiter can subscription covers for all the company listed in their account
+            
             $table->id();
             $table->foreignId('recuiter_id')->constrained();
             $table->string('name')->nullable();

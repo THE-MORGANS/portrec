@@ -14,6 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('work_experiences', function (Blueprint $table) {
+            //candidates work experience 
             $table->id();
             $table->foreignId('user_id')->constrained();
             $table->string('company_name')->nullable();

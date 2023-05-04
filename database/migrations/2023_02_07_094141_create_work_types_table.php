@@ -14,6 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('work_types', function (Blueprint $table) {
+            //work types - remote, full time or contract
             $table->id();
             $table->string('name')->nullable();
             $table->integer('status')->nullable(0);

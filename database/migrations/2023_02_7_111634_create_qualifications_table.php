@@ -14,6 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('qualifications', function (Blueprint $table) {
+            //candidate qualifications  type, BSc, HND, BEd etc
             $table->id();
             $table->string('name')->nullable();
             $table->integer('status')->default(0);

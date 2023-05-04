@@ -14,6 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('skills', function (Blueprint $table) {
+            //all skills candidate might have, eg. for tech - HTML, CSS, PHP etc 
             $table->id();
             $table->string('name')->nullable();
             $table->string('slug')->nullable();
