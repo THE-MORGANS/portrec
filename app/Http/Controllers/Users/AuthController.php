@@ -20,7 +20,7 @@ class AuthController extends Controller
         $validator = Validator::make($request->all(), [
             'firstname' => 'required',
             'lastname' => 'required',
-            'email' => 'required|email',
+            'email' => 'required|unique:users|email',
             'password' => 'required',
         ]);
 
@@ -60,14 +60,8 @@ class AuthController extends Controller
         }
     }
 
-    
-
-   public function userlogout(User $user) {
-    $user->tokens()->delete();
-    // auth()->user()->tokens()->delete();
-   }
-
-    public function getuser(Request $request){
-        return $request->user();
-    }
+    public function userlogout(User $user) {
+        $user->tokens()->delete();
+        // auth()->user()->tokens()->delete();
+       }
 }
