@@ -9,13 +9,12 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\User\UpdateUserProfile;
 use App\Http\Requests\User\UpdateUserPassword;
+use App\Http\Traits\ResponseTrait;
 
 class ProfileController extends Controller
 {
 
-    /*
-        ToDo: Upload Picture
-    */
+    use ResponseTrait;
 
     public function userProfile(){
         if (Auth::check()) {
