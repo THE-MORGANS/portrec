@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use App\Http\Requests\User\UpdateUserProfile;
+use App\Http\Requests\User\UpdateUserPassword;
 
 class ProfileController extends Controller
 {
@@ -23,14 +25,7 @@ class ProfileController extends Controller
         }
     }
 
-    public function updateUserProfile($id, Request $request){
-        $validator = Validator::make($request->all(), [
-            'name' => 'required',
-            'phone' => 'required',
-        ]);
-        if($validator->fails()){
-            return $this->sendError('Validation Error.', $validator->errors());       
-        }
+    public function updateUserProfile($id, UpdateUserProfile $request){
         $user = User::find($id);
         $user->name = $request->name;
         $user->phone = $request->phone;
@@ -42,23 +37,18 @@ class ProfileController extends Controller
         } 
     }
 
-    public function updateUserPassword($id, Request $request){
-        $validator = Validator::make($request->all(), [
-            'oldpassword' => 'required',
-            'password' => 'required'
-        ]);
-        if($validator->fails()){
-            return $this->sendError('Validation Error.', $validator->errors());       
-        }
-
+    public function updateUserPassword($id, UpdateUserPassword $request){
         $user = User::find($id);
         if (password_verify($request->oldpassword, $user->password)) {
+            if ($request->oldpassword == $request->password) {
+                return $this->sendError('New and Old Password Must be Different', ['error'=>'Change Password'], 500);
+            }
             $user->password = bcrypt($request->password);
             if ($user->save()) {
                 return $this->sendResponse('Password Updated', 'User Password Updated');  
             }
         }else{
-            return $this->sendError('Old Password is Wrong. Pleae Check and Try Again', ['error'=>'Wrong Password'], 404);
+            return $this->sendError('Old Password is Wrong. Pleae Check and Try Again', ['error'=>'Wrong Password'], 401);
         }
 
     }

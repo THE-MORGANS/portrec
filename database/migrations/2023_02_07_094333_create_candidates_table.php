@@ -29,7 +29,7 @@ return new class extends Migration
             $table->string('gender_id')->nullable();
             $table->string('professional_headline')->nullable();
             $table->string('years_experience')->nullable();
-            $table->strin('experience_level')->nullable();
+            $table->string('experience_level')->nullable();
             $table->timestamps();
         });
     }

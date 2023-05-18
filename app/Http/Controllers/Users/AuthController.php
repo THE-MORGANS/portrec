@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Users;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\User\LoginUser;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\User\RegisterUser;
 use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
@@ -16,18 +18,8 @@ class AuthController extends Controller
         return $this->sendError('Authorization Error.', ['error'=>'You are not authorized to be here'], $code=401);
     }
 
-    public function registeruser(Request $request) {
-        $validator = Validator::make($request->all(), [
-            'firstname' => 'required',
-            'lastname' => 'required',
-            'email' => 'required|unique:users|email',
-            'password' => 'required',
-        ]);
-
-        if($validator->fails()){
-            return $this->sendError('Validation Error.', $validator->errors());       
-        }
-
+    public function registerUser(RegisterUser $request) {
+       
         $input = $request->all();
         $input['password'] = bcrypt($input['password']);
         $input['name'] = $input['firstname']." ".$input['lastname'];
@@ -39,15 +31,8 @@ class AuthController extends Controller
 
     }
 
-    public function loginuser(Request $request) {
-        $validator = Validator::make($request->all(), [
-            'email' => 'required|email',
-            'password' => 'required',
-        ]);
-
-        if($validator->fails()){
-            return $this->sendError('Validation Error.', $validator->errors());       
-        }
+    public function loginUser(LoginUser $request) {
+        $validated = $request->validated();
 
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
             /** @var \App\Models\User $user **/
@@ -56,11 +41,11 @@ class AuthController extends Controller
             $success['name'] =  $user->name;
             return $this->sendResponse($success, 'User Logged In Successfully.');
         }else{
-            return $this->sendError('Login Attempt Failed.', ['error'=>'Failed Login']);
+            return $this->sendError('Login Attempt Failed.', ['error'=>'Failed Login'], 401);
         }
     }
 
-    public function userlogout(User $user) {
+    public function userLogout(User $user) {
         $user->tokens()->delete();
         // auth()->user()->tokens()->delete();
        }

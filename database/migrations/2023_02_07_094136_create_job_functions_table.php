@@ -17,7 +17,7 @@ return new class extends Migration
             //jobs functionalities
             $table->id();
             $table->unsignedInteger('industries_id');
-            $table->foreignId('industries_id')->constrained();
+            // $table->foreign('industries_id')->constrained();
             $table->string('name')->nullable();
             $table->timestamps();
         });
