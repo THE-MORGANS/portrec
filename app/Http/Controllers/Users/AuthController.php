@@ -8,10 +8,13 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\User\LoginUser;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\User\RegisterUser;
+use App\Http\Traits\ResponseTrait;
 use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
+
+    use ResponseTrait;
     //
 
     public function unauthorized(){
@@ -37,7 +40,7 @@ class AuthController extends Controller
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
             /** @var \App\Models\User $user **/
             $user = Auth::user(); 
-            $success['token'] =  $user->createToken('MyApp')->plainTextToken; 
+            $success['token'] =  $user->createToken($user->email)->plainTextToken; 
             $success['name'] =  $user->name;
             return $this->sendResponse($success, 'User Logged In Successfully.');
         }else{
