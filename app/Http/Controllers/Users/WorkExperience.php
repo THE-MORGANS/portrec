@@ -41,7 +41,7 @@ class WorkExperience extends Controller
     {
         $input = $this->ExperienceInput($request->all());    
         $workexperience = ModelsWorkExperience::create($input);
-        $success['jobtitle'] =  $workexperience->job_title; //what is this?
+        $success['jobtitle'] =  $workexperience->job_title; //what is this here?
    
         return $this->sendResponse($success, 'Added Successfully.');
    
