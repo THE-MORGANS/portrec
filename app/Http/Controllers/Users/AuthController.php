@@ -22,7 +22,6 @@ class AuthController extends Controller
     }
 
     public function registerUser(RegisterUser $request) {
-       
         $input = $request->all();
         $input['password'] = bcrypt($input['password']);
         $input['name'] = $input['firstname']." ".$input['lastname'];

@@ -35,9 +35,10 @@ Route::middleware('auth:sanctum')->group(function() {
         Route::post('/profile/{id}', [ProfileController::class, 'updateuserprofile'])->name('update.user.profile');
         Route::post('/updatepassword/{id}', [ProfileController::class, 'updateUserPassword'])->name('update.user.password');
         Route::post('/uploadpicture/{id}', [PictureController::class, 'uploadUserProfilePicture'])->name('upload.user.profile.picture'); 
-    });
 
-    Route::resource('workexperience', WorkExperience::class);
+        Route::resource('workexperience', WorkExperience::class);
+        
+    });
 
 });
 

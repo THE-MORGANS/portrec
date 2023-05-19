@@ -49,6 +49,5 @@ class ProfileController extends Controller
         }else{
             return $this->sendError('Old Password is Wrong. Pleae Check and Try Again', ['error'=>'Wrong Password'], 401);
         }
-
     }
 }
