@@ -2,18 +2,18 @@
 
 namespace App\Http\Controllers\Users;
 
+use App\Models\User;
+use Illuminate\Http\Request;
+                                                                //  try name other classes simmilar and not the same****
+use App\Trait\ExperienceInput;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\User\WorkExperience as UserWorkExperience;
 use App\Http\Requests\WorkExperience\AddWorkExperience;
 use App\Http\Requests\WorkExperience\UpdateWorkExperience;
-use App\Http\Traits\ResponseTrait;
-use App\Models\User;
-use App\Models\WorkExperience as ModelsWorkExperience;
-use Illuminate\Http\Request;
+use App\Models\WorkExperience as ModelsWorkExperience; #****** please remove the alias and call the models directory on ur controller ****
 
 class WorkExperience extends Controller
 {
-    use ResponseTrait;
+    use ExperienceInput;
     /**
      * Display a listing of the resource.
      *
@@ -43,9 +43,9 @@ class WorkExperience extends Controller
      */
     public function store(AddWorkExperience $request)
     {
-        $input = $request->all();  
+        $input = $this->ExperienceInput($request->all());    
         $workexperience = ModelsWorkExperience::create($input);
-        $success['jobtitle'] =  $workexperience->job_title;
+        $success['jobtitle'] =  $workexperience->job_title; //what is this here?
    
         return $this->sendResponse($success, 'Added Successfully.');
    
