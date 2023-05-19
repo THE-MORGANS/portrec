@@ -7,9 +7,10 @@ use App\Http\Requests\User\WorkExperience as UserWorkExperience;   #****** pleas
                                                                 //  try name other classes simmilar and not the same****
 use App\Models\WorkExperience as ModelsWorkExperience; #****** please remove the alias and call the models directory on ur controller ****
 use Illuminate\Http\Request;
-
+use App\Trait\ExperienceInput;
 class WorkExperience extends Controller
 {
+    use ExperienceInput;
     /**
      * Display a listing of the resource.
      *
@@ -38,9 +39,9 @@ class WorkExperience extends Controller
      */
     public function store(UserWorkExperience $request)
     {
-        $input = $request->all();  
+        $input = $this->ExperienceInput($request->all());    
         $workexperience = ModelsWorkExperience::create($input);
-        $success['jobtitle'] =  $workexperience->job_title;
+        $success['jobtitle'] =  $workexperience->job_title; //what is this?
    
         return $this->sendResponse($success, 'Added Successfully.');
    
