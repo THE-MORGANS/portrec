@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\Users;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\User\WorkExperience as UserWorkExperience;
-use App\Models\WorkExperience as ModelsWorkExperience;
+use App\Http\Requests\User\WorkExperience as UserWorkExperience;   #****** please remove the alias and call the request directory on ur controller,
+                                                                //  try name other classes simmilar and not the same****
+use App\Models\WorkExperience as ModelsWorkExperience; #****** please remove the alias and call the models directory on ur controller ****
 use Illuminate\Http\Request;
 
 class WorkExperience extends Controller
