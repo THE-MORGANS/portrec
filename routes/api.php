@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Users\AuthController;
+use App\Http\Controllers\Users\WorkExperience;
 use App\Http\Controllers\Users\PictureController;
 use App\Http\Controllers\Users\ProfileController;
 
@@ -26,13 +27,17 @@ Route::controller(AuthController::class)->group(function(){
 
 
 Route::middleware('auth:sanctum')->group(function() {
-    Route::get('/logout', [AuthController::class, 'userlogout'])->name('user.logout');
+    Route::prefix('user')->group(function () {
+        Route::get('/logout', [AuthController::class, 'userlogout'])->name('user.logout');
 
-    //user profile routes
-    Route::get('/profile', [ProfileController::class, 'userprofile'])->name('user.profile');
-    Route::post('/profile/{id}', [ProfileController::class, 'updateuserprofile'])->name('update.user.profile');
-    Route::post('/updatepassword/{id}', [ProfileController::class, 'updateUserPassword'])->name('update.user.password');
-    Route::post('/uploadpicture/{id}', [PictureController::class, 'uploadUserProfilePicture'])->name('upload.user.profile.picture');
+        //user profile routes
+        Route::get('/profile', [ProfileController::class, 'userprofile'])->name('user.profile');
+        Route::post('/profile/{id}', [ProfileController::class, 'updateuserprofile'])->name('update.user.profile');
+        Route::post('/updatepassword/{id}', [ProfileController::class, 'updateUserPassword'])->name('update.user.password');
+        Route::post('/uploadpicture/{id}', [PictureController::class, 'uploadUserProfilePicture'])->name('upload.user.profile.picture'); 
+    });
+
+    Route::resource('workexperience', WorkExperience::class);
 
 });
 
