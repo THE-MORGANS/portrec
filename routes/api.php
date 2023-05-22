@@ -2,11 +2,13 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Users\AuthController;
 use App\Http\Controllers\Users\Education;
+use App\Http\Controllers\Users\AuthController;
 use App\Http\Controllers\Users\WorkExperience;
 use App\Http\Controllers\Users\PictureController;
 use App\Http\Controllers\Users\ProfileController;
+use App\Http\Controllers\Users\PortfolioController;
+use App\Http\Controllers\Users\QualificationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,6 +41,8 @@ Route::middleware('auth:sanctum')->group(function() {
 
         Route::resource('workexperience', WorkExperience::class);
         Route::resource('education', Education::class);
+        Route::resource('qualification', QualificationController::class);
+        Route::resource('portfolio', PortfolioController::class);
         
     });
 

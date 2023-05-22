@@ -49,6 +49,11 @@ class User extends Authenticatable
     {
         return $this->hasMany(WorkExperience::class);
     }
+    
+    public function portfolioimages(): HasMany
+    {
+        return $this->hasMany(PortfolioImage::class);
+    }
 
     public function education(): HasMany
     {
