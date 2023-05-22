@@ -5,15 +5,17 @@ namespace App\Http\Controllers\Users;
 use App\Models\User;
 use Illuminate\Http\Request;
                                                                 //  try name other classes simmilar and not the same****
-use App\Trait\ExperienceInput;
+
+use App\Http\Traits\ResponseTrait;
+// use App\Http\Trait\ExperienceInput;
 use App\Http\Controllers\Controller;
+use App\Models\WorkExperience as ModelsWorkExperience;
 use App\Http\Requests\WorkExperience\AddWorkExperience;
 use App\Http\Requests\WorkExperience\UpdateWorkExperience;
-use App\Models\WorkExperience as ModelsWorkExperience; #****** please remove the alias and call the models directory on ur controller ****
 
 class WorkExperience extends Controller
 {
-    use ExperienceInput;
+    use ResponseTrait;
     /**
      * Display a listing of the resource.
      *
@@ -22,7 +24,7 @@ class WorkExperience extends Controller
     public function index()
     {
         $workexperiences = ModelsWorkExperience::all();
-        return $this->sendResponse($workexperiences, 'showing All Work Experience');
+        return $this->sendResponse($workexperiences, 'Displaying All Work Experience');
     }
 
     /**
@@ -43,7 +45,7 @@ class WorkExperience extends Controller
      */
     public function store(AddWorkExperience $request)
     {
-        $input = $this->ExperienceInput($request->all());    
+        $input = $request->all();    
         $workexperience = ModelsWorkExperience::create($input);
         $success['jobtitle'] =  $workexperience->job_title; //what is this here?
    
@@ -89,6 +91,10 @@ class WorkExperience extends Controller
     {
         $workexperience = ModelsWorkExperience::find($id);
 
+        if (!$workexperience) {
+            return $this->sendError('Not Found', ['error'=>'That Record Does not exist'], 404);
+        }
+
         $workexperience->company_name = $request->company_name;
         $workexperience->company_location = $request->company_location;
         $workexperience->start_date = $request->start_date;
@@ -116,15 +122,17 @@ class WorkExperience extends Controller
     public function destroy($id)
     {
     $workexperience = ModelsWorkExperience::find($id);
-    if($workexperience){
-        $delete = ModelsWorkExperience::destroy($id);
-        if ($delete) {
-            return $this->sendResponse('Deleted Successfully', 'Record was Deleted'); 
-        }else{
-            return $this->sendError('Failed !', ['error'=>'Failed'], 400);
-        }
-    }else{
-        return $this->sendError('Record Doesn\'t Exist', ['error'=>'Record Not Found'], 404);
+    
+    if(!$workexperience){
+        return $this->sendError('Record Doesn\'t Exist', ['error'=>'Record Not Found'], 404); 
     }
+
+    $delete = ModelsWorkExperience::destroy($id);
+    if ($delete) {
+        return $this->sendResponse('Deleted Successfully', 'Record was Deleted'); 
+    }else{
+        return $this->sendError('Failed !', ['error'=>'Failed'], 400);
+    }
+  
     }
 }
