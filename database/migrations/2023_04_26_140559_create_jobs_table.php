@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('jobs', function (Blueprint $table) {
             //jobs posted by the recuiter 
             $table->id();
-            $table->foreignId('recuiter_id')->constrained();
+            $table->foreignId('recruiter_id')->constrained();
             $table->foreignId('company_id')->constrained();
             $table->string('title')->nullable();
             $table->string('job_functions')->nullable();

@@ -19,7 +19,7 @@ return new class extends Migration
             //the recuiter can subscription covers for all the company listed in their account
             
             $table->id();
-            $table->foreignId('recuiter_id')->constrained();
+            $table->foreignId('recruiter_id')->constrained();
             $table->string('name')->nullable();
             $table->string('cac')->nullable();
             $table->integer('company_type_id')->nullable();

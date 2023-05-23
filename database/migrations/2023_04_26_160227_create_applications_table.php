@@ -24,7 +24,6 @@ return new class extends Migration
             $table->dateTime('applied_date')->nullable();
             $table->string('status')->nullable();
             $table->text('answers')->nullable();
-            $table->string('status')->nullable();
             $table->integer('is_viewed')->nullable();
             $table->timestamps();
         });

@@ -8,14 +8,16 @@
 
 namespace App\Http\Controllers\Users;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Portfolio\AddPortfolio;
-use App\Http\Traits\ResponseTrait;
-use App\Models\Portfolio;
-use App\Models\PortfolioImage;
 use App\Models\User;
+use Nette\Utils\Image;
+use App\Models\Portfolio;
 use Illuminate\Http\Request;
+use App\Models\PortfolioImage;
+use App\Http\Traits\ResponseTrait;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\Portfolio\AddPortfolio;
+use Hamcrest\Arrays\IsArray;
 
 class PortfolioController extends Controller
 {
@@ -49,24 +51,24 @@ class PortfolioController extends Controller
      */
     public function store(AddPortfolio $request)
     {
-        $input = $request->all();    
-        // $input['images'] = $image_path;
-        $portfolio = Portfolio::create($input);
-        $images = $request->file('images');
-        dd($images);
-        foreach ($images as $image) {
+        $input = $request->all(); 
+        $portfolio = Portfolio::create($input);  
+        if($request->hasFile('images'))
+        {
+            $imagearray = $request->file('images');
+           foreach($imagearray as $image)
+           {
             $image_path = $image->store('image', 'public');
-            $newimage = [
+            $data = PortfolioImage::create([
                 'image_url' => $image_path,
                 'portfolio_id' => $portfolio->id,
-                'user_id' => Auth::user()->id
-            ];
-            
-            PortfolioImage::create($newimage);
+                'user_id' => Auth::user()->id,
+            ]);
+           }
         }
         $success['projecttitle'] =  $portfolio->project_title; //what is this here?
    
-        return $this->sendResponse($portfolio, 'Added Successfully.');
+        return $this->sendResponse($success, 'Added Successfully.');
     }
 
     /**

@@ -12,7 +12,7 @@ class PortfolioImage extends Model
     use HasFactory;
 
     protected $fillable = [
-        'image_url', 'portfolio_id'
+        'image_url', 'portfolio_id', 'user_id'
     ];
 
     public function portfolio(): BelongsTo

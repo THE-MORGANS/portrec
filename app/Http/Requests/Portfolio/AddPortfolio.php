@@ -27,8 +27,9 @@ class AddPortfolio extends FormRequest
             'project_title' => 'required', 
             'project_role' => 'required', 
             'project_task' => 'required', 
-            'project_solution' => 'required', 
-            'images' => 'required|image|mimes:jpg,png,jpeg,gif|max:500', 
+            'project_solution' => 'required',
+            // 'images' => 'required',
+            // 'images.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:500' 
         ];
     }
 }

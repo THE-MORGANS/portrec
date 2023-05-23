@@ -18,12 +18,12 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained();
             $table->integer('work_type_id')->nullable();
-            $table->foreignId('location_id')->constrained();
+            $table->string('location');
             $table->string('image_path')->nullable();
             $table->string('phone')->nullable();
             $table->integer('availability_id')->nullable();
             $table->text('preference')->nullable();
-            $table->double('Salary_expectation')->nullable();
+            $table->double('salary_expectation')->nullable();
             $table->string('language_id')->nullable();
             $table->foreignId('job_function_id')->constrained();
             $table->string('gender_id')->nullable();
