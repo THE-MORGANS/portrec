@@ -47,6 +47,15 @@ trait RequestTrait
         return $data;
     }
 
+    public function AddSkillRequest($request){
+        $data = [
+            'user_id' => auth()->user()->id,
+            'slug' => $request->slug,
+            'name' => $request->name,
+        ];
+        return $data;
+    }
+
 }
 
 

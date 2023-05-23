@@ -3,15 +3,14 @@
 namespace App\Http\Controllers\Users;
 
 use App\Models\User;
+use App\Models\Skill;
 use Illuminate\Http\Request;
-use App\Models\WorkExperience;
 use App\Http\Traits\RequestTrait;
 use App\Http\Traits\ResponseTrait;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\WorkExperience\AddWorkExperience;
-use App\Http\Requests\WorkExperience\UpdateWorkExperience;
+use App\Http\Requests\Skill\AddSkill;
 
-class WorkExperienceController extends Controller
+class SkillController extends Controller
 {
     use ResponseTrait;
     use RequestTrait;
@@ -22,8 +21,12 @@ class WorkExperienceController extends Controller
      */
     public function index()
     {
-        $workexperiences = WorkExperience::all();
-        return $this->sendResponse($workexperiences, 'Displaying All Work Experience');
+        $skills = Skill::all();
+        if (count($skills) > 0) {
+            return $this->sendResponse($skills, 'Displaying all Skill Records');
+        }else{
+            return $this->sendResponse($skills, 'No Records Found');
+        }
     }
 
     /**
@@ -33,7 +36,7 @@ class WorkExperienceController extends Controller
      */
     public function create()
     {
-        echo "Show form to create new Work Experience";
+        //
     }
 
     /**
@@ -42,15 +45,13 @@ class WorkExperienceController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(AddWorkExperience $request)
+    public function store(AddSkill $request)
     {
-        // $input = $request->all();
-         $input = $this->AddWorkExperienceRequest($request);   
-        $workexperience = WorkExperience::create($input);
-        $success['jobtitle'] =  $workexperience->job_title; //what is this here?
-   
+        $input = $this->AddSkillRequest($request);
+        $skill = Skill::create($input);
+        $success['skill'] =  $skill->job_title;
+
         return $this->sendResponse($success, 'Added Successfully.');
-   
     }
 
     /**
@@ -61,11 +62,11 @@ class WorkExperienceController extends Controller
      */
     public function show($userid)
     {
-        $workexperiences = User::find($userid)->workexperience;
-        if(count($workexperiences) > 0){
-            return $this->sendResponse($workexperiences, 'Showing Work Experience for '.User::find($userid)->name);
+        $skills = User::find($userid)->skills;
+        if(count($skills) > 0){
+            return $this->sendResponse($skills, 'Showing Skill for '.User::find($userid)->name);
         }else{
-            return $this->sendResponse('No Work Experience', 'Nothing Found');
+            return $this->sendResponse('No Skills', 'Nothing Found');
         }
     }
 
@@ -87,30 +88,22 @@ class WorkExperienceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateWorkExperience $request, $id)
+    public function update(Request $request, $id)
     {
-        $workexperience = WorkExperience::find($id);
+        $skill = Skill::find($id);
 
-        if (!$workexperience) {
+        if (!$skill) {
             return $this->sendError('Not Found', ['error'=>'That Record Does not exist'], 404);
         }
 
-        $workexperience->company_name = $request->company_name;
-        $workexperience->company_location = $request->company_location;
-        $workexperience->start_date = $request->start_date;
-        $workexperience->end_date = $request->end_date;
-        $workexperience->job_title = $request->job_title;
-        $workexperience->job_level = $request->job_level;
-        $workexperience->salary_range = $request->salary_range;
-        $workexperience->description = $request->description;
-        $workexperience->status = $request->status;
+        $skill->name = $request->name;
+        $skill->slug = $request->slug;
 
-        if ($workexperience->save()) {
-            return $this->sendResponse(WorkExperience::find($id), 'Updated Successfully');  
+        if ($skill->save()) {
+            return $this->sendResponse(Skill::find($id), 'Updated Successfully');  
         }else{
             return $this->sendError('Failed !', ['error'=>'Failed'], 400); 
         } 
-        
     }
 
     /**
@@ -121,18 +114,17 @@ class WorkExperienceController extends Controller
      */
     public function destroy($id)
     {
-    $workexperience = WorkExperience::find($id);
+        $skill = Skill::find($id);
     
-    if(!$workexperience){
+    if(!$skill){
         return $this->sendError('Record Doesn\'t Exist', ['error'=>'Record Not Found'], 404); 
     }
 
-    $delete = WorkExperience::destroy($id);
+    $delete = Skill::destroy($id);
     if ($delete) {
         return $this->sendResponse('Deleted Successfully', 'Record was Deleted'); 
     }else{
         return $this->sendError('Failed !', ['error'=>'Failed'], 400);
     }
-  
     }
 }

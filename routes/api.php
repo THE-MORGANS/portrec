@@ -11,6 +11,7 @@ use App\Http\Controllers\Users\ProfileController;
 use App\Http\Controllers\Users\EducationController;
 use App\Http\Controllers\Users\PortfolioController;
 use App\Http\Controllers\Users\QualificationController;
+use App\Http\Controllers\Users\SkillController;
 use App\Http\Controllers\Users\WorkExperienceController;
 
 /*
@@ -47,6 +48,7 @@ Route::middleware('auth:sanctum')->group(function() {
         Route::resource('qualification', QualificationController::class);
         Route::resource('portfolio', PortfolioController::class);
         Route::resource('job', JobsController::class);
+        Route::resource('skill', SkillController::class);
         
     });
 
