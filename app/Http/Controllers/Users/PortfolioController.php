@@ -51,6 +51,7 @@ class PortfolioController extends Controller
      */
     public function store(AddPortfolio $request)
     {
+        //Use image intervention
         $input = $request->all(); 
         $portfolio = Portfolio::create($input);  
         if($request->hasFile('images'))
@@ -77,9 +78,19 @@ class PortfolioController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($userid)
     {
-        //
+        $portfolios = User::find($userid)->portfolios;
+        if(count($portfolios) > 0){
+            $images = [];
+            foreach($portfolios as $portfolio){
+                $portfolioimages = Portfolio::find($portfolio->id)->portfolioimages;
+                $portfolio['images'] = $portfolioimages;
+            }
+            return $this->sendResponse($portfolios, 'Showing Portfolio for '.User::find($userid)->name);
+        }else{
+            return $this->sendResponse('No Skills', 'Nothing Found');
+        }
     }
 
     /**
