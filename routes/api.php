@@ -7,6 +7,7 @@ use App\Http\Controllers\Users\AuthController;
 use App\Http\Controllers\Users\WorkExperience;
 use App\Http\Controllers\Users\PictureController;
 use App\Http\Controllers\Users\ProfileController;
+use App\Http\Controllers\Users\EducationController;
 use App\Http\Controllers\Users\PortfolioController;
 use App\Http\Controllers\Users\QualificationController;
 
@@ -39,8 +40,8 @@ Route::middleware('auth:sanctum')->group(function() {
         Route::post('/updatepassword/{id}', [ProfileController::class, 'updateUserPassword'])->name('update.user.password');
         Route::post('/uploadpicture/{id}', [PictureController::class, 'uploadUserProfilePicture'])->name('upload.user.profile.picture'); 
 
-        Route::resource('workexperience', WorkExperience::class);
-        Route::resource('education', Education::class);
+        Route::resource('workexperience', WorkExperienceController::class);
+        Route::resource('education', EducationController::class);
         Route::resource('qualification', QualificationController::class);
         Route::resource('portfolio', PortfolioController::class);
         

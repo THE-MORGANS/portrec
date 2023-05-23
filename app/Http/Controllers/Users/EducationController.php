@@ -3,16 +3,15 @@
 namespace App\Http\Controllers\Users;
 
 use App\Models\User;
+use App\Models\Education;
 use Illuminate\Http\Request;
 use App\Http\Traits\ResponseTrait;
 use App\Http\Controllers\Controller;
-use App\Models\Education as ModelsEducation;
 use App\Http\Requests\Education\StoreEducation;
 use App\Http\Requests\Education\UpdateEducation;
 
-class Education extends Controller
+class EducationController extends Controller
 {
-
     use ResponseTrait;
     /**
      * Display a listing of the resource.
@@ -21,7 +20,7 @@ class Education extends Controller
      */
     public function index()
     {
-        $education = ModelsEducation::all();
+        $education = Education::all();
         if (count($education) > 0) {
             return $this->sendResponse($education, 'Displaying all Education Records');
         }else{
@@ -48,7 +47,7 @@ class Education extends Controller
     public function store(StoreEducation $request)
     {
         $input = $request->all();
-        $education = ModelsEducation::create($input);
+        $education = Education::create($input);
         $success['institution'] = $education->institution;
 
         return $this->sendResponse($success, "Added Successfully");
@@ -90,7 +89,7 @@ class Education extends Controller
      */
     public function update(UpdateEducation $request, $id)
     {
-        $education = ModelsEducation::find($id);
+        $education = Education::find($id);
 
         if (!$education) {
             return $this->sendError('Not Found', ['error'=>'That Record Does not exist'], 404);
@@ -103,7 +102,7 @@ class Education extends Controller
         $education->description = $request->description;
 
         if ($education->save()) {
-            return $this->sendResponse(ModelsEducation::find($id), 'Updated Successfully'); 
+            return $this->sendResponse(Education::find($id), 'Updated Successfully'); 
         }else{
             return $this->sendError('Failed !', ['error'=>'Failed'], 400); 
         } 
@@ -117,13 +116,13 @@ class Education extends Controller
      */
     public function destroy($id)
     {
-        $education = ModelsEducation::find($id);
+        $education = Education::find($id);
         
         if (!$education) {
             return $this->sendError('Record Doesn\'t Exist', ['error'=>'Record Not Found'], 404);
         }
         
-        $delete = ModelsEducation::destroy($id);
+        $delete = Education::destroy($id);
             if ($delete) {
                 return $this->sendResponse('Deleted Successfully', 'Record was Deleted'); 
             }else{

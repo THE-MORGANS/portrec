@@ -4,16 +4,13 @@ namespace App\Http\Controllers\Users;
 
 use App\Models\User;
 use Illuminate\Http\Request;
-                                                                //  try name other classes simmilar and not the same****
-
+use App\Models\WorkExperience;
 use App\Http\Traits\ResponseTrait;
-// use App\Http\Trait\ExperienceInput;
 use App\Http\Controllers\Controller;
-use App\Models\WorkExperience as ModelsWorkExperience;
 use App\Http\Requests\WorkExperience\AddWorkExperience;
 use App\Http\Requests\WorkExperience\UpdateWorkExperience;
 
-class WorkExperience extends Controller
+class WorkExperienceController extends Controller
 {
     use ResponseTrait;
     /**
@@ -23,7 +20,7 @@ class WorkExperience extends Controller
      */
     public function index()
     {
-        $workexperiences = ModelsWorkExperience::all();
+        $workexperiences = WorkExperience::all();
         return $this->sendResponse($workexperiences, 'Displaying All Work Experience');
     }
 
@@ -46,7 +43,7 @@ class WorkExperience extends Controller
     public function store(AddWorkExperience $request)
     {
         $input = $request->all();    
-        $workexperience = ModelsWorkExperience::create($input);
+        $workexperience = WorkExperience::create($input);
         $success['jobtitle'] =  $workexperience->job_title; //what is this here?
    
         return $this->sendResponse($success, 'Added Successfully.');
@@ -89,7 +86,7 @@ class WorkExperience extends Controller
      */
     public function update(UpdateWorkExperience $request, $id)
     {
-        $workexperience = ModelsWorkExperience::find($id);
+        $workexperience = WorkExperience::find($id);
 
         if (!$workexperience) {
             return $this->sendError('Not Found', ['error'=>'That Record Does not exist'], 404);
@@ -106,7 +103,7 @@ class WorkExperience extends Controller
         $workexperience->status = $request->status;
 
         if ($workexperience->save()) {
-            return $this->sendResponse(ModelsWorkExperience::find($id), 'Updated Successfully');  
+            return $this->sendResponse(WorkExperience::find($id), 'Updated Successfully');  
         }else{
             return $this->sendError('Failed !', ['error'=>'Failed'], 400); 
         } 
@@ -121,13 +118,13 @@ class WorkExperience extends Controller
      */
     public function destroy($id)
     {
-    $workexperience = ModelsWorkExperience::find($id);
+    $workexperience = WorkExperience::find($id);
     
     if(!$workexperience){
         return $this->sendError('Record Doesn\'t Exist', ['error'=>'Record Not Found'], 404); 
     }
 
-    $delete = ModelsWorkExperience::destroy($id);
+    $delete = WorkExperience::destroy($id);
     if ($delete) {
         return $this->sendResponse('Deleted Successfully', 'Record was Deleted'); 
     }else{
