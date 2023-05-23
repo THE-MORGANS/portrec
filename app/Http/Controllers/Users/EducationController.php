@@ -9,10 +9,12 @@ use App\Http\Traits\ResponseTrait;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Education\StoreEducation;
 use App\Http\Requests\Education\UpdateEducation;
+use App\Http\Traits\RequestTrait;
 
 class EducationController extends Controller
 {
     use ResponseTrait;
+    use RequestTrait;
     /**
      * Display a listing of the resource.
      *
@@ -46,7 +48,7 @@ class EducationController extends Controller
      */
     public function store(StoreEducation $request)
     {
-        $input = $request->all();
+        $input = $this->AddEducationRequest($request);
         $education = Education::create($input);
         $success['institution'] = $education->institution;
 

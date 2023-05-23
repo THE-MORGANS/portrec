@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Users;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\WorkExperience;
+use App\Http\Traits\RequestTrait;
 use App\Http\Traits\ResponseTrait;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\WorkExperience\AddWorkExperience;
@@ -13,6 +14,7 @@ use App\Http\Requests\WorkExperience\UpdateWorkExperience;
 class WorkExperienceController extends Controller
 {
     use ResponseTrait;
+    use RequestTrait;
     /**
      * Display a listing of the resource.
      *
@@ -42,11 +44,12 @@ class WorkExperienceController extends Controller
      */
     public function store(AddWorkExperience $request)
     {
-        $input = $request->all();    
+        // $input = $request->all();
+         $input = $this->AddWorkExperienceRequest($request);   
         $workexperience = WorkExperience::create($input);
         $success['jobtitle'] =  $workexperience->job_title; //what is this here?
    
-        return $this->sendResponse($success, 'Added Successfully.');
+        return $this->sendResponse($input, 'Added Successfully.');
    
     }
 
