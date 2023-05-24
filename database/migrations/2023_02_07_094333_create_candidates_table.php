@@ -18,7 +18,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained();
             $table->integer('work_type_id')->nullable();
-            $table->foreignId('location_id')->constrained();
+            $table->string('location')->nullable();
             $table->string('image_path')->nullable();
             $table->string('phone')->nullable();
             $table->integer('availability_id')->nullable();
