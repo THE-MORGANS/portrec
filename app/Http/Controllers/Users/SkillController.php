@@ -21,7 +21,7 @@ class SkillController extends Controller
      */
     public function index()
     {
-        $skills = Skill::all();
+        $skills = Skill::all(); 
         if (count($skills) > 0) {
             return $this->sendResponse($skills, 'Displaying all Skill Records');
         }else{
@@ -48,7 +48,7 @@ class SkillController extends Controller
     public function store(AddSkill $request)
     {
         $input = $this->AddSkillRequest($request);
-        $skill = Skill::create($input);
+        $skill = Skill::create($input); //what r u doing here. the user create skills? or they select from existing skills 
         $success['skill'] =  $skill->job_title;
 
         return $this->sendResponse($success, 'Added Successfully.');
