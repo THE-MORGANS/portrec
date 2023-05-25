@@ -42,11 +42,14 @@ Route::middleware('auth:sanctum')->group(function() {
         Route::post('/profile/{id}', [ProfileController::class, 'updateuserprofile'])->name('update.user.profile');
         Route::post('/updatepassword/{id}', [ProfileController::class, 'updateUserPassword'])->name('update.user.password');
         Route::post('/uploadpicture/{id}', [PictureController::class, 'uploadUserProfilePicture'])->name('upload.user.profile.picture'); 
-
+        
         Route::resource('workexperience', WorkExperienceController::class);
         Route::resource('education', EducationController::class);
         Route::resource('qualification', QualificationController::class);
+        
+        Route::get('portfolios/{id}', [PortfolioController::class, 'getUserPortfolios'])->name('user.portfolios.show');
         Route::resource('portfolio', PortfolioController::class);
+        
         Route::resource('job', JobsController::class);
         Route::resource('skill', SkillController::class);
         

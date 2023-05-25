@@ -78,11 +78,21 @@ class PortfolioController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($userid)
+    public function show($id)
     {
+        $portfolio = Portfolio::find($id);
+        if($portfolio){
+            $portfolioimages = Portfolio::find($portfolio->id)->portfolioimages;
+            $portfolio['images'] = $portfolioimages;
+            return $this->sendResponse($portfolio, 'Showing Portfolio Detail');
+        }else{
+            return $this->sendResponse('No Skills', 'Nothing Found');
+        }
+    }
+
+    public function getUserPortfolios($userid){
         $portfolios = User::find($userid)->portfolios;
         if(count($portfolios) > 0){
-            $images = [];
             foreach($portfolios as $portfolio){
                 $portfolioimages = Portfolio::find($portfolio->id)->portfolioimages;
                 $portfolio['images'] = $portfolioimages;
@@ -113,7 +123,23 @@ class PortfolioController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $portfolio = Portfolio::find($id);
+
+        if (!$portfolio) {
+            return $this->sendError('Not Found', ['error'=>'That Record Does not exist'], 404);
+        }
+
+        $portfolio->project_title = $request->project_title;
+        $portfolio->project_role = $request->project_role;
+        $portfolio->project_task = $request->project_task;
+        $portfolio->project_solution = $request->project_solution;
+
+        if ($portfolio->save()) {
+            return $this->sendResponse(Portfolio::find($id), 'Updated Successfully');  
+        }else{
+            return $this->sendError('Failed !', ['error'=>'Failed'], 400); 
+        } 
+        //TODO: There has to be a seperate function to upload images while updating portfolio
     }
 
     /**
@@ -122,8 +148,16 @@ class PortfolioController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-        //
+    public function destroy($id){
+        $portfolio = Portfolio::find($id);
+    if(!$portfolio){
+        return $this->sendError('Record Doesn\'t Exist', ['error'=>'Record Not Found'], 404); 
     }
+    $delete = Portfolio::destroy($id);
+    if ($delete) {
+        return $this->sendResponse('Deleted Successfully', 'Record was Deleted'); 
+    }else{
+        return $this->sendError('Failed !', ['error'=>'Failed'], 400);
+    }}
+    
 }
