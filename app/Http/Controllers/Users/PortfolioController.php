@@ -61,11 +61,9 @@ class PortfolioController extends Controller
             $imagearray = $request->file('images');
            foreach($imagearray as $image)
            {
-            $imgFile = Image::make($image->getRealPath());
-            $imgFile->resize(150, 150, function ($constraint) {
-		    $constraint->aspectRatio();
-		});
-            $image_path = $imgFile->store('image', 'public');
+            $image_name = uniqid() . '.' . $image->getClientOriginalExtension();
+            $image_path = 'uploads/' . $image_name;
+            Image::make($image)->resize(320, 240)->save(public_path($image_path));
             $data = PortfolioImage::create([
                 'image_url' => $image_path,
                 'portfolio_id' => $portfolio->id,
