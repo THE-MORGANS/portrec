@@ -1,27 +1,25 @@
 <?php
 
-//There are issues with this controller.
-//I am trying to upload multiple images at once, and it is not working, maybe you can look at it. I am sure I am missing something.
-
-//Ignore the Auth::user(), I will come back to that.
-//I just had to push asap cos of gen
-
 namespace App\Http\Controllers\Users;
 
 use App\Models\User;
-use Nette\Utils\Image;
 use App\Models\Portfolio;
+use Hamcrest\Arrays\IsArray;
 use Illuminate\Http\Request;
 use App\Models\PortfolioImage;
+use App\Http\Traits\RequestTrait;
 use App\Http\Traits\ResponseTrait;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Intervention\Image\Facades\Image;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\Portfolio\AddPortfolio;
-use Hamcrest\Arrays\IsArray;
 
 class PortfolioController extends Controller
 {
     use ResponseTrait;
+    use RequestTrait;
     /**
      * Display a listing of the resource.
      *
@@ -30,7 +28,11 @@ class PortfolioController extends Controller
     public function index()
     {
         $portfolios = Portfolio::all();
-        return $this->sendResponse($portfolios, 'Displaying All Portfolios');
+        if (count($portfolios) > 0) {
+            return $this->sendResponse($portfolios, 'Displaying All Portfolios');
+        }else{
+            return $this->sendResponse($portfolios, 'No Records Found');
+        }
     }
 
     /**
@@ -52,14 +54,18 @@ class PortfolioController extends Controller
     public function store(AddPortfolio $request)
     {
         //Use image intervention
-        $input = $request->all(); 
+        $input = $this->AddPortfolio($request); 
         $portfolio = Portfolio::create($input);  
         if($request->hasFile('images'))
         {
             $imagearray = $request->file('images');
            foreach($imagearray as $image)
            {
-            $image_path = $image->store('image', 'public');
+            $imgFile = Image::make($image->getRealPath());
+            $imgFile->resize(150, 150, function ($constraint) {
+		    $constraint->aspectRatio();
+		});
+            $image_path = $imgFile->store('image', 'public');
             $data = PortfolioImage::create([
                 'image_url' => $image_path,
                 'portfolio_id' => $portfolio->id,
@@ -86,7 +92,7 @@ class PortfolioController extends Controller
             $portfolio['images'] = $portfolioimages;
             return $this->sendResponse($portfolio, 'Showing Portfolio Detail');
         }else{
-            return $this->sendResponse('No Skills', 'Nothing Found');
+            return $this->sendResponse('No Records', 'Nothing Found');
         }
     }
 
@@ -99,7 +105,7 @@ class PortfolioController extends Controller
             }
             return $this->sendResponse($portfolios, 'Showing Portfolio for '.User::find($userid)->name);
         }else{
-            return $this->sendResponse('No Skills', 'Nothing Found');
+            return $this->sendResponse('No Records', 'Nothing Found');
         }
     }
 
@@ -153,11 +159,25 @@ class PortfolioController extends Controller
     if(!$portfolio){
         return $this->sendError('Record Doesn\'t Exist', ['error'=>'Record Not Found'], 404); 
     }
-    $delete = Portfolio::destroy($id);
+    $imagestodelete = DB::table('portfolio_images')->where('portfolio_id', '=', $id)->get();
+    
+    foreach ($imagestodelete as $img) {
+        if(Storage::exists($img->image_url)){
+            Storage::delete($img->image_url);
+          }
+    }
+
+    $deleteimages = DB::table('portfolio_images')->where('portfolio_id', '=', $id)->delete();
+    if ($deleteimages) {
+        $delete = Portfolio::destroy($id);
+    }
+
     if ($delete) {
         return $this->sendResponse('Deleted Successfully', 'Record was Deleted'); 
     }else{
         return $this->sendError('Failed !', ['error'=>'Failed'], 400);
-    }}
-    
+    }
+
+    }
+
 }
