@@ -56,6 +56,18 @@ trait RequestTrait
         return $data;
     }
 
+    public function AddPortfolio($request){
+        $data = [
+            'user_id' => auth()->user()->id, 
+            'project_title' => $request->project_title, 
+            'project_role' => $request->project_role, 
+            'project_task' => $request->project_task, 
+            'project_solution' => $request->project_solution,
+            'images' => $request->images,
+        ];
+        return $data;
+    }
+
 }
 
 
