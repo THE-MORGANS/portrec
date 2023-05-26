@@ -27,7 +27,7 @@ return new class extends Migration
             "status" => "1",
         ];
 
-        DB::table('users')->insert($data);
+        DB::table('qualifications')->insert($data);
     }
 
     /**

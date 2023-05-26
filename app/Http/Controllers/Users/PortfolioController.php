@@ -1,11 +1,5 @@
 <?php
 
-//There are issues with this controller.
-//I am trying to upload multiple images at once, and it is not working, maybe you can look at it. I am sure I am missing something.
-
-//Ignore the Auth::user(), I will come back to that.
-//I just had to push asap cos of gen
-
 namespace App\Http\Controllers\Users;
 
 use App\Models\User;
