@@ -21,9 +21,9 @@ return new class extends Migration
             $table->string('title')->nullable();
             $table->string('job_functions')->nullable();
             $table->string('qualifications')->nullable();
-            $table->string('locaiton')->nullable();
+            $table->string('location')->nullable();
             $table->foreignId('work_type_id')->constrained();
-            $table->string('experieince')->nullable();
+            $table->string('experience')->nullable();
             $table->string('term')->nullable();
             $table->double('min_salary')->nullable();
             $table->double('max_salary')->nullable();

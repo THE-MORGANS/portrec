@@ -18,16 +18,10 @@ return new class extends Migration
             //work types - remote, full time or contract
             $table->id();
             $table->string('name')->nullable();
-            $table->integer('status')->nullable(0);
+            $table->integer('status')->nullable();
             $table->timestamps();
         });
 
-        $data = [
-            "name"=> "Full Time",
-            "status"=> "1"
-        ];
-
-        DB::table('work_types')->insert($data);
     }
 
     /**
