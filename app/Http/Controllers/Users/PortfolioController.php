@@ -27,7 +27,8 @@ class PortfolioController extends Controller
      */
     public function index()
     {
-        $portfolios = Portfolio::all();
+        // $portfolios = Portfolio::all();
+        $portfolios = Portfolio::whereUserId(auth_user()->id)->get();
         if (count($portfolios) > 0) {
             return $this->sendResponse($portfolios, 'Displaying All Portfolios');
         }else{
@@ -71,7 +72,7 @@ class PortfolioController extends Controller
             ]);
            }
         }
-        $success['projecttitle'] =  $portfolio->project_title; //what is this here?
+        $success['projecttitle'] =  $portfolio->project_title; 
    
         return $this->sendResponse($success, 'Added Successfully.');
     }
