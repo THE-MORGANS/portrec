@@ -15,6 +15,6 @@ class RecruiterSeeder extends Seeder
      */
     public function run()
     {
-        Recruiter::factory()->count(9)->create();
+       // Recruiter::factory()->count(9)->create();
     }
 }

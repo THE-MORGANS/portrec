@@ -22,7 +22,7 @@ class EducationController extends Controller
      */
     public function index()
     {
-        $education = Education::all();
+        $education = Education::whereUserId(auth_user()->id)->get();
         if (count($education) > 0) {
             return $this->sendResponse($education, 'Displaying all Education Records');
         }else{
@@ -48,11 +48,18 @@ class EducationController extends Controller
      */
     public function store(StoreEducation $request)
     {
+        //i want to see your validations errors here
+
+        
         $input = $this->AddEducationRequest($request);
         $education = Education::create($input);
+        if($education){
         $success['institution'] = $education->institution;
-
         return $this->sendResponse($success, "Added Successfully");
+        }else{
+            $this->sendError('Something went wrong with your input');
+        }
+        
     }
 
     /**
