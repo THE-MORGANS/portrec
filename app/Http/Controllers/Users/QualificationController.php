@@ -18,7 +18,7 @@ class QualificationController extends Controller
     public function index()
     {
         $qualification = Qualification::all();
-        return $this->sendResponse($qualification, 'Displaying All Qualification'); 
+        return $this->sendResponse($qualification, 'Displaying All Qualification'); //chief, the qualifications u are pulling here, is it user qualifications, or qualifications for all users?
     }
 
     /**
@@ -28,7 +28,7 @@ class QualificationController extends Controller
      */
     public function create()
     {
-        echo "Show form to create new Qualification";
+        echo "Show form to create new Qualification";  //still nothing here, or am i missing smthn?
     }
 
     /**
@@ -39,7 +39,7 @@ class QualificationController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //same as here
     }
 
     /**
