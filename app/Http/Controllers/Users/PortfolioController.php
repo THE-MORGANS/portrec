@@ -12,6 +12,7 @@ use App\Http\Traits\ResponseTrait;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\Portfolio\AddPortfolio;
@@ -25,10 +26,11 @@ class PortfolioController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    //Load all Portfolios in Database
     public function index()
     {
-        // $portfolios = Portfolio::all();
-        $portfolios = Portfolio::whereUserId(auth_user()->id)->get();
+        $portfolios = Portfolio::all(); //Get all Portfolios
+        // $portfolios = Portfolio::whereUserId(auth_user()->id)->get();
         if (count($portfolios) > 0) {
             return $this->sendResponse($portfolios, 'Displaying All Portfolios');
         }else{
@@ -63,8 +65,8 @@ class PortfolioController extends Controller
            foreach($imagearray as $image)
            {
             $image_name = uniqid() . '.' . $image->getClientOriginalExtension();
-            $image_path = 'uploads/' . $image_name;
-            Image::make($image)->resize(320, 240)->save(public_path($image_path));
+            $image_path = 'uploads/portfolios/' . $image_name;
+            Image::make($image)->resize(500, 500)->save(public_path($image_path));
             $data = PortfolioImage::create([
                 'image_url' => $image_path,
                 'portfolio_id' => $portfolio->id,
@@ -83,6 +85,7 @@ class PortfolioController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    //Get Details of a Particular Portfolio
     public function show($id)
     {
         $portfolio = Portfolio::find($id);
@@ -95,6 +98,7 @@ class PortfolioController extends Controller
         }
     }
 
+    //get Portfolio Specific to User
     public function getUserPortfolios($userid){
         $portfolios = User::find($userid)->portfolios;
         if(count($portfolios) > 0){
@@ -147,12 +151,30 @@ class PortfolioController extends Controller
         //TODO: There has to be a seperate function to upload images while updating portfolio
     }
 
+    //This is to delete a particular portfolio Image
+    public function deletePortfolioImages($id){
+        $image = PortfolioImage::find($id);
+        if(!$image){
+            return $this->sendError('Record Doesn\'t Exist', ['error'=>'Record Not Found'], 404); 
+        }
+        
+            if(File::exists(public_path($image->image_url))){
+                File::delete(public_path($image->image_url));
+              }
+        if (PortfolioImage::destroy($id)) {
+            return $this->sendResponse('Deleted Successfully', 'Record was Deleted'); 
+        }else{
+            return $this->sendError('Failed !', ['error'=>'Failed'], 400);
+        }
+    }
+
     /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    // This is to delete a Portfolio with all it's images
     public function destroy($id){
         $portfolio = Portfolio::find($id);
     if(!$portfolio){
@@ -161,17 +183,13 @@ class PortfolioController extends Controller
     $imagestodelete = DB::table('portfolio_images')->where('portfolio_id', '=', $id)->get();
     
     foreach ($imagestodelete as $img) {
-        if(Storage::exists($img->image_url)){
-            Storage::delete($img->image_url);
+        if(File::exists(public_path($img->image_url))){
+            File::delete(public_path($img->image_url));
           }
     }
-
-    $deleteimages = DB::table('portfolio_images')->where('portfolio_id', '=', $id)->delete();
-    if ($deleteimages) {
-        $delete = Portfolio::destroy($id);
-    }
-
-    if ($delete) {
+    DB::table('portfolio_images')->where('portfolio_id', '=', $id)->delete();
+    
+    if (Portfolio::destroy($id)) {
         return $this->sendResponse('Deleted Successfully', 'Record was Deleted'); 
     }else{
         return $this->sendError('Failed !', ['error'=>'Failed'], 400);

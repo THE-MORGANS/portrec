@@ -48,8 +48,7 @@ class EducationController extends Controller
      */
     public function store(StoreEducation $request)
     {
-        //i want to see your validations errors here
-
+        //i want to see your validations errors here (Shey you are the one that said to use Request)
         
         $input = $this->AddEducationRequest($request);
         $education = Education::create($input);
