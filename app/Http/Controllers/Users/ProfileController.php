@@ -25,21 +25,21 @@ class ProfileController extends Controller
     }
 
     public function updateUserProfile($id, UpdateUserProfile $request){
-        $user = User::find($id);
-        $user->name = $request->name;
-        $user->phone = $request->phone;
-        $user->gender = $request->gender;
-        if ($user->save()) {
-            return $this->sendResponse(User::find($id), 'User Profile Updated');  
+        $user = User::whereId($id)->first();
+       // $user->name = $request->name;
+        // $user->phone = $request->phone;
+        // $user->gender = $request->gender;
+        if ($user->fill($request->only(['name', 'phone', 'gender']))->save()) {
+            return $this->sendResponse($user, 'User Profile Updated');  
         }else{
-            return $this->sendError('Error, User Profile Was Not Updated', ['error'=>'Profile Update Failed'], 400); 
+            return $this->sendError('Error, An error occured, request failed', ['error'=>'Profile Update Failed'], 400); 
         } 
     }
 
     public function updateUserPassword($id, UpdateUserPassword $request){
         $user = User::find($id);
         if (password_verify($request->oldpassword, $user->password)) {
-            if ($request->oldpassword == $request->password) {
+            if (!Hash($user->password, $request->password)) { 
                 return $this->sendError('New and Old Password Must be Different', ['error'=>'Change Password'], 500);
             }
             $user->password = bcrypt($request->password);

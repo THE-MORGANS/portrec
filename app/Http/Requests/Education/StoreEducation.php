@@ -23,7 +23,7 @@ class StoreEducation extends FormRequest
      */
     public function rules()
     {
-        return [
+        $data = [
             'user_id' => "required", 
             'institution' => "required", 
             'qualification_id' => "required", 
@@ -31,5 +31,7 @@ class StoreEducation extends FormRequest
             'end_date' => "required", 
             'description' => "required", 
         ];
+
+        return $data;
     }
 }
