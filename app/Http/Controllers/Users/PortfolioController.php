@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\File;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\Portfolio\AddPortfolio;
+use App\Http\Requests\Portfolio\UploadImage;
 
 class PortfolioController extends Controller
 {
@@ -30,7 +31,7 @@ class PortfolioController extends Controller
     public function index()
     {
         $portfolios = Portfolio::all(); //Get all Portfolios
-        // $portfolios = Portfolio::whereUserId(auth_user()->id)->get();
+        // $portfolios = Portfolio::whereUserId(Auth::user()->id)->get();
         if (count($portfolios) > 0) {
             return $this->sendResponse($portfolios, 'Displaying All Portfolios');
         }else{
@@ -79,6 +80,27 @@ class PortfolioController extends Controller
         return $this->sendResponse($success, 'Added Successfully.');
     }
 
+    //To upload an image for a specific portfolio
+    public function uploadPortfolioImage(UploadImage $request, $id){
+        $portfolio = Portfolio::find($id);
+        if (!$portfolio) {
+            return $this->sendError('Not Found', ['error'=>'That Record Does not exist'], 404); 
+        }
+
+        $file = $request->file('images');
+        foreach ($file as $image) {
+            $image_name = uniqid(). '.'. $image->getClientOriginalExtension();
+            $image_path = 'uploads/portfolios/'. $image_name;
+            Image::make($image)->resize(500, 500)->save(public_path($image_path));
+            $data = PortfolioImage::create([
+                'image_url' => $image_path,
+                'portfolio_id' => $id,
+                'user_id' => Auth::user()->id,
+            ]);
+        }
+        return $this->sendResponse('Upload Completed Successfully', 'Upload Completed Successfully');
+    }
+
     /**
      * Display the specified resource.
      *
@@ -94,7 +116,7 @@ class PortfolioController extends Controller
             $portfolio['images'] = $portfolioimages;
             return $this->sendResponse($portfolio, 'Showing Portfolio Detail');
         }else{
-            return $this->sendResponse('No Records', 'Nothing Found');
+            return $this->sendError('Not Found', ['error'=>'That Record Does not exist'], 404);
         }
     }
 
@@ -108,7 +130,7 @@ class PortfolioController extends Controller
             }
             return $this->sendResponse($portfolios, 'Showing Portfolio for '.User::find($userid)->name);
         }else{
-            return $this->sendResponse('No Records', 'Nothing Found');
+            return $this->sendError('No Records Found', ['error'=>'Nothing to Display'], 404);
         }
     }
 
@@ -152,7 +174,7 @@ class PortfolioController extends Controller
     }
 
     //This is to delete a particular portfolio Image
-    public function deletePortfolioImages($id){
+    public function deletePortfolioImage($id){
         $image = PortfolioImage::find($id);
         if(!$image){
             return $this->sendError('Record Doesn\'t Exist', ['error'=>'Record Not Found'], 404); 
