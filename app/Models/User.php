@@ -3,6 +3,12 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\CV;
+use App\Models\Skill;
+use App\Models\Education;
+use App\Models\Portfolio;
+use App\Models\PortfolioImage;
+use App\Models\WorkExperience;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -68,5 +74,10 @@ class User extends Authenticatable
     public function skills(): HasMany
     {
         return $this->hasMany(Skill::class);
+    }
+
+    public function cvs(): HasMany
+    {
+        return $this->hasMany(CV::class);
     }
 }

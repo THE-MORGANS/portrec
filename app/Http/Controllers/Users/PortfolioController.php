@@ -98,7 +98,7 @@ class PortfolioController extends Controller
                 'user_id' => Auth::user()->id,
             ]);
         }
-        return $this->sendResponse('Upload Completed Successfully', 'Upload Completed Successfully');
+        return $this->sendResponse($data, 'Upload Completed Successfully');
     }
 
     /**
@@ -170,7 +170,6 @@ class PortfolioController extends Controller
         }else{
             return $this->sendError('Failed !', ['error'=>'Failed'], 400); 
         } 
-        //TODO: There has to be a seperate function to upload images while updating portfolio
     }
 
     //This is to delete a particular portfolio Image

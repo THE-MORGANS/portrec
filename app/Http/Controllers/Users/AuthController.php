@@ -9,12 +9,14 @@ use App\Http\Requests\User\LoginUser;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\User\RegisterUser;
 use App\Http\Traits\ResponseTrait;
+use App\Http\Traits\UserAuthTrait;
 use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
 
     use ResponseTrait;
+    use UserAuthTrait;
     //
 
     public function unauthorized(){
@@ -22,12 +24,12 @@ class AuthController extends Controller
     }
 
     public function registerUser(RegisterUser $request) {
-        $input = $request->all();
+        $input = $this->TraitRegisterUser($request);
         $input['password'] = bcrypt($input['password']);
         $input['name'] = $input['firstname']." ".$input['lastname'];
         $user = User::create($input);
         $success['token'] =  $user->createToken($user->email)->plainTextToken;
-        $success['name'] =  $user->name;
+        $success['user'] =  $user;
    
         return $this->sendResponse($success, 'User Registered Successfully.');
 
