@@ -50,7 +50,9 @@ Route::middleware('auth:sanctum')->group(function() {
         Route::resource('education', EducationController::class);
         Route::resource('qualification', QualificationController::class);
         Route::resource('cv', CVController::class);
-        Route::resource('coverletter', CoverLetterController::class);
+        
+        Route::get('getcoverletter/{userid}', [CoverLetterController::class, 'getCoverLetterbyUser'])->name('user.getcoverletter');
+        Route::resource('coverletter', CoverLetterController::class, ['only' => ['index', 'show', 'store', 'destroy']]);
         // Route::resource('products', 'ProductsController', ['only' => ['index', 'create', 'store']]);
         
         Route::post('/portfolios/{id}/uploadimage', [PortfolioController::class, 'uploadPortfolioImage'])->name('portfolio.image.upload');
@@ -62,7 +64,8 @@ Route::middleware('auth:sanctum')->group(function() {
         
         Route::get('getjobs', [JobController::class, 'getAllJobs'])->name('user.getalljobs');
         Route::get('getjob/{id}', [JobController::class, 'getJobById'])->name('user.getjob');
-        Route::post('apply/{jobid}', [JobController::class, 'applyForJob'])->name('user.getjob');
+        Route::post('apply/{jobid}', [JobController::class, 'applyForJob'])->name('user.applyforJob');
+        Route::get('application/delete/{appid}', [JobController::class, 'deleteJobApplication'])->name('user.deletejobapplication'); //appid is application id
     });
 
 });

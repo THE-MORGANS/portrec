@@ -62,7 +62,7 @@ class CoverLetterController extends Controller
 
            $filedata = CoverLetter::create([
             'user_id' => auth()->user()->id,
-            'doc_url' => 'uploads/cvs/'.$fileName,
+            'doc_url' => 'uploads/coverletters/'.$fileName,
         ]);
     
         return $this->sendResponse($filedata, 'Upload Completed Successfully');
@@ -74,11 +74,19 @@ class CoverLetterController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($userid)
+    public function show($id)
     {
+        $coverletter = CoverLetter::find($id);
+        if ($coverletter == null) {
+            return $this->sendError('Record Not Found', ['error'=>'Record Not Found'], 404);
+        }
+        return $this->sendResponse($coverletter, 'Showing Cover Letters');
+    }
+
+    public function getCoverLetterbyUser($userid){
         $coverletter = DB::table('cover_letters')->where('user_id', '=', $userid)->get();
         if(count($coverletter) > 0){
-            return $this->sendResponse($coverletter, 'Showing CV for '.User::find($userid)->name);
+            return $this->sendResponse($coverletter, 'Showing Cover Letters for '.User::find($userid)->name);
         }else{
             return $this->sendError('Record Not Found', ['error'=>'Record Not Found'], 404);
         }
