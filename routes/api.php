@@ -51,6 +51,7 @@ Route::middleware('auth:sanctum')->group(function() {
         Route::resource('qualification', QualificationController::class);
         Route::resource('cv', CVController::class);
         Route::resource('coverletter', CoverLetterController::class);
+        // Route::resource('products', 'ProductsController', ['only' => ['index', 'create', 'store']]);
         
         Route::post('/portfolios/{id}/uploadimage', [PortfolioController::class, 'uploadPortfolioImage'])->name('portfolio.image.upload');
         Route::get('/portfolios/deleteimage/{id}', [PortfolioController::class, 'deletePortfolioImage'])->name('portfolio.image.upload');
