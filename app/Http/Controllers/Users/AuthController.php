@@ -23,6 +23,18 @@ class AuthController extends Controller
         return $this->sendError('Authorization Error.', ['error'=>'You are not authorized to be here'], $code=401);
     }
 
+    public function loadLandingPage(){
+        return view('landing.landing');
+    }
+
+    public function loadUserLoginPage(){
+        return view('user.login');
+    }
+
+    public function loadUserRegisterPage(){
+        return view('user.register');
+    }
+
     public function registerUser(RegisterUser $request) {
         $input = $this->TraitRegisterUser($request);
         $input['password'] = bcrypt($input['password']);
