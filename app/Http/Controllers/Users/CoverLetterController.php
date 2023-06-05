@@ -21,15 +21,15 @@ class CoverLetterController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        $coverletter = CoverLetter::all();
-        if(count($coverletter) > 0){
-            return $this->sendResponse($coverletter, 'Showing Cover Letters');
-        }else{
-            return $this->sendError('Record Not Found', ['error'=>'Record Not Found'], 404);
-        }
-    }
+    // public function index()
+    // {
+    //     $coverletter = CoverLetter::all();
+    //     if(count($coverletter) > 0){
+    //         return $this->sendResponse($coverletter, 'Showing Cover Letters');
+    //     }else{
+    //         return $this->sendError('Record Not Found', ['error'=>'Record Not Found'], 404);
+    //     }
+    // }
 
     /**
      * Show the form for creating a new resource.
