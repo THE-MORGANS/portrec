@@ -7,10 +7,10 @@
   <meta charset="utf-8">
   <title>Register - Portrec</title>
 
-  <!-- Stylesheets -->
   <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet">
   <link href="{{ asset('css/style.css') }}" rel="stylesheet">
   <link href="{{ asset('css/responsive.css') }}" rel="stylesheet">
+  <link href="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css') }}" rel="stylesheet">
 
   <link rel="shortcut icon" href="{{ asset('images/favicon.png') }}" type="image/x-icon">
   <link rel="icon" href="{{ asset('images/favicon.png') }}" type="image/x-icon">
@@ -37,7 +37,7 @@
           <!--Nav Outer -->
           <div class="nav-outer">
             <div class="logo-box">
-              <div class="logo"><a href="{{url('/')}}"><img src="images/logo.png" alt="" title=""></a></div>
+              <div class="logo"><a href="{{url('/')}}"><img src="{{asset('images/logo.png')}}" alt="" title=""></a></div>
             </div>
           </div>
 
@@ -69,20 +69,30 @@
           <div class="form-inner">
             <h3>Register with Portrec</h3>
             <!--Login Form-->
-            <form method="post" action="https://creativelayers.net/themes/superio/add-parcel.html">
+            <form method="post" action="/register">
+              {{csrf_field()}}
               <div class="form-group">
-                <label>Username</label>
-                <input type="text" name="username" placeholder="Username" required>
+                <label>Full Name</label>
+                <input type="text" name="fullname" placeholder="Full Name" value="{{ old('fullname') }}" required>
+                @if ($errors->has('fullname'))
+                <span class="text-danger">{{ $errors->first('fullname') }}</span>
+                @endif
               </div>
 
               <div class="form-group">
                 <label>Email</label>
-                <input type="email" name="email" placeholder="Email" required>
+                <input type="email" name="email" placeholder="Email" value="{{ old('email') }}" required>
+                @if ($errors->has('email'))
+                <span class="text-danger">{{ $errors->first('username') }}</span>
+                @endif
               </div>
 
               <div class="form-group">
                 <label>Password</label>
                 <input id="password-field" type="password" name="password" value="" placeholder="Password">
+                @if ($errors->has('password'))
+                <span class="text-danger">{{ $errors->first('password') }}</span>
+                @endif
               </div>
 
               <div class="form-group">
@@ -118,6 +128,10 @@
   <script src="{{asset('js/owl.js')}}"></script>
   <script src="{{asset('js/wow.js')}}"></script>
   <script src="{{asset('js/script.js')}}"></script>
+  <script src="{{asset('https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js')}}"></script>
+
+  <x-general.flash-message />
+
 </body>
 
 

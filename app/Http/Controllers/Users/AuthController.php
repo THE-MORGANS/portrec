@@ -2,15 +2,20 @@
 
 namespace App\Http\Controllers\Users;
 
+use App\Models\Job;
 use App\Models\User;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use App\Http\Requests\User\LoginUser;
-use Illuminate\Support\Facades\Auth;
-use App\Http\Requests\User\RegisterUser;
 use App\Http\Traits\ResponseTrait;
 use App\Http\Traits\UserAuthTrait;
+use App\Http\Controllers\Controller;
+use Brian2694\Toastr\Facades\Toastr;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\User\LoginUser;
+use Illuminate\Support\Facades\Session;
+use App\Http\Requests\User\RegisterUser;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
+use Symfony\Component\Console\Input\Input;
 
 class AuthController extends Controller
 {
@@ -23,10 +28,6 @@ class AuthController extends Controller
         return $this->sendError('Authorization Error.', ['error'=>'You are not authorized to be here'], $code=401);
     }
 
-    public function loadLandingPage(){
-        return view('landing.landing');
-    }
-
     public function loadUserLoginPage(){
         return view('user.login');
     }
@@ -37,27 +38,32 @@ class AuthController extends Controller
 
     public function registerUser(RegisterUser $request) {
         $input = $this->TraitRegisterUser($request);
-        $input['password'] = bcrypt($input['password']);
-        $input['name'] = $input['firstname']." ".$input['lastname'];
-        $user = User::create($input);
-        $success['token'] =  $user->createToken($user->email)->plainTextToken;
-        $success['user'] =  $user;
+        $userdata['name'] = $input['name'];
+        $userdata['email'] = $input['email'];
+        $userdata['password'] = bcrypt($input['password']);
+        User::create($userdata);
    
-        return $this->sendResponse($success, 'User Registered Successfully.');
+        return Redirect::to('dashboard')->with('success', 'Registration Successful');
 
     }
 
     public function loginUser(LoginUser $request) {
-        $validated = $request->validated();
-
+        
+        $rules = [
+            'email' => 'required|email',
+            'password' => 'required',
+        ];
+        $validator = Validator::make($request->input() , $rules);
+        
+        if ($validator->fails()){
+        return Redirect::to('login')->withErrors($validator)->withInput($request->except('password'));
+        }
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
             /** @var \App\Models\User $user **/
-            $user = Auth::user(); 
-            $success['token'] =  $user->createToken($user->email)->plainTextToken; 
-            $success['name'] =  $user->name;
-            return $this->sendResponse($success, 'User Logged In Successfully.');
+            $data['user'] = Auth::user(); 
+            return Redirect::to('dashboard')->with('success', 'Login Successful');
         }else{
-            return $this->sendError('Login Attempt Failed.', ['error'=>'Failed Login'], 401);
+            return Redirect::to('login')->with('error', 'Username/Password Incorrect')->withInput($request->except('password'));
         }
     }
 
@@ -65,4 +71,11 @@ class AuthController extends Controller
         $user->tokens()->delete();
         // auth()->user()->tokens()->delete();
        }
+
+
+       public function signOut() {
+        Session::flush();
+        Auth::logout();
+        return Redirect('login')->with('info', 'Logged Out');
+    }
 }

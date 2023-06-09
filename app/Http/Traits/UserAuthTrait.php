@@ -18,8 +18,7 @@ trait UserAuthTrait
      */
     public function TraitRegisterUser($request){
         $data = [
-                "firstname" => $request->firstname,
-                "lastname" => $request->lastname,
+                "name" => $request->fullname,
                 "email" => $request->email,
                 "password" => $request->password,
         ];

@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Users\AuthController;
+use App\Http\Controllers\Users\DashboardController;
+use App\Http\Controllers\Landing\LandingPageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,14 +16,18 @@ use App\Http\Controllers\Users\AuthController;
 |
 */
 
-// Route::get('/profile', [ProfileController::class, 'userprofile'])->name('user.profile');
+Route::get('/', [LandingPageController::class, 'loadLandingPage'])->name('user.loadlandingpage');
 
 
 Route::controller(AuthController::class)->group(function(){
-    Route::get('/', 'loadLandingPage')->name('user.loadlandingpage');
-    Route::post('/register', 'registeruser')->name('user.register');
-    Route::post('/login', 'loginuser')->name('user.login');
     Route::get('/login', 'loadUserLoginPage')->name('user.showloginpage');
     Route::get('/register', 'loadUserRegisterPage')->name('user.showregisterpage');
-   
+    Route::get('/logout', 'signOut')->name('user.logout');
+    Route::post('/register', 'registeruser')->name('user.register');
+    Route::post('/login', 'loginuser')->name('user.login');
+});
+
+Route::controller(DashboardController::class)->group(function(){
+    Route::get('/dashboard', 'index')->name('dashboard.index');
+    Route::get('/users', 'users')->name('dashboard.users');
 });

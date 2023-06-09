@@ -8,105 +8,33 @@
               <div class="text">Know your worth and find the job that qualify your life</div>
             </div>
             <div class="outer-box">
-              <!-- Job Block -->
+              @foreach ($jobs as $job)
+                <!-- Job Block -->
               <div class="job-block-five">
                 <div class="inner-box">
                   <div class="content">
                     <span class="company-logo"><img src="images/resource/company-logo/4-1.png" alt=""></span>
-                    <h4><a href="#">Software Engineer (Android), Libraries</a></h4>
+                    <h4><a href="#">{{$job->title}}</a></h4>
                     <ul class="job-info">
-                      <li><span class="icon flaticon-briefcase"></span> Segment</li>
-                      <li><span class="icon flaticon-map-locator"></span> London, UK</li>
-                      <li><span class="icon flaticon-clock-3"></span> 11 hours ago</li>
-                      <li><span class="icon flaticon-money"></span> $35k - $45k</li>
-                    </ul>
-                  </div>
-                  <ul class="job-other-info">
-                    <li class="time">Full Time</li>
-                  </ul>
-                  <a href="#" class="theme-btn btn-style-eight">Apply Job</a>
-                </div>
-              </div>
+                      <li><span class="icon flaticon-briefcase"></span> {{$job->qualifications}}</li>
+                      <li><span class="icon flaticon-map-locator"></span> {{Str::limit($job->location, 10, '...')}}</li>
 
-              <!-- Job Block -->
-              <div class="job-block-five">
-                <div class="inner-box">
-                  <div class="content">
-                    <span class="company-logo"><img src="images/resource/company-logo/4-2.png" alt=""></span>
-                    <h4><a href="#">Recruiting Coordinator</a></h4>
-                    <ul class="job-info">
-                      <li><span class="icon flaticon-briefcase"></span> Segment</li>
-                      <li><span class="icon flaticon-map-locator"></span> London, UK</li>
-                      <li><span class="icon flaticon-clock-3"></span> 11 hours ago</li>
-                      <li><span class="icon flaticon-money"></span> $35k - $45k</li>
-                    </ul>
-                  </div>
-                  <ul class="job-other-info">
-                    <li class="time">Full Time</li>
-                  </ul>
-                  <a href="#" class="theme-btn btn-style-eight">Apply Job</a>
-                </div>
-              </div>
+                      {{-- Calculate Number of days --}}
+                      @php
+                        $days = ceil((abs(time() - strtotime($job->created_at)))/60/60/24);
+                      @endphp
+                      <li><span class="icon flaticon-clock-3"></span> {{$days.' days ago'}}</li>
 
-              <!-- Job Block -->
-              <div class="job-block-five">
-                <div class="inner-box">
-                  <div class="content">
-                    <span class="company-logo"><img src="images/resource/company-logo/4-3.png" alt=""></span>
-                    <h4><a href="#">Product Manager, Studio</a></h4>
-                    <ul class="job-info">
-                      <li><span class="icon flaticon-briefcase"></span> Segment</li>
-                      <li><span class="icon flaticon-map-locator"></span> London, UK</li>
-                      <li><span class="icon flaticon-clock-3"></span> 11 hours ago</li>
-                      <li><span class="icon flaticon-money"></span> $35k - $45k</li>
+                      <li><span class="icon flaticon-money"></span> {{ number_format($job->min_salary) }} - {{number_format($job->max_salary)}}</li>
                     </ul>
                   </div>
                   <ul class="job-other-info">
-                    <li class="time">Full Time</li>
+                    <li class="time">{{ App\Models\WorkType::find($job->work_type_id)->name }}</li>
                   </ul>
                   <a href="#" class="theme-btn btn-style-eight">Apply Job</a>
                 </div>
               </div>
-
-              <!-- Job Block -->
-              <div class="job-block-five">
-                <div class="inner-box">
-                  <div class="content">
-                    <span class="company-logo"><img src="images/resource/company-logo/4-4.png" alt=""></span>
-                    <h4><a href="#">Senior Product Designer</a></h4>
-                    <ul class="job-info">
-                      <li><span class="icon flaticon-briefcase"></span> Segment</li>
-                      <li><span class="icon flaticon-map-locator"></span> London, UK</li>
-                      <li><span class="icon flaticon-clock-3"></span> 11 hours ago</li>
-                      <li><span class="icon flaticon-money"></span> $35k - $45k</li>
-                    </ul>
-                  </div>
-                  <ul class="job-other-info">
-                    <li class="time">Full Time</li>
-                  </ul>
-                  <a href="#" class="theme-btn btn-style-eight">Apply Job</a>
-                </div>
-              </div>
-
-              <!-- Job Block -->
-              <div class="job-block-five">
-                <div class="inner-box">
-                  <div class="content">
-                    <span class="company-logo"><img src="images/resource/company-logo/4-5.png" alt=""></span>
-                    <h4><a href="#">Senior Full Stack Engineer, Creator Success</a></h4>
-                    <ul class="job-info">
-                      <li><span class="icon flaticon-briefcase"></span> Segment</li>
-                      <li><span class="icon flaticon-map-locator"></span> London, UK</li>
-                      <li><span class="icon flaticon-clock-3"></span> 11 hours ago</li>
-                      <li><span class="icon flaticon-money"></span> $35k - $45k</li>
-                    </ul>
-                  </div>
-                  <ul class="job-other-info">
-                    <li class="time">Full Time</li>
-                  </ul>
-                  <a href="#" class="theme-btn btn-style-eight">Apply Job</a>
-                </div>
-              </div>
+              @endforeach
             </div>
           </div>
 
@@ -116,31 +44,20 @@
               <div class="text">Know your worth and find the job</div>
             </div>
 
-            <!-- Job Block -->
+            @foreach ($latestjobs as $job)
+                <!-- Job Block -->
             <div class="job-block-four">
               <div class="inner-box">
                 <ul class="job-other-info">
-                  <li class="time">Full Time</li>
+                  <li class="time">{{ App\Models\WorkType::find($job->work_type_id)->name }}</li>
                 </ul>
                 <span class="company-logo"><img src="images/resource/company-logo/3-4.png" alt=""></span>
-                <span class="company-name">Catalyst</span>
-                <h4><a href="#">Software Engineer (Android), Libraries</a></h4>
-                <div class="location"><span class="icon flaticon-map-locator"></span> London, UK</div>
+                <span class="company-name">{{ App\Models\Company::find($job->company_id)->name }}</span>
+                <h4><a href="#">{{$job->title}}</a></h4>
+                <div class="location"><span class="icon flaticon-map-locator"></span> {{Str::limit($job->location, 10, '...')}} </div>
               </div>
             </div>
-
-            <!-- Job Block -->
-            <div class="job-block-four">
-              <div class="inner-box">
-                <ul class="job-other-info">
-                  <li class="time">Full Time</li>
-                </ul>
-                <span class="company-logo"><img src="images/resource/company-logo/3-1.png" alt=""></span>
-                <span class="company-name">Catalyst</span>
-                <h4><a href="#">Software Engineer (Android), Libraries</a></h4>
-                <div class="location"><span class="icon flaticon-map-locator"></span> London, UK</div>
-              </div>
-            </div>
+            @endforeach
           </div>
         </div>
       </div>

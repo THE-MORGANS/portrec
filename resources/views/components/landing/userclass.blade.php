@@ -20,7 +20,7 @@
               <div class="content">
                 <h3>Candidate</h3>
                 <p>Sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt. Labore et dolore nostrud exercitation.</p>
-                <a href="#" class="theme-btn btn-style-five">Register Account</a>
+                <a href="{{url('/login')}}" class="theme-btn btn-style-five">Register Account</a>
               </div>
               <figure class="image"><img src="images/resource/candidate.png" alt=""></figure>
             </div>

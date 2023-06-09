@@ -11,6 +11,7 @@
   <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet">
   <link href="{{ asset('css/style.css') }}" rel="stylesheet">
   <link href="{{ asset('css/responsive.css') }}" rel="stylesheet">
+  <link href="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css') }}" rel="stylesheet">
 
   <link rel="shortcut icon" href="{{ asset('images/favicon.png') }}" type="image/x-icon">
   <link rel="icon" href="{{ asset('images/favicon.png') }}" type="image/x-icon">
@@ -52,7 +53,7 @@
 
       <!-- Mobile Header -->
       <div class="mobile-header">
-        <div class="logo"><a href="index.html"><img src="images/logo.svg" alt="" title=""></a></div>
+        <div class="logo"><a href="{{url('/')}}"><img src="images/logo.svg" alt="" title=""></a></div>
       </div>
 
       <!-- Mobile Nav -->
@@ -68,16 +69,24 @@
         <div class="login-form default-form">
           <div class="form-inner">
             <h3>Login to Portrec</h3>
+            
             <!--Login Form-->
-            <form method="post" action="#">
+            <form method="post" action="/login">
+              {{csrf_field()}}
               <div class="form-group">
-                <label>Username</label>
-                <input type="text" name="username" placeholder="Username" required>
+                <label>Email</label>
+                <input type="text" name="email" value="{{ old('email') }}" placeholder="Email" required>
+                @if ($errors->has('email'))
+                <span class="text-danger">{{ $errors->first('email') }}</span>
+                @endif
               </div>
 
               <div class="form-group">
                 <label>Password</label>
-                <input id="password-field" type="password" name="password" value="" placeholder="Password">
+                <input id="password-field" type="password" name="password" value="" placeholder="Password" required>
+                @if ($errors->has('password'))
+                <span class="text-danger">{{ $errors->first('password') }}</span>
+                @endif
               </div>
 
               <div class="form-group">
@@ -107,6 +116,8 @@
                 </div>
               </div>
             </div> --}}
+
+
           </div>
         </div>
         <!--End Login Form -->
@@ -116,7 +127,6 @@
 
 
   </div><!-- End Page Wrapper -->
-
 
   <script src="{{asset('js/jquery.js')}}"></script>
   <script src="{{asset('js/popper.min.js')}}"></script>
@@ -133,6 +143,11 @@
   <script src="{{asset('js/owl.js')}}"></script>
   <script src="{{asset('js/wow.js')}}"></script>
   <script src="{{asset('js/script.js')}}"></script>
+  <script src="{{asset('https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js')}}"></script>
+
+  <x-general.flash-message />
+  
+  
 </body>
 
 
