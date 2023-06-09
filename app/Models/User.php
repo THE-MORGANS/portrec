@@ -50,6 +50,10 @@ class User extends Authenticatable
     /*
     ===========================RELATIONSHIPS===========================
     */
+    public function applications(): HasMany
+    {
+        return $this->hasMany(Application::class);
+    }
 
     public function workexperience(): HasMany
     {

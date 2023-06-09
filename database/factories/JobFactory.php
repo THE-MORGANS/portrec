@@ -32,7 +32,7 @@ class JobFactory extends Factory
             'title' => fake()->sentence(2),
             'job_functions' => fake()->sentence(5),
             'qualifications' => fake()->name(),
-            'location' => fake()->address(),
+            'location' => fake()->city(),
             'work_type_id' => fake()->numberBetween(1, 3),
             'experience' => fake()->sentence(5),
             'term' => fake()->word(),

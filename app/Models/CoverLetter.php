@@ -12,4 +12,9 @@ class CoverLetter extends Model
     protected $fillable = [
         'user_id', 'content', 'doc_url', 'created_at', 'updated_at'
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

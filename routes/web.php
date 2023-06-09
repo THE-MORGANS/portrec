@@ -27,7 +27,10 @@ Route::controller(AuthController::class)->group(function(){
     Route::post('/login', 'loginuser')->name('user.login');
 });
 
-Route::controller(DashboardController::class)->group(function(){
-    Route::get('/dashboard', 'index')->name('dashboard.index');
-    Route::get('/users', 'users')->name('dashboard.users');
-});
+    Route::middleware('auth')->group(function(){
+        Route::controller(DashboardController::class)->group(function(){
+            Route::get('/dashboard', 'index')->name('dashboard.index');
+            Route::get('/users', 'users')->name('dashboard.users');
+            Route::get('/jobs', 'loadJobsPage')->name('dashboard.loadjobs');
+        });
+    });

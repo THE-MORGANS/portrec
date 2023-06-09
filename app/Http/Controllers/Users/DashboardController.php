@@ -3,11 +3,29 @@
 namespace App\Http\Controllers\Users;
 
 use App\Http\Controllers\Controller;
+use App\Models\Application;
+use App\Models\CoverLetter;
+use App\Models\CV;
+use App\Models\Job;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
     public function index(){
-        return view('user.dashboard');
+        $user = Auth::user();
+        $data['applications'] = Application::with('user')->get();
+        $data['cv'] = CV::with('user')->get();
+        $data['coverletter'] = CoverLetter::with('user')->get();
+        $data['jobs'] = Job::all()->sortDesc()->take(4);
+        // dd($data);
+        return view('user.dashboard', $data);
+    }
+
+    public function loadJobsPage(){
+        $data['jobs'] = Job::latest()->paginate(10);
+        return view('user.jobs', $data);
     }
 }

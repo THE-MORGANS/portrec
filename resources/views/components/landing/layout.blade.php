@@ -36,7 +36,7 @@
           <!--Nav Outer -->
           <div class="nav-outer">
             <div class="logo-box">
-              <div class="logo"><a href="{{url('/')}}"><img src="images/logo.png" alt="" title=""></a></div>
+              <div class="logo"><a href="{{url('/')}}"><img src="{{asset('images/logo.png')}}" alt="" title=""></a></div>
             </div>
 
             <nav class="nav main-menu">
