@@ -31,6 +31,8 @@ Route::controller(AuthController::class)->group(function(){
         Route::controller(DashboardController::class)->group(function(){
             Route::get('/dashboard', 'index')->name('dashboard.index');
             Route::get('/users', 'users')->name('dashboard.users');
+            Route::get('/resume', 'loadResumePage')->name('dashboard.loadresumepage');
+            Route::get('/cv', 'loadCVPage')->name('dashboard.loadcvmanagerpage');
             Route::get('/jobs', 'loadJobsPage')->name('dashboard.loadjobs');
         });
     });

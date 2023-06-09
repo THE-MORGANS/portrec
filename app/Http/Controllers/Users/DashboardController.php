@@ -28,4 +28,16 @@ class DashboardController extends Controller
         $data['jobs'] = Job::latest()->paginate(10);
         return view('user.jobs', $data);
     }
+
+    public function loadResumePage(){
+        $data['cv'] = CV::first();
+        return view('user.resume', $data);
+    }
+
+    public function loadCVPage(){
+        $data['cv'] = CV::first();
+        return view('user.cv', $data);
+    }
+
+    
 }
