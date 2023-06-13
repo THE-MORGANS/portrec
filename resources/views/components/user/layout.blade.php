@@ -62,9 +62,14 @@
   <script src="{{asset('js/rellax.min.js')}}"></script>
   <script src="{{asset('js/owl.js')}}"></script>
   <script src="{{asset('js/wow.js')}}"></script>
+  <script src="{{asset('js/knob.js')}}"></script>
   <script src="{{asset('js/script.js')}}"></script>
-  <script src="{{asset('https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js')}}"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
+   <!--Google Map APi Key-->
+   <script src="http://maps.google.com/maps/api/js?key=AIzaSyDaaCBm4FEmgKs5cfVrh3JYue3Chj1kJMw&amp;ver=5.2.4"></script>
+   <script src="{{asset('js/map-script.js')}}"></script>
+   <!--End Google Map APi-->
 
 <x-user.chartjs/>
 
