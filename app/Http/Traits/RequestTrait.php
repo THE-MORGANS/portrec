@@ -39,7 +39,7 @@ trait RequestTrait
         $data = [
             'user_id' => auth()->user()->id,
             'institution' => $request->institution,
-            'qualification_id' => $request->qualification_id,
+            'qualification' => $request->qualification,
             'start_date' => $request->start_date,
             'end_date' => $request->end_date,
             'description' => $request->description,

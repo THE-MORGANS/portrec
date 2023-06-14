@@ -1,5 +1,6 @@
 <?php
 
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
@@ -23,8 +24,18 @@ return new class extends Migration
         });
 
         $data = [
-            "name" => "Bachelors Degree",
+            ["name" => "Bachelors Degree",
             "status" => "1",
+            "created_at" => Carbon::now()->toDateTimeString(),
+            "updated_at" => Carbon::now()->toDateTimeString()],
+            ["name" => "Higher National Diploma",
+            "status" => "2",
+            "created_at" => Carbon::now()->toDateTimeString(),
+            "updated_at" => Carbon::now()->toDateTimeString()],
+            ["name" => "Ordinary National Diploma",
+            "status" => "3",
+            "created_at" => Carbon::now()->toDateTimeString(),
+            "updated_at" => Carbon::now()->toDateTimeString()]
         ];
 
         DB::table('qualifications')->insert($data);

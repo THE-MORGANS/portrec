@@ -10,6 +10,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Education\StoreEducation;
 use App\Http\Requests\Education\UpdateEducation;
 use App\Http\Traits\RequestTrait;
+use Illuminate\Support\Facades\Validator;
 
 class EducationController extends Controller
 {
@@ -47,16 +48,13 @@ class EducationController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(StoreEducation $request)
-    {
-        //i want to see your validations errors here (Shey you are the one that said to use Request)
-        
+    {   
         $input = $this->AddEducationRequest($request);
         $education = Education::create($input);
         if($education){
-        $success['institution'] = $education->institution;
-        return $this->sendResponse($success, "Added Successfully");
+            return back()->with('success', 'Education Record Added Successfully');
         }else{
-            $this->sendError('Something went wrong with your input');
+            
         }
         
     }

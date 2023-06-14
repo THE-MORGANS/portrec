@@ -42,7 +42,7 @@
                                             <div class="resume-outer">
                                                 <div class="upper-title">
                                                     <h4>Education</h4>
-                                                    <a class="add-info-btn"><span class="icon flaticon-plus"></span> Add
+                                                    <a href="#" class="add-info-btn" data-bs-toggle="modal" data-bs-target="#addEducation"><span class="icon flaticon-plus"></span> Add
                                                         Education</a>
                                                 </div>
                                                 @if (count($educations) > 0)
@@ -53,11 +53,11 @@
                                                                 <span class="name">M</span>
                                                                 <div class="title-box">
                                                                     <div class="info-box">
-                                                                        <h3>Bachlors in Fine Arts</h3>
-                                                                        <span>Modern College</span>
+                                                                        <h3>{{$education->qualification}}</h3>
+                                                                        <span>{{$education->institution}}</span>
                                                                     </div>
                                                                     <div class="edit-box">
-                                                                        <span class="year">2012 - 2014</span>
+                                                                        <span class="year">{{gmdate('Y', strtotime($education->start_date))}} - {{gmdate('Y', strtotime($education->end_date))}}</span>
                                                                         <div class="edit-btns">
                                                                             <button><span
                                                                                     class="la la-pencil"></span></button>
@@ -66,10 +66,7 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                <div class="text">Lorem ipsum dolor sit amet,
-                                                                    consectetur adipiscing elit. Proin a ipsum tellus.
-                                                                    Interdum et malesuada fames ac ante<br> ipsum primis
-                                                                    in faucibus.</div>
+                                                                <div class="text">{{$education->description}}</div>
                                                             </div>
                                                         </div>
                                                     @endforeach
@@ -83,8 +80,8 @@
                                             <div class="resume-outer theme-blue">
                                                 <div class="upper-title">
                                                     <h4>Work & Experience</h4>
-                                                    <button class="add-info-btn"><span
-                                                            class="icon flaticon-plus"></span> Add Work</button>
+                                                    <a href="#" class="add-info-btn"  data-bs-toggle="modal" data-bs-target="#addWorkExperience"><span class="icon flaticon-plus"></span> Add
+                                                        Work & Experience</a>
                                                 </div>
 
                                                 @if (count($workexperiences) > 0)
@@ -193,7 +190,11 @@
 
 
             </div>
-
     </section>
     <!-- End Dashboard -->
+
+
+      
+
+
 </x-user.layout>

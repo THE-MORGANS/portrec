@@ -2,14 +2,21 @@
 $toasteroptions = [
     "positionClass" => "toast-top-right", 
     "progressBar"=>"true",
-    "timeOut"=> "1500",
+    "timeOut"=> "1000",
+    "extendedTimeOut"=> "500",
     "closeButton"=> "true",
+    "showDuration"=> "100",
+    "hideDuration"=> "500",
+    "preventDuplicates"=> true,
+    "preventOpenDuplicates"=> true,
+    "onclick"=> null,
 ];
 @endphp
 
 @if ($message = Session::get('success'))
 @php
     Brian2694\Toastr\Facades\Toastr::success($message, '', $toasteroptions);
+    Session::forget('success');
 @endphp
 @endif
 
@@ -33,7 +40,9 @@ $toasteroptions = [
 
 @if ($errors->any())
 @php
-    Brian2694\Toastr\Facades\Toastr::info($message, '', $toasteroptions);
+    $message = 'Form Input Error';
+    Brian2694\Toastr\Facades\Toastr::warning($message, '', $toasteroptions);
+    
 @endphp
 @endif
 

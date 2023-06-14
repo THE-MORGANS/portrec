@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Users\AuthController;
 use App\Http\Controllers\Users\DashboardController;
+use App\Http\Controllers\Users\EducationController;
 use App\Http\Controllers\Landing\LandingPageController;
 
 /*
@@ -35,4 +36,6 @@ Route::controller(AuthController::class)->group(function(){
             Route::get('/cv', 'loadCVPage')->name('dashboard.loadcvmanagerpage');
             Route::get('/jobs', 'loadJobsPage')->name('dashboard.loadjobs');
         });
+
+        Route::resource('education', EducationController::class);
     });
