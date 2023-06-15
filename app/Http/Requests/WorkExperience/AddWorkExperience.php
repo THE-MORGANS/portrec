@@ -24,19 +24,18 @@ class AddWorkExperience extends FormRequest
     public function rules()
     {
         return [
-            'user_id' => 'required',
             'company_name' => 'required',
             'company_location' => 'required',
             'start_date' => 'required',
             'end_date' => 'required',
             'job_title' => 'required',
             'job_level' => 'required',
-            'industries_id' => 'required',
-            'job_function_id' => 'required',
+            'industries_id' => 'required|numeric',
+            'job_function_id' => 'required|numeric',
             'salary_range' => 'required',
-            'work_type_id' => 'required',
+            'work_type_id' => 'required|numeric',
             'description' => 'required',
-            'status' => 'required',
+            'status' => 'required|numeric',
         ];
     }
 }

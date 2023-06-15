@@ -8,8 +8,10 @@ use App\Models\WorkExperience;
 use App\Http\Traits\RequestTrait;
 use App\Http\Traits\ResponseTrait;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\WorkExperience\AddWorkExperience;
 use App\Http\Requests\WorkExperience\UpdateWorkExperience;
+use Illuminate\Support\Facades\Redirect;
 
 class WorkExperienceController extends Controller
 {
@@ -22,7 +24,7 @@ class WorkExperienceController extends Controller
      */
     public function index()
     {
-        $workexperiences = WorkExperience::all();
+        $workexperiences = User::find(Auth::user()->id)->workexperiences;
         return $this->sendResponse($workexperiences, 'Displaying All Work Experience');
     }
 
@@ -33,7 +35,7 @@ class WorkExperienceController extends Controller
      */
     public function create()
     {
-        echo "Show form to create new Work Experience";
+        return view('user.addworkexperience');
     }
 
     /**
@@ -44,12 +46,13 @@ class WorkExperienceController extends Controller
      */
     public function store(AddWorkExperience $request)
     {
-        // $input = $request->all();
-         $input = $this->AddWorkExperienceRequest($request);   
+        $input = $this->AddWorkExperienceRequest($request);   
         $workexperience = WorkExperience::create($input);
-        $success['jobtitle'] =  $workexperience->job_title; //what is this here?
-   
-        return $this->sendResponse($success, 'Added Successfully.');
+            
+        return redirect()->route('dashboard.loadresumepage');
+
+        // $success['jobtitle'] =  $workexperience->job_title;
+        // return $this->sendResponse($success, 'Added Successfully.');
    
     }
 
@@ -59,14 +62,10 @@ class WorkExperienceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($userid)
+    public function show($id)
     {
-        $workexperiences = User::find($userid)->workexperience;
-        if(count($workexperiences) > 0){
-            return $this->sendResponse($workexperiences, 'Showing Work Experience for '.User::find($userid)->name);
-        }else{
-            return $this->sendResponse('No Work Experience', 'Nothing Found');
-        }
+        $data['workexperience'] = WorkExperience::find($id);
+        return view('user.showworkexperience', $data);
     }
 
     /**
@@ -126,13 +125,10 @@ class WorkExperienceController extends Controller
     if(!$workexperience){
         return $this->sendError('Record Doesn\'t Exist', ['error'=>'Record Not Found'], 404); 
     }
-
     $delete = WorkExperience::destroy($id);
-    if ($delete) {
-        return $this->sendResponse('Deleted Successfully', 'Record was Deleted'); 
-    }else{
-        return $this->sendError('Failed !', ['error'=>'Failed'], 400);
-    }
+            if ($delete) {
+                return back()->with('info', 'Deleted Successfully');
+            }
   
     }
 }
