@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Education;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Contracts\Validation\Validator;
 
 class StoreEducation extends FormRequest
 {
@@ -24,12 +25,11 @@ class StoreEducation extends FormRequest
     public function rules()
     {
         $data = [
-            'user_id' => "required", 
-            'institution' => "required", 
-            'qualification_id' => "required", 
-            'start_date' => "required", 
-            'end_date' => "required", 
-            'description' => "required", 
+            'institution' => "required",
+            'qualification' => "required",
+            'start_date' => "required",
+            'end_date' => "required",
+            'description' => "required",
         ];
 
         return $data;

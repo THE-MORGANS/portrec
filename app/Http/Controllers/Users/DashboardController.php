@@ -6,8 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Models\Application;
 use App\Models\CoverLetter;
 use App\Models\CV;
+use App\Models\Education;
 use App\Models\Job;
 use App\Models\User;
+use App\Models\WorkExperience;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -31,6 +33,8 @@ class DashboardController extends Controller
 
     public function loadResumePage(){
         $data['cv'] = CV::first();
+        $data['workexperiences'] = WorkExperience::all();
+        $data['educations'] = Education::all();
         return view('user.resume', $data);
     }
 

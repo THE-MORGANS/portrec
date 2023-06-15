@@ -49,9 +49,8 @@
            <span class="icon la la-bell"></span>
          </button>
 
-         <!-- Dashboard Option -->
          <div class="dropdown dashboard-option">
-           <a class="dropdown-toggle" role="button" data-toggle="dropdown" aria-expanded="false">
+           <a class="dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
              <img src="images/resource/company-6.png" alt="avatar" class="thumb">
              <span class="name">My Account</span>
            </a>
@@ -62,6 +61,8 @@
              <li><a href="{{url('/logout')}}"><i class="la la-sign-out"></i>Logout</a></li>
            </ul>
          </div>
+
+
        </div>
      </div>
    </div>

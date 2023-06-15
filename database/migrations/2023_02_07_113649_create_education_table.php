@@ -18,7 +18,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->nullable();
             $table->string('institution')->nullable();
-            $table->foreignId('qualification_id')->constrained();
+            $table->string('qualification');
             $table->dateTime('start_date')->nullable();
             $table->dateTime('end_date')->nullable();
             $table->tinyText('description')->nullable();

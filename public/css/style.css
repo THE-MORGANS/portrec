@@ -7732,12 +7732,18 @@ Login Popup
 ====================================================================
 
 ***/
+
+.user-sidebar a, .main-header a{
+  text-decoration: none;
+}
+
 .jquery-modal {
   z-index: 999;
 }
 
 .modal {
   height: auto;
+  left: 35% !important;
   padding: 0;
   max-width: 500px;
   overflow: visible;
