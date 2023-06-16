@@ -18,13 +18,6 @@
                             <div class="widget-content">
                                 <form class="default-form">
                                     <div class="row">
-                                        <!-- Input -->
-                                        {{-- <div class="form-group col-lg-6 col-md-12">
-                            <label>Select Your CV</label>
-                            <select class="chosen-select">
-                              <option>My CV</option>
-                            </select>
-                          </div> --}}
 
 
                                         @if (Auth::user()->description !== null)
@@ -32,7 +25,7 @@
                                             <div class="form-group col-lg-12 col-md-12">
                                                 <label>Description</label>
                                                 <textarea
-                                                    placeholder="Spent several years working on sheep on Wall Street. Had moderate success investing in Yugo's on Wall Street. Managed a small team buying and selling Pogo sticks for farmers. Spent several years licensing licorice in West Palm Beach, FL. Developed several new methods for working it banjos in the aftermarket. Spent a weekend importing banjos in West Palm Beach, FL.In this position, the Software Engineer collaborates with Evention's Development team to continuously enhance our current software solutions as well as create new solutions to eliminate the back-office operations and management challenges present"></textarea>
+                                                    placeholder=""></textarea>
                                             </div>
                                         @endif
 
@@ -59,10 +52,9 @@
                                                                     <div class="edit-box">
                                                                         <span class="year">{{gmdate('Y', strtotime($education->start_date))}} - {{gmdate('Y', strtotime($education->end_date))}}</span>
                                                                         <div class="edit-btns">
-                                                                            <button><span
-                                                                                    class="la la-pencil"></span></button>
-                                                                            <button><span
-                                                                                    class="la la-trash"></span></button>
+                                                                            <a href="{{route('education.show', [$education->id])}}" class="btn btn-sm btn-outline-info mx-1"><span class="la la-pencil"></span></a>
+
+                                                                            <a href="{{route('education.delete', [$education->id])}}" class="btn btn-sm btn-outline-danger" onclick="return confirm('Are you sure, you want to delete it?')"><span class="la la-trash"></span></a>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -80,7 +72,7 @@
                                             <div class="resume-outer theme-blue">
                                                 <div class="upper-title">
                                                     <h4>Work & Experience</h4>
-                                                    <a href="#" class="add-info-btn"  data-bs-toggle="modal" data-bs-target="#addWorkExperience"><span class="icon flaticon-plus"></span> Add
+                                                    <a href="{{route('workexperience.create')}}" class="add-info-btn"><span class="icon flaticon-plus"></span> Add
                                                         Work & Experience</a>
                                                 </div>
 
@@ -92,24 +84,20 @@
                                                                 <span class="name">S</span>
                                                                 <div class="title-box">
                                                                     <div class="info-box">
-                                                                        <h3>Product Designer</h3>
-                                                                        <span>Spotify Inc.</span>
+                                                                        <h3>{{$workexperience->job_title}}</h3>
+                                                                        <span>{{$workexperience->company_name}}</span>
                                                                     </div>
                                                                     <div class="edit-box">
-                                                                        <span class="year">2012 - 2014</span>
+                                                                        <span class="year">{{gmdate('Y', strtotime($workexperience->start_date))}} - {{gmdate('Y', strtotime($workexperience->end_date))}}</span>
                                                                         <div class="edit-btns">
-                                                                            <button><span
-                                                                                    class="la la-pencil"></span></button>
-                                                                            <button><span
-                                                                                    class="la la-trash"></span></button>
+                                                                            <a href="{{route('workexperience.show', [$workexperience->id])}}" class="btn btn-sm btn-outline-info mx-1"><span class="la la-pencil"></span></a>
+
+                                                                            <a href="{{route('workexperience.delete', [$workexperience->id])}}" class="btn btn-sm btn-outline-danger" onclick="return confirm('Are you sure, you want to delete it?')"><span class="la la-trash"></span></a>
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                <div class="text">Lorem ipsum dolor sit amet,
-                                                                    consectetur
-                                                                    adipiscing elit. Proin a ipsum tellus. Interdum et
-                                                                    malesuada fames ac ante<br> ipsum primis in
-                                                                    faucibus.
+                                                                <div class="text">
+                                                                    {{ $workexperience->description }}
                                                                 </div>
                                                             </div>
                                                         </div>

@@ -5,6 +5,7 @@ use App\Http\Controllers\Users\AuthController;
 use App\Http\Controllers\Users\DashboardController;
 use App\Http\Controllers\Users\EducationController;
 use App\Http\Controllers\Landing\LandingPageController;
+use App\Http\Controllers\Users\WorkExperienceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,5 +38,9 @@ Route::controller(AuthController::class)->group(function(){
             Route::get('/jobs', 'loadJobsPage')->name('dashboard.loadjobs');
         });
 
+        Route::get('/education/delete/{id}', [EducationController::class, 'destroy'])->name('education.delete');
         Route::resource('education', EducationController::class);
+
+        Route::get('/workexperience/delete/{id}', [WorkExperienceController::class, 'destroy'])->name('workexperience.delete');
+        Route::resource('workexperience', WorkExperienceController::class);
     });

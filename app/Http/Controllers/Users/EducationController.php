@@ -65,14 +65,10 @@ class EducationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($userid)
+    public function show($id)
     {
-        $education = User::find($userid)->education;
-        if(count($education) > 0){
-            return $this->sendResponse($education, 'Showing Education for '.User::find($userid)->name);
-        }else{
-            return $this->sendResponse('No Education', 'Nothing Found');
-        }
+        $data['education'] = Education::find($id);
+        return view('user.showeducation', $data);
     }
 
     /**
@@ -127,12 +123,9 @@ class EducationController extends Controller
         if (!$education) {
             return $this->sendError('Record Doesn\'t Exist', ['error'=>'Record Not Found'], 404);
         }
-        
         $delete = Education::destroy($id);
             if ($delete) {
-                return $this->sendResponse('Deleted Successfully', 'Record was Deleted'); 
-            }else{
-                return $this->sendError('Failed !', ['error'=>'Failed'], 400);
+                return back()->with('info', 'Deleted Successfully');
             }
     }
 }
