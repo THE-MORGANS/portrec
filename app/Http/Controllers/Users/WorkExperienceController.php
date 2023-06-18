@@ -11,6 +11,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\WorkExperience\AddWorkExperience;
 use App\Http\Requests\WorkExperience\UpdateWorkExperience;
+use App\Models\Industry;
+use App\Models\JobFunction;
+use App\Models\WorkType;
 use Illuminate\Support\Facades\Redirect;
 
 class WorkExperienceController extends Controller
@@ -28,6 +31,7 @@ class WorkExperienceController extends Controller
         return $this->sendResponse($workexperiences, 'Displaying All Work Experience');
     }
 
+
     /**
      * Show the form for creating a new resource.
      *
@@ -35,8 +39,12 @@ class WorkExperienceController extends Controller
      */
     public function create()
     {
-        return view('user.addworkexperience');
+        $data['industries'] = Industry::all();
+        $data['jobfunctions'] = JobFunction::all();
+        $data['worktypes'] = WorkType::all();
+        return view('user.addworkexperience', $data);
     }
+
 
     /**
      * Store a newly created resource in storage.
@@ -50,10 +58,6 @@ class WorkExperienceController extends Controller
         $workexperience = WorkExperience::create($input);
             
         return redirect()->route('dashboard.loadresumepage');
-
-        // $success['jobtitle'] =  $workexperience->job_title;
-        // return $this->sendResponse($success, 'Added Successfully.');
-   
     }
 
     /**
