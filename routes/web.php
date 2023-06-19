@@ -38,9 +38,18 @@ Route::controller(AuthController::class)->group(function(){
             Route::get('/jobs', 'loadJobsPage')->name('dashboard.loadjobs');
         });
 
-        Route::get('/education/delete/{id}', [EducationController::class, 'destroy'])->name('education.delete');
-        Route::resource('education', EducationController::class);
+        Route::controller(EducationController::class)->group(function(){
+            Route::post('/education', 'store')->name('education.store');
+            Route::get('/education/edit/{id}', 'edit')->name('education.edit');
+            Route::post('/education/update/{id}', 'update')->name('education.update');
+            Route::get('/education/delete/{id}', 'destroy')->name('education.delete');
 
-        Route::get('/workexperience/delete/{id}', [WorkExperienceController::class, 'destroy'])->name('workexperience.delete');
-        Route::resource('workexperience', WorkExperienceController::class);
+        });
+
+        Route::controller(WorkExperienceController::class)->group(function(){
+            Route::post('/workexperience', 'store')->name('workexperience.store');
+            Route::get('/workexperience/edit/{id}', 'edit')->name('workexperience.edit');
+            Route::post('/workexperience/update/{id}', 'update')->name('workexperience.update');
+            Route::get('/workexperience/delete/{id}', 'destroy')->name('workexperience.delete');
+        });
     });

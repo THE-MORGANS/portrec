@@ -25,7 +25,7 @@ class UpdateEducation extends FormRequest
     {
         return [
             'institution' => "required", 
-            'qualification_id' => "required", 
+            'qualification' => "required", 
             'start_date' => "required", 
             'end_date' => "required", 
             'description' => "required", 

@@ -80,7 +80,11 @@ class WorkExperienceController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data['industries'] = Industry::all();
+        $data['jobfunctions'] = JobFunction::all();
+        $data['worktypes'] = WorkType::all();
+        $data['workexperience'] = WorkExperience::find($id);
+        return view('user.showworkexperience', $data);
     }
 
     /**
@@ -105,13 +109,18 @@ class WorkExperienceController extends Controller
         $workexperience->job_title = $request->job_title;
         $workexperience->job_level = $request->job_level;
         $workexperience->salary_range = $request->salary_range;
+        $workexperience->industries_id = $request->industries_id;
+        $workexperience->work_type_id = $request->work_type_id;
+        $workexperience->job_function_id = $request->job_function_id;
         $workexperience->description = $request->description;
         $workexperience->status = $request->status;
 
         if ($workexperience->save()) {
-            return $this->sendResponse(WorkExperience::find($id), 'Updated Successfully');  
+            return Redirect::to('resume')->with('success', 'Record Updated Successfully');
+            // return $this->sendResponse(WorkExperience::find($id), 'Updated Successfully');  
         }else{
-            return $this->sendError('Failed !', ['error'=>'Failed'], 400); 
+            return back()->with('error', 'Record Updated Failed');
+            // return $this->sendError('Failed !', ['error'=>'Failed'], 400); 
         } 
         
     }

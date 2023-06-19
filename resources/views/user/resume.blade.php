@@ -52,7 +52,7 @@
                                                                     <div class="edit-box">
                                                                         <span class="year">{{gmdate('Y', strtotime($education->start_date))}} - {{gmdate('Y', strtotime($education->end_date))}}</span>
                                                                         <div class="edit-btns">
-                                                                            <a href="{{route('education.show', [$education->id])}}" class="btn btn-sm btn-outline-info mx-1"><span class="la la-pencil"></span></a>
+                                                                            <a href="{{route('education.edit', [$education->id])}}" class="btn btn-sm btn-outline-info mx-1"><span class="la la-pencil"></span></a>
 
                                                                             <a href="{{route('education.delete', [$education->id])}}" class="btn btn-sm btn-outline-danger" onclick="return confirm('Are you sure, you want to delete it?')"><span class="la la-trash"></span></a>
                                                                         </div>
@@ -90,7 +90,7 @@
                                                                     <div class="edit-box">
                                                                         <span class="year">{{gmdate('Y', strtotime($workexperience->start_date))}} - {{gmdate('Y', strtotime($workexperience->end_date))}}</span>
                                                                         <div class="edit-btns">
-                                                                            <a href="{{route('workexperience.show', [$workexperience->id])}}" class="btn btn-sm btn-outline-info mx-1"><span class="la la-pencil"></span></a>
+                                                                            <a href="{{route('workexperience.edit', [$workexperience->id])}}" class="btn btn-sm btn-outline-info mx-1"><span class="la la-pencil"></span></a>
 
                                                                             <a href="{{route('workexperience.delete', [$workexperience->id])}}" class="btn btn-sm btn-outline-danger" onclick="return confirm('Are you sure, you want to delete it?')"><span class="la la-trash"></span></a>
                                                                         </div>
