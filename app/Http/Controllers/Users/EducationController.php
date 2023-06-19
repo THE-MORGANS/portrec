@@ -5,12 +5,13 @@ namespace App\Http\Controllers\Users;
 use App\Models\User;
 use App\Models\Education;
 use Illuminate\Http\Request;
+use App\Http\Traits\RequestTrait;
 use App\Http\Traits\ResponseTrait;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\Education\StoreEducation;
 use App\Http\Requests\Education\UpdateEducation;
-use App\Http\Traits\RequestTrait;
-use Illuminate\Support\Facades\Validator;
 
 class EducationController extends Controller
 {
@@ -68,7 +69,7 @@ class EducationController extends Controller
     public function show($id)
     {
         $data['education'] = Education::find($id);
-        return view('user.showeducation', $data);
+        return view('user.editeducation', $data);
     }
 
     /**
@@ -79,7 +80,8 @@ class EducationController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data['education'] = Education::find($id);
+        return view('user.editeducation', $data);
     }
 
     /**
@@ -94,19 +96,21 @@ class EducationController extends Controller
         $education = Education::find($id);
 
         if (!$education) {
-            return $this->sendError('Not Found', ['error'=>'That Record Does not exist'], 404);
+            return back()->with('error', 'Record Not Found');
         }
 
         $education->institution = $request->institution;
-        $education->qualification_id = $request->qualification_id;
+        $education->qualification = $request->qualification;
         $education->start_date = $request->start_date;
         $education->end_date = $request->end_date;
         $education->description = $request->description;
 
         if ($education->save()) {
-            return $this->sendResponse(Education::find($id), 'Updated Successfully'); 
+            return Redirect::to('resume')->with('success', 'Record Updated Successfully');
+            // return $this->sendResponse(Education::find($id), 'Updated Successfully'); 
         }else{
-            return $this->sendError('Failed !', ['error'=>'Failed'], 400); 
+            return back()->with('error', 'Record Updated Failed');
+            // return $this->sendError('Failed !', ['error'=>'Failed'], 400); 
         } 
     }
 
@@ -121,7 +125,7 @@ class EducationController extends Controller
         $education = Education::find($id);
         
         if (!$education) {
-            return $this->sendError('Record Doesn\'t Exist', ['error'=>'Record Not Found'], 404);
+            return back()->with('error', 'No Record Found');
         }
         $delete = Education::destroy($id);
             if ($delete) {

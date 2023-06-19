@@ -17,13 +17,13 @@
 
                             <div class="widget-content">
 
-                                <form class="default-form" method="post" action="{{ route('workexperience.store') }}">
+                                <form class="default-form" method="post" action="{{ route('workexperience.update', $workexperience->id) }}">
                                     @csrf
                                     <div class="row">
                                         <!-- Input -->
                                         <div class="form-group col-lg-12 col-md-12">
                                             <label>Company Name</label>
-                                            <input type="text" name="company_name" value="{{old('company_name')}}" placeholder="">
+                                            <input type="text" name="company_name" value="{{$workexperience->company_name}}" placeholder="">
                                             @if ($errors->has('company_name'))
                                                 <span class="text-danger">{{ $errors->first('company_name') }}</span>
                                             @endif
@@ -31,7 +31,7 @@
 
                                         <div class="form-group col-lg-12 col-md-12">
                                             <label>Company Location</label>
-                                            <input type="text" name="company_location" value="{{old('company_location')}}" placeholder="">
+                                            <input type="text" name="company_location" value="{{$workexperience->company_location}}" placeholder="">
                                             @if ($errors->has('company_location'))
                                                 <span class="text-danger">{{ $errors->first('company_location') }}</span>
                                             @endif
@@ -40,7 +40,7 @@
                                         <!-- Input -->
                                         <div class="form-group col-lg-6 col-md-12">
                                             <label>Start Date</label>
-                                            <input type="text" name="start_date" value="{{old('start_date')}}" id="startdate" placeholder="">
+                                            <input type="text" name="start_date" value="{{$workexperience->start_date}}" id="startdate" placeholder="">
                                             @if ($errors->has('start_date'))
                                             <span class="text-danger">{{ $errors->first('start_date') }}</span>
                                         @endif
@@ -49,7 +49,7 @@
                                         <!-- Input -->
                                         <div class="form-group col-lg-6 col-md-12">
                                             <label>End Date</label>
-                                            <input type="text" name="end_date" value="{{old('end_date')}}" id="enddate" placeholder="">
+                                            <input type="text" name="end_date" value="{{$workexperience->end_date}}" id="enddate" placeholder="">
                                             @if ($errors->has('end_date'))
                                             <span class="text-danger">{{ $errors->first('end_date') }}</span>
                                         @endif
@@ -58,7 +58,7 @@
                                          <!-- Input -->
                                          <div class="form-group col-lg-4 col-md-12">
                                             <label>Job Title</label>
-                                            <input type="text" name="job_title" value="{{old('job_title')}}" id="job_title" placeholder="">
+                                            <input type="text" name="job_title" value="{{$workexperience->job_title}}" id="job_title" placeholder="">
                                             @if ($errors->has('job_title'))
                                             <span class="text-danger">{{ $errors->first('job_title') }}</span>
                                         @endif
@@ -67,7 +67,7 @@
                                         <!-- Input -->
                                         <div class="form-group col-lg-4 col-md-12">
                                             <label>Job Level</label>
-                                            <input type="text" name="job_level" value="{{old('job_level')}}" id="job_level" placeholder="">
+                                            <input type="text" name="job_level" value="{{$workexperience->job_level}}" id="job_level" placeholder="">
                                             @if ($errors->has('job_level'))
                                             <span class="text-danger">{{ $errors->first('job_level') }}</span>
                                         @endif
@@ -76,7 +76,12 @@
                                                                                 <!-- Input -->
                                         <div class="form-group col-lg-4 col-md-12">
                                             <label>Industry</label>
-                                            <input type="text" name="industries_id" value="{{old('industries_id')}}" id="industries_id" placeholder="">
+                                            <select class="chosen-select" name="industries_id" style="display: none;">
+                                                <option value="">Select</option>
+                                                @foreach ($industries as $industry)
+                                                <option value="{{$industry->id}}" {{$industry->id == $workexperience->industries_id ? 'selected' : ''}}>{{$industry->name}}</option>
+                                                @endforeach
+                                            </select>
                                             @if ($errors->has('industries_id'))
                                             <span class="text-danger">{{ $errors->first('industries_id') }}</span>
                                         @endif
@@ -84,7 +89,12 @@
 
                                         <div class="form-group col-lg-6 col-md-12">
                                             <label>Job Function</label>
-                                            <input type="text" name="job_function_id" value="{{old('job_function_id')}}" id="job_function_id" placeholder="">
+                                            <select class="chosen-select" name="job_function_id" style="display: none;">
+                                                <option value="">Select</option>
+                                                @foreach ($jobfunctions as $jobfunction)
+                                                <option value="{{$jobfunction->id}}" {{$jobfunction->id == $workexperience->job_function_id ? 'selected' : ''}}>{{$jobfunction->name}}</option>
+                                                @endforeach
+                                            </select>
                                             @if ($errors->has('job_function_id'))
                                             <span class="text-danger">{{ $errors->first('job_function_id') }}</span>
                                         @endif
@@ -92,7 +102,7 @@
 
                                         <div class="form-group col-lg-6 col-md-12">
                                             <label>Salary</label>
-                                            <input type="text" name="salary_range" value="{{old('salary_range')}}" id="salary_range" placeholder="">
+                                            <input type="text" name="salary_range" value="{{$workexperience->salary_range}}" id="salary_range" placeholder="">
                                             @if ($errors->has('salary_range'))
                                             <span class="text-danger">{{ $errors->first('salary_range') }}</span>
                                         @endif
@@ -100,7 +110,13 @@
 
                                         <div class="form-group col-lg-6 col-md-12">
                                             <label>Work Type</label>
-                                            <input type="text" name="work_type_id" value="{{old('work_type_id')}}" id="work_type_id" placeholder="">
+                                            <select class="chosen-select" name="work_type_id" style="display: none;">
+                                                <option value="">Select</option>
+                                                {{-- <option value="12" selected>Value 12</option> --}}
+                                                @foreach ($worktypes as $worktype)
+                                                <option value="{{$worktype->id}}" {{$worktype->id == $workexperience->work_type_id ? 'selected' : ''}}>{{$worktype->name}}</option>
+                                                @endforeach
+                                            </select>
                                             @if ($errors->has('work_type_id'))
                                             <span class="text-danger">{{ $errors->first('work_type_id') }}</span>
                                         @endif
@@ -108,7 +124,7 @@
 
                                         <div class="form-group col-lg-6 col-md-12">
                                             <label>Status</label>
-                                            <input type="text" name="status" value="{{old('status')}}" id="status" placeholder="">
+                                            <input type="text" name="status" value="{{$workexperience->status}}" id="status" placeholder="">
                                             @if ($errors->has('status'))
                                             <span class="text-danger">{{ $errors->first('status') }}</span>
                                         @endif
@@ -119,7 +135,7 @@
                                         <div class="form-group col-lg-12 col-md-12">
                                             <label>Description</label>
                                             <textarea
-                                                placeholder="" name="description">{{old('description')}}</textarea>
+                                                placeholder="" name="description">{{$workexperience->description}}</textarea>
                                         </div>
                                         @if ($errors->has('description'))
                                                 <span class="text-danger">{{ $errors->first('description') }}</span>
@@ -127,7 +143,7 @@
 
                                         <!-- Input -->
                                         <div class="form-group col-lg-12 col-md-12 text-right">
-                                            <button type="submit" class="theme-btn btn-style-one">Submit</button>
+                                            <button type="submit" class="theme-btn btn-style-one">Update</button>
                                         </div>
                                     </div>
                                 </form>

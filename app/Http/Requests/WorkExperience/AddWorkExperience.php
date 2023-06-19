@@ -30,10 +30,7 @@ class AddWorkExperience extends FormRequest
             'end_date' => 'required',
             'job_title' => 'required',
             'job_level' => 'required',
-            'industries_id' => 'required|numeric',
-            'job_function_id' => 'required|numeric',
             'salary_range' => 'required',
-            'work_type_id' => 'required|numeric',
             'description' => 'required',
             'status' => 'required|numeric',
         ];
