@@ -5,6 +5,7 @@ use App\Http\Controllers\Users\AuthController;
 use App\Http\Controllers\Users\DashboardController;
 use App\Http\Controllers\Users\EducationController;
 use App\Http\Controllers\Landing\LandingPageController;
+use App\Http\Controllers\Users\PortfolioController;
 use App\Http\Controllers\Users\WorkExperienceController;
 
 /*
@@ -39,6 +40,7 @@ Route::controller(AuthController::class)->group(function(){
         });
 
         Route::controller(EducationController::class)->group(function(){
+            Route::get('/education', 'create')->name('education.create');
             Route::post('/education', 'store')->name('education.store');
             Route::get('/education/edit/{id}', 'edit')->name('education.edit');
             Route::post('/education/update/{id}', 'update')->name('education.update');
@@ -47,9 +49,18 @@ Route::controller(AuthController::class)->group(function(){
         });
 
         Route::controller(WorkExperienceController::class)->group(function(){
+            Route::get('/workexperience', 'create')->name('workexperience.create');
             Route::post('/workexperience', 'store')->name('workexperience.store');
             Route::get('/workexperience/edit/{id}', 'edit')->name('workexperience.edit');
             Route::post('/workexperience/update/{id}', 'update')->name('workexperience.update');
             Route::get('/workexperience/delete/{id}', 'destroy')->name('workexperience.delete');
+        });
+
+        Route::controller(PortfolioController::class)->group(function(){
+            Route::get('/portfolio', 'create')->name('portfolio.create');
+            Route::post('/portfolio', 'store')->name('portfolio.store');
+            Route::get('/portfolio/edit/{id}', 'edit')->name('portfolio.edit');
+            Route::post('/portfolio/update/{id}', 'update')->name('portfolio.update');
+            Route::get('/portfolio/delete/{id}', 'destroy')->name('portfolio.delete');
         });
     });

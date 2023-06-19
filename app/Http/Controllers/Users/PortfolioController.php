@@ -15,8 +15,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Storage;
-use App\Http\Requests\Portfolio\AddPortfolio;
+use Illuminate\Support\Facades\Redirect;
 use App\Http\Requests\Portfolio\UploadImage;
+use App\Http\Requests\Portfolio\AddPortfolio;
 
 class PortfolioController extends Controller
 {
@@ -75,9 +76,7 @@ class PortfolioController extends Controller
             ]);
            }
         }
-        $success['projecttitle'] =  $portfolio->project_title; 
-   
-        return $this->sendResponse($success, 'Added Successfully.');
+        return Redirect::to('resume')->with('success', 'Portfolio Added Successfully');
     }
 
     //To upload an image for a specific portfolio
