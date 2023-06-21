@@ -65,5 +65,13 @@
         timepicker:false,
         datepicker:true,
       });
+
+      $( "#awardissuedate" ).datetimepicker({
+        ownerDocument: document,
+        contentWindow: window,
+        format:'Y-m-d',
+        timepicker:false,
+        datepicker:true,
+      });
     } );
     </script>

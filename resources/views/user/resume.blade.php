@@ -128,99 +128,119 @@
                                     </div>
 
 
-                                    <div class="resume-outer theme-blue">
+                                    <div class="resume-outer theme-yellow">
                                         <div class="upper-title">
-                                            <h4>Licsence & Certifications</h4>
-                                            <a href="{{ route('workexperience.create') }}" class="add-info-btn"><span
+                                            <h4>License, Certificates & Awards</h4>
+                                            <a href="#addAwardForm" data-bs-toggle="collapse" class="add-info-btn"><span
                                                     class="icon flaticon-plus"></span> Add
-                                                Licsence and Certification</a>
+                                                License, Certificates & Awards</a>
                                         </div>
+                                        <x-user.addaward :awardtypes="$awardtypes"/>
+
+                                        @if (count($awards) > 0)
+                                                @foreach ($awards as $award)
+                                                    <!-- Resume BLock -->
+                                                    <div class="resume-block">
+                                                        <div class="inner">
+                                                            <span class="name">A</span>
+                                                            <div class="title-box">
+                                                                <div class="info-box">
+                                                                    <h3>{{ $award->award_title }}</h3>
+                                                                    <span class="small"> Type:
+                                                                        {{ucfirst(App\Models\AwardType::find($award->award_type)->name) }}
+                                                                    </span>
+                                                                </div>
+                                                                <div class="edit-box">
+                                                                    <span class="year">
+                                                                        {{ $award->issue_date }}
+                                                                    </span>
+                                                                    <div class="edit-btns">
+                                                                        <a href="{{ route('award.delete', [$award->id]) }}"
+                                                                            class="btn btn-sm btn-outline-danger"
+                                                                            onclick="return confirm('Are you sure, you want to delete it?')"><span
+                                                                                class="la la-trash"></span></a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            {{-- <div class="text">
+                                                                {{ $workexperience->description }}
+                                                            </div> --}}
+                                                        </div>
+                                                    </div>
+                                                @endforeach
+                                            @else
+                                                <span class="text-danger">No License, Certificates & Awards Found</span>
+                                            @endif
+
+
                                     </div>
 
 
 
 
 
-                    <div class="resume-outer theme-blue">
+                    <div class="resume-outer theme-green">
                         <div class="upper-title">
                             <h4>Portfolio</h4>
-                            <a href="#collapseExample" data-bs-toggle="collapse"
+                            <a href="#addPortfolioForm" data-bs-toggle="collapse"
                                 class="add-info-btn"><span class="icon flaticon-plus"></span> Add
                                 Portfolio</a>
                         </div>
-
+                        
+                        <x-user.addportfolio />
+                        @foreach ($portfolios as $portfolio)
                         <div class="resume-block">
-                            <div class="collapse" id="collapseExample">
-                                <blockquote class="blockquote-style-one mb-5 mt-5">
-                                    <form class="default-form" method="post"
-                                        action="{{ route('education.store') }}">
-                                        @csrf
-                                        <div class="row">
-                                            <!-- Input -->
-                                            <div class="form-group col-lg-6 col-md-12 mb-3">
-                                                <input type="text" name="project_title"
-                                                    class="form-control" id="floatingPassword"
-                                                    placeholder="{{ $errors->first('project_title') != '' ? $errors->first('project_title') : 'Project Title' }}">
-                                            </div>
+                            <div class="inner">
+                              <span class="name">P</span>
+                              <div class="title-box">
+                                <div class="info-box">
+                                  <h3>{{$portfolio->project_title}}</h3>
+                                  <span class="small">{{$portfolio->project_role}}</span>
+                                  <span></span>
+                                </div>
+                                <div class="edit-box">
+                                  {{-- <span class="year">2012 - 2014</span> --}}
+                                  <div class="edit-btns">
+                                    {{-- <button><span class="la la-pencil"></span></button> --}}
+                                    <a href="#portfolio{{$portfolio->id}}"  data-bs-toggle="collapse" role="button"
+                                        class="btn btn-sm btn-outline-info mx-1"><span
+                                            class="la la-eye"></span></a>
 
-                                            <!-- Input -->
-                                            <div class="form-group col-lg-6 col-md-12 mb-3">
-                                                <input type="text" name="project_role"
-                                                    class="form-control" id="floatingPassword"
-                                                    placeholder="{{ $errors->first('project_role') != '' ? $errors->first('project_role') : 'Project Role' }}">
-                                            </div>
+                                    <a href="{{ route('portfolio.delete', [$portfolio->id]) }}"
+                                        class="btn btn-sm btn-outline-danger"
+                                        onclick="return confirm('Are you sure, you want to delete it?')"><span
+                                            class="la la-trash"></span></a>
+                                  </div>
+                                </div>
+                              </div>
 
+                              <div class="collapse" id="portfolio{{$portfolio->id}}">
+                                <div class="text">
+                                    {{$portfolio->project_solution}}
+                                
+                                    <div class="mt-1">
+                                    @if (isset($portfolio->project_url))
+                                        Project Link: <a href="{{$portfolio->project_url}}" class="btn btn-sm btn-outline-warning" target="_blank">View Project Online</a>
+                                    @endif
+                                    </div>
 
-                                            <!-- Input -->
-                                            <div class="form-group col-lg-6 col-md-12 mb-3">
-                                                <input type="text" id="project_task"
-                                                    name="project_task" class="form-control"
-                                                    placeholder="{{ $errors->first('project_task') != '' ? $errors->first('project_task') : 'Project Task' }}">
-                                            </div>
+                                    @if ($portfolio->images != null)
+                                    <div class="mt-3">
+                                        <span class="text-decoration-underline">Project Images</span>
+                                        <br>
+                                        @foreach ($portfolio->images as $image)
+                                        <img width="20%" src="{{asset($image->image_url)}}" alt="">
+                                        @endforeach
+                                    </div>
+                                    @endif
 
-                                            <!-- Input -->
-                                            <div class="form-group col-lg-6 col-md-12 mb-3">
-                                                <input type="text" id="project_solution"
-                                                    name="project_solution" class="form-control"
-                                                    id="floatingPassword"
-                                                    placeholder="{{ $errors->first('project_solution') != '' ? $errors->first('project_solution') : 'Project Solution' }}">
-                                            </div>
-
-                                            <!-- Input -->
-                                            <div class="form-group col-lg-12 col-md-12 mb-3">
-                                                <input type="text" id="project_url"
-                                                    name="project_url" class="form-control"
-                                                    id="floatingPassword"
-                                                    placeholder="{{ $errors->first('project_url') != '' ? $errors->first('project_url') : 'Project URL' }}">
-                                            </div>
-
-                                            <div class="form-group col-lg-12 col-md-12">
-                                                <div class="uploading-outer">
-                                                    <div class="uploadButton">
-                                                        <input class="uploadButton-input"
-                                                            type="file" name="attachments[]"
-                                                            accept="image/*, application/pdf"
-                                                            id="upload" multiple="">
-                                                        <label
-                                                            class="uploadButton-button ripple-effect"
-                                                            for="upload">Upload Portfolio
-                                                            Image</label>
-                                                        <span class="uploadButton-file-name"></span>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <!-- Input -->
-                                            <div class="form-group col-lg-6 col-md-12">
-                                                <button type="submit"
-                                                    class="theme-btn btn-style-one">Save</button>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </blockquote>
-
+                                </div>
+                              </div>
+                             
                             </div>
-                        </div>
+                          </div>
+                        @endforeach
+                        
                     </div>
 
 

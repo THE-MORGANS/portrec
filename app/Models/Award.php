@@ -3,16 +3,16 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Portfolio extends Model
+class Award extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'user_id', 'project_title', 'project_role', 'project_url', 'project_task', 'project_solution', 'created_at', 'updated_at'
+        'user_id', 'award_title', 'award_type', 'issue_date',  'created_at', 'updated_at'
     ];
 
     public function user(): BelongsTo
@@ -20,10 +20,8 @@ class Portfolio extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function portfolioimages(): HasMany
+    public function type(): HasOne
     {
-        return $this->hasMany(PortfolioImage::class);
+        return $this->hasOne(AwardType::class);
     }
-
-
 }
