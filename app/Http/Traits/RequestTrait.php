@@ -63,7 +63,17 @@ trait RequestTrait
             'project_role' => $request->project_role, 
             'project_task' => $request->project_task, 
             'project_solution' => $request->project_solution,
-            'images' => $request->images,
+            'project_url' => $request->project_url,
+        ];
+        return $data;
+    }
+
+    public function AddAward($request){
+        $data = [
+            'user_id' => auth()->user()->id, 
+            'award_title' => $request->award_title, 
+            'award_type' => $request->award_type, 
+            'issue_date' => $request->issue_date, 
         ];
         return $data;
     }

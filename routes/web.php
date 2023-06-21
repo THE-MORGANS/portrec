@@ -2,10 +2,11 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Users\AuthController;
+use App\Http\Controllers\Users\AwardController;
 use App\Http\Controllers\Users\DashboardController;
 use App\Http\Controllers\Users\EducationController;
-use App\Http\Controllers\Landing\LandingPageController;
 use App\Http\Controllers\Users\PortfolioController;
+use App\Http\Controllers\Landing\LandingPageController;
 use App\Http\Controllers\Users\WorkExperienceController;
 
 /*
@@ -62,5 +63,13 @@ Route::controller(AuthController::class)->group(function(){
             Route::get('/portfolio/edit/{id}', 'edit')->name('portfolio.edit');
             Route::post('/portfolio/update/{id}', 'update')->name('portfolio.update');
             Route::get('/portfolio/delete/{id}', 'destroy')->name('portfolio.delete');
+        });
+
+        Route::controller(AwardController::class)->group(function(){
+            Route::get('/award', 'create')->name('award.create');
+            Route::post('/award', 'store')->name('award.store');
+            Route::get('/award/edit/{id}', 'edit')->name('award.edit');
+            Route::post('/award/update/{id}', 'update')->name('award.update');
+            Route::get('/award/delete/{id}', 'destroy')->name('award.delete');
         });
     });

@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Portfolio;
+namespace App\Http\Requests\Award;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class AddPortfolio extends FormRequest
+class AddAward extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,12 +24,9 @@ class AddPortfolio extends FormRequest
     public function rules()
     {
         return [
-            'project_title' => 'required', 
-            'project_role' => 'required', 
-            'project_task' => 'required', 
-            'project_solution' => 'required',
-            'project_url' => 'required',
-            'images.*' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:500' 
+            'award_title' => 'required',
+            'award_type' => 'required',
+            'issue_date' => 'required',
         ];
     }
 }

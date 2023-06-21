@@ -59,8 +59,8 @@ class PortfolioController extends Controller
     public function store(AddPortfolio $request)
     {
         //Use image intervention
-        $input = $this->AddPortfolio($request); 
-        $portfolio = Portfolio::create($input);  
+        $input = $this->AddPortfolio($request);
+        $portfolio = Portfolio::create($input); 
         if($request->hasFile('images'))
         {
             $imagearray = $request->file('images');
@@ -69,7 +69,7 @@ class PortfolioController extends Controller
             $image_name = uniqid() . '.' . $image->getClientOriginalExtension();
             $image_path = 'uploads/portfolios/' . $image_name;
             Image::make($image)->resize(500, 500)->save(public_path($image_path));
-            $data = PortfolioImage::create([
+            PortfolioImage::create([
                 'image_url' => $image_path,
                 'portfolio_id' => $portfolio->id,
                 'user_id' => Auth::user()->id,
@@ -210,9 +210,9 @@ class PortfolioController extends Controller
     DB::table('portfolio_images')->where('portfolio_id', '=', $id)->delete();
     
     if (Portfolio::destroy($id)) {
-        return $this->sendResponse('Deleted Successfully', 'Record was Deleted'); 
+        return back()->with('info', 'Deleted Successfully'); 
     }else{
-        return $this->sendError('Failed !', ['error'=>'Failed'], 400);
+        return back()->with('error', 'Delete Failed');
     }
 
     }

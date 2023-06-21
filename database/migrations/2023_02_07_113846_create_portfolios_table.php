@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('project_role')->nullable();
             $table->text('project_task')->nullable();
             $table->text('project_solution')->nullable();
+            $table->text('project_url')->nullable();
             $table->text('images')->nullable();
             $table->timestamps();
         });

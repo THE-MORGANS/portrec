@@ -9182,7 +9182,7 @@ Registeration Banners
   margin: 0;
   color: #1b2032;
   font-size: 16px;
-  border: 2px dashed #ced4e1;
+  border: 2px dashed #111011;
 }
 
 .uploadPortfolio .uploadPortfolio-button {
@@ -9537,6 +9537,16 @@ Registeration Banners
 
 .resume-outer.theme-yellow .resume-block .info-box span {
   color: #f9ab00;
+}
+
+.resume-outer.theme-green .resume-block .edit-box .year,
+.resume-outer.theme-green .resume-block .name {
+  background: #e9fed9;
+  color: #02a815;
+}
+
+.resume-outer.theme-green .resume-block .info-box span {
+  color: #02a815;
 }
 
 /*** 
