@@ -16,6 +16,12 @@ class ProfileController extends Controller
 
     use ResponseTrait;
 
+    public function loadUserProfilePage(){
+        $userID = Auth::user()->id;
+        $data['id'] = $userID;
+        return view('user.profile', $data);
+    }
+
     public function userProfile(){
         if (Auth::check()) {
             return $this->sendResponse(Auth::user(), 'User Profile Found');

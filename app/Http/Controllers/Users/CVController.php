@@ -4,11 +4,13 @@ namespace App\Http\Controllers\Users;
 
 use App\Models\CV;
 use App\Models\User;
+use Spatie\PdfToImage\Pdf;
 use Illuminate\Http\Request;
 use App\Http\Traits\ResponseTrait;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 
 class CVController extends Controller
@@ -47,23 +49,29 @@ class CVController extends Controller
      */
     public function store(Request $request)
     {
-        $validator = Validator::make($request->only(['file']), [
-            'file' => 'required|mimes:pdf|max:2048',
+        // dd($request->('cv'));
+        $validator = Validator::make($request->all(), [
+            'cv' => 'required|mimes:pdf|max:1024',
         ]);
 
+        // dd();
         if($validator->fails()){
-            return $this->sendError('Validation Error.', $validator->errors());       
+            return back()->withErrors($validator)->with('error', 'CV Upload Error');       
         }
-           
-        $fileName = time().'.'.$request->file->extension();  
-        $request->file->move(public_path('uploads/cvs/'), $fileName);
+        $file = $request->file('cv');
+        $fileName = time().'.'.$file->extension();  
+        $file->move(public_path('uploads/cvs/'), $fileName);
 
-           $filedata = Cv::create([
+        // $cvfile = new Pdf(public_path('uploads/cvs/'), $fileName);
+        // $cvfile->saveImage(public_path('uploads/cvs/thumbnails'), $fileName);
+
+        CV::create([
             'user_id' => auth()->user()->id,
+            'doc_name' => $file->getClientOriginalName(),
             'doc_url' => 'uploads/cvs/'.$fileName,
         ]);
     
-        return $this->sendResponse($filedata, 'Upload Completed Successfully');
+        return Redirect::to('cv')->with('success', 'CV Added Successfully');
     }
 
     /**
@@ -115,16 +123,15 @@ class CVController extends Controller
     {
         $cv = CV::find($id);
         if(!$cv){
-            return $this->sendError('Record Doesn\'t Exist', ['error'=>'Record Not Found'], 404); 
+            return back()->with('error', 'No Record Found'); 
         }
         
             if(File::exists(public_path($cv->doc_url))){
                 File::delete(public_path($cv->doc_url));
               }
         if (CV::destroy($id)) {
-            return $this->sendResponse('Deleted Successfully', 'Record was Deleted'); 
+            return back()->with('info', 'Deleted Successfully'); 
         }else{
-            return $this->sendError('Failed !', ['error'=>'Failed'], 400);
-        }
-    }
+            return back()->with('error', 'That Failed, Please Try Again');
+    }}
 }

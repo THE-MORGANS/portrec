@@ -52,7 +52,6 @@ class DashboardController extends Controller
 
     public function loadResumePage(){
         $userID = Auth::user()->id;
-        $data['cv'] = CV::first();
         $data['workexperiences'] = User::find($userID)->workexperience;
         $data['educations'] = User::find($userID)->education;
         $data['awards'] = User::find($userID)->awards;
@@ -62,7 +61,8 @@ class DashboardController extends Controller
     }
 
     public function loadCVPage(){
-        $data['cv'] = CV::first();
+        $userID = Auth::user()->id;
+        $data['cvs'] = User::find($userID)->cvs;
         return view('user.cv', $data);
     }
 

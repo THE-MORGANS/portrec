@@ -7,6 +7,8 @@ use App\Http\Controllers\Users\DashboardController;
 use App\Http\Controllers\Users\EducationController;
 use App\Http\Controllers\Users\PortfolioController;
 use App\Http\Controllers\Landing\LandingPageController;
+use App\Http\Controllers\Users\CVController;
+use App\Http\Controllers\Users\ProfileController;
 use App\Http\Controllers\Users\WorkExperienceController;
 
 /*
@@ -71,5 +73,19 @@ Route::controller(AuthController::class)->group(function(){
             Route::get('/award/edit/{id}', 'edit')->name('award.edit');
             Route::post('/award/update/{id}', 'update')->name('award.update');
             Route::get('/award/delete/{id}', 'destroy')->name('award.delete');
+        });
+
+        Route::controller(CVController::class)->group(function(){
+            Route::post('/cv', 'store')->name('cv.store');
+            Route::get('/cv/edit/{id}', 'edit')->name('cv.edit');
+            Route::post('/cv/update/{id}', 'update')->name('cv.update');
+            Route::get('/cv/delete/{id}', 'destroy')->name('cv.delete');
+        });
+
+        Route::controller(ProfileController::class)->group(function(){
+            Route::post('/profile', 'store')->name('profile.store');
+            Route::get('/profile/edit/{id}', 'loadUserProfilePage')->name('profile.edit');
+            Route::post('/profile/update/{id}', 'update')->name('profile.update');
+            Route::get('/profile/delete/{id}', 'destroy')->name('profile.delete');
         });
     });
