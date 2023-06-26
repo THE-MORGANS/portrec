@@ -55,7 +55,7 @@
              <span class="name">My Account</span>
            </a>
            <ul class="dropdown-menu">
-               <li><a href="dashboard-company-profile.html"><i class="la la-user-alt"></i>View Profile</a></li>
+               <li><a href="{{route('profile.edit', auth()->user()->id)}}"><i class="la la-user-alt"></i>View Profile</a></li>
              <li><a href="dashboard-messages.html"><i class="la la-comment-o"></i>Messages</a></li>
              <li><a href="dashboard-change-password.html"><i class="la la-lock"></i>Change Password</a></li>
              <li><a href="{{url('/logout')}}"><i class="la la-sign-out"></i>Logout</a></li>
