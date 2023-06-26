@@ -16,10 +16,12 @@ return new class extends Migration
         Schema::create('portfolios', function (Blueprint $table) {
             //candidates portfolios
             $table->id();
+            $table->foreignId('user_id')->constrained();
             $table->string('project_title')->nullable();
             $table->string('project_role')->nullable();
             $table->text('project_task')->nullable();
             $table->text('project_solution')->nullable();
+            $table->text('project_url')->nullable();
             $table->text('images')->nullable();
             $table->timestamps();
         });

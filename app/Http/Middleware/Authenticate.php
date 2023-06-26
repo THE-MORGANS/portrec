@@ -18,7 +18,7 @@ class Authenticate extends Middleware
             if ($request->segment(1) == 'api') {
                 return route('unauthorized');
             }else{
-                return route('login');
+                return route('user.showloginpage');
             }
         }
     }

@@ -1,8 +1,9 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 return new class extends Migration
 {
@@ -17,10 +18,17 @@ return new class extends Migration
             //jobs functionalities
             $table->id();
             $table->unsignedInteger('industries_id');
-            $table->foreignId('industries_id')->constrained();
+            // $table->foreignId('industries_id')->constrained();
             $table->string('name')->nullable();
             $table->timestamps();
         });
+
+        $data = [
+            "industries_id"=> "1",
+            "name"=> "Fullstack Developer"
+        ];
+
+        DB::table('job_functions')->insert($data);
     }
 
     /**
