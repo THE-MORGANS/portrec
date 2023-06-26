@@ -11,6 +11,7 @@ use App\Models\PortfolioImage;
 use App\Models\WorkExperience;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -25,7 +26,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'id', 'name', 'email', 'gender', 'phone', 'user_level', 'email_verified_at', 'password', 'remember_token', 'created_at', 'updated_at'
+        'name', 'email', 'phone', 'gender', 'dob', 'languages', 'industries_id', 'allow_search', 'user_level', 'email_verified_at', 'password', 'description', 'facebook', 'linkedin', 'twitter', 'googleplus', 'country', 'state', 'address', 'remember_token', 'created_at', 'updated_at'
     ];
 
     /**
@@ -93,5 +94,10 @@ class User extends Authenticatable
     public function cvs(): HasMany
     {
         return $this->hasMany(CV::class);
+    }
+
+    public function profilepicture(): HasOne
+    {
+        return $this->hasOne(ProfilePicture::class);
     }
 }

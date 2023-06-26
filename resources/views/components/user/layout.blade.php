@@ -21,6 +21,8 @@
 
     <link rel="shortcut icon" href="{{ asset('images/favicon.png') }}" type="image/x-icon">
     <link rel="icon" href="{{ asset('images/favicon.png') }}" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
+
 
 
     <!-- Responsive -->
@@ -37,7 +39,7 @@
         <!-- Preloader -->
         <div class="preloader"></div>
 
-        <x-user.topnav />
+        <x-user.topnav/>
         <x-user.sidenav />
 
 
@@ -77,7 +79,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@eonasdan/tempus-dominus@6.7.7/dist/js/tempus-dominus.min.js"
         crossorigin="anonymous"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
+    <script>
+        $('.my-select').selectpicker();
+    </script>
 
     <!--Google Map APi Key-->
     <script src="http://maps.google.com/maps/api/js?key=AIzaSyDaaCBm4FEmgKs5cfVrh3JYue3Chj1kJMw&amp;ver=5.2.4"></script>

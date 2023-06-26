@@ -73,5 +73,13 @@
         timepicker:false,
         datepicker:true,
       });
+
+      $( "#dob" ).datetimepicker({
+        ownerDocument: document,
+        contentWindow: window,
+        format:'d M, Y',
+        timepicker:false,
+        datepicker:true,
+      });
     } );
     </script>

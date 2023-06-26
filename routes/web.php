@@ -83,9 +83,11 @@ Route::controller(AuthController::class)->group(function(){
         });
 
         Route::controller(ProfileController::class)->group(function(){
-            Route::post('/profile', 'store')->name('profile.store');
             Route::get('/profile/edit/{id}', 'loadUserProfilePage')->name('profile.edit');
-            Route::post('/profile/update/{id}', 'update')->name('profile.update');
+            Route::post('/profile/update/{id}', 'updateUserProfile')->name('profile.update');
+            Route::post('/profile/socialmedia/update/{id}', 'updateUserSocialMedia')->name('socialmedia.update');
+            Route::post('/profile/contact/update/{id}', 'updateUserContact')->name('contact.update');
+            Route::post('/userprofilepicture/{id}', 'uploadUserProfilePicture')->name('userprofilepicture.upload');
             Route::get('/profile/delete/{id}', 'destroy')->name('profile.delete');
         });
     });

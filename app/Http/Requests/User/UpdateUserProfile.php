@@ -26,6 +26,7 @@ class UpdateUserProfile extends FormRequest
         return [
             'name' => 'required',
             'phone' => 'required',
+            'languages' => 'required',
         ];
     }
 }

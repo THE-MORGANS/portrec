@@ -1,4 +1,11 @@
 <x-user.layout>
+
+    @php
+      $userprofilepicture = App\Models\ProfilePicture::with('user')->first();
+      $user = auth()->user(); 
+    @endphp
+
+
     <!-- Dashboard -->
     <section class="user-dashboard">
         <div class="dashboard-outer">
@@ -9,140 +16,139 @@
   
           <div class="row">
             <div class="col-lg-12">
+              
+             <div class="row">
+              <div class="col-lg-4">
+                <div class="ls-widget">
+                  <div class="tabs-box">
+                    <div class="widget-content p-4">
+                      <img src="{{asset($userprofilepicture->image)}}" width="90%" class="img-thumbnail" alt="{{$user->name}}" />
+                      <h6 class="m-0 p-0">{{$user->name}}</h6>
+                      <span class="small text-muted m-0"> {{$user->email}} </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-lg-8">
+                <div class="ls-widget">
+                  <div class="tabs-box">
+                    <div class="widget-title">
+                      <h4>Profile Picture</h4>
+                    </div>
+                <div class="widget-content">
+                <form class="default-form" action="{{route('userprofilepicture.upload', auth()->user()->id)}}" method="POST" enctype="multipart/form-data">
+                  @csrf
+                  <div class="uploading-outer">
+                    <div class="uploadButton" style="display: block">
+                      <input class="uploadButton-input" type="file" name="image" accept="image/*" id="upload"/>
+                      <label class="uploadButton-button ripple-effect" for="upload">Select Display Picture</label>
+                      <span class="uploadButton-file-name"></span>
+                    </div>
+                    <div class="small">Max File Size: 1MB, Resolution: Square, Minimum dimension: (500x500)px, and Suitable Files are .jpg & .png</div>
+                    @if ($errors->has('image'))
+                      <div class="small">Error: <span class="text-danger">{{ $errors->first('image') }}</span>  </div>
+                    @endif
+                  </div>
+                  <button type="submit" class="theme-btn btn-style-one">Upload Image</button>
+                </form>
+                  </div>
+                </div>
+              </div>
+              </div>
+             </div>
+              
+              
               <!-- Ls widget -->
               <div class="ls-widget">
                 <div class="tabs-box">
                   <div class="widget-title">
-                    <h4>My Profile</h4>
+                    <h4>Bio Data/Personal Information</h4>
                   </div>
-  
                   <div class="widget-content">
-  
-                    <div class="uploading-outer">
-                      <div class="uploadButton">
-                        <input class="uploadButton-input" type="file" name="attachments[]" accept="image/*, application/pdf" id="upload" multiple />
-                        <label class="uploadButton-button ripple-effect" for="upload">Browse Logo</label>
-                        <span class="uploadButton-file-name"></span>
-                      </div>
-                      <div class="text">Max file size is 1MB, Minimum dimension: 330x300 And Suitable files are .jpg & .png</div>
-                    </div>
-  
-                    <form class="default-form">
+                  <form class="default-form" action="{{route('profile.update', auth()->user()->id)}}" method="post">
+                    @csrf
                       <div class="row">
                         <!-- Input -->
                         <div class="form-group col-lg-6 col-md-12">
                           <label>Full Name</label>
-                          <input type="text" name="name" placeholder="Jerome">
-                        </div>
-  
-                        <!-- Input -->
-                        <div class="form-group col-lg-6 col-md-12">
-                          <label>Job Title</label>
-                          <input type="text" name="name" placeholder="UI Designer">
+                          <input type="text" value="{{$user->name}}" name="name" placeholder="">
+                          @if ($errors->has('name'))
+                            <span class="text-danger">{{ $errors->first('name') }}</span>
+                          @endif
                         </div>
   
                         <!-- Input -->
                         <div class="form-group col-lg-6 col-md-12">
                           <label>Phone</label>
-                          <input type="text" name="name" placeholder="0 123 456 7890">
-                        </div>
-  
-                        <!-- Input -->
-                        <div class="form-group col-lg-6 col-md-12">
-                          <label>Email address</label>
-                          <input type="text" name="name" placeholder="creativelayers">
-                        </div>
-  
-                        <!-- Input -->
-                        <div class="form-group col-lg-6 col-md-12">
-                          <label>Website</label>
-                          <input type="text" name="name" placeholder="www.jerome.com">
+                          <input type="text" name="phone" value="{{$user->phone}}" placeholder="0 123 456 7890">
+                          @if ($errors->has('phone'))
+                            <span class="text-danger">{{ $errors->first('phone') }}</span>
+                          @endif
                         </div>
   
                         <!-- Input -->
                         <div class="form-group col-lg-3 col-md-12">
-                          <label>Current Salary($)</label>
-                          <select class="chosen-select">
-                            <option>40-70 K</option>
-                            <option>50-80 K</option>
-                            <option>60-90 K</option>
-                            <option>70-100 K</option>
-                            <option>100-150 K</option>
+                          <label>Gender</label>
+                          <select class="chosen-select" name="gender">
+                            <option value="">Choose Gender</option>
+                            <option value="male" {{$user->gender=='male' ? 'selected':''}}>Male</option>
+                            <option value="female" {{$user->gender=='female' ? 'selected':''}}>Female</option>
                           </select>
                         </div>
-  
-                        <!-- Input -->
-                        <div class="form-group col-lg-3 col-md-12">
-                          <label>Expected Salary($)</label>
-                          <select class="chosen-select">
-                            <option>120-350 K</option>
-                            <option>40-70 K</option>
-                            <option>50-80 K</option>
-                            <option>60-90 K</option>
-                            <option>70-100 K</option>
-                            <option>100-150 K</option>
-                          </select>
+
+                         <!-- Input -->
+                         <div class="form-group col-lg-3 col-md-12">
+                          <label>Date of Birth</label>
+                          <input type="text" id="dob" value="{{$user->dob}}" name="dob" placeholder="01 Jan, 1900" autocomplete="off">
                         </div>
-  
-                        <!-- Input -->
-                        <div class="form-group col-lg-6 col-md-12">
-                          <label>Experience</label>
-                          <input type="text" name="name" placeholder="5-10 Years">
-                        </div>
-  
-                        <!-- Input -->
-                        <div class="form-group col-lg-6 col-md-12">
-                          <label>Age</label>
-                          <select class="chosen-select">
-                            <option>23 - 27 Years</option>
-                            <option>24 - 28 Years</option>
-                            <option>25 - 29 Years</option>
-                            <option>26 - 30 Years</option>
-                          </select>
-                        </div>
-  
-                        <!-- Input -->
-                        <div class="form-group col-lg-6 col-md-12">
-                          <label>Education Levels</label>
-                          <input type="text" name="name" placeholder="Certificate">
-                        </div>
+                        
   
                         <!-- Input -->
                         <div class="form-group col-lg-6 col-md-12">
                           <label>Languages</label>
-                          <input type="text" name="name" placeholder="English, Turkish">
+                          <input type="text" name="languages" value="{{$user->languages}}" placeholder="Igbo, Efik, Swahili">
+                          @if ($errors->has('languages'))
+                            <span class="text-danger">{{ $errors->first('languages') }}</span>
+                          @endif
                         </div>
   
-                        <!-- Search Select -->
-                        <div class="form-group col-lg-6 col-md-12">
-                          <label>Categories </label>
-                          <select data-placeholder="Categories" class="chosen-select multiple" multiple tabindex="4">
-                            <option value="Banking">Banking</option>
-                            <option value="Digital&Creative">Digital & Creative</option>
-                            <option value="Retail">Retail</option>
-                            <option value="Human Resources">Human Resources</option>
-                            <option value="Management">Management</option>
-                          </select>
-                        </div>
+                       <!-- Input -->
+                       <div class="form-group col-lg-6 col-md-12">
+                        <label>Industry</label>
+                            <select class="chosen-select" name="industries_id" style="display: none;">
+                                <option value="">Select</option>
+                                @foreach ($industries as $industry)
+                                <option value="{{$industry->id}}" {{$user->industries_id == $industry->id? 'selected':''}}>{{$industry->name}}</option>
+                                @endforeach
+                            </select>
+                            
+
+                        {{-- <input type="text" 
+                            value="{{ old('industries_id') }}" id="industries_id" placeholder=""> --}}
+                        @if ($errors->has('industries_id'))
+                            <span class="text-danger">{{ $errors->first('industries_id') }}</span>
+                        @endif
+                    </div>
   
                         <!-- Input -->
                         <div class="form-group col-lg-6 col-md-12">
                           <label>Allow In Search & Listing</label>
-                          <select class="chosen-select">
-                            <option>Yes</option>
-                            <option>No</option>
+                          <select class="chosen-select" name="allow_search">
+                            <option value="yes" {{$user->allow_search == 'yes' ? 'selected':''}}>Yes</option>
+                            <option value="no" {{$user->allow_search == 'no' ? 'selected':''}}>No</option>
                           </select>
                         </div>
   
                         <!-- About Company -->
                         <div class="form-group col-lg-12 col-md-12">
                           <label>Description</label>
-                          <textarea placeholder="Spent several years working on sheep on Wall Street. Had moderate success investing in Yugo's on Wall Street. Managed a small team buying and selling Pogo sticks for farmers. Spent several years licensing licorice in West Palm Beach, FL. Developed several new methods for working it banjos in the aftermarket. Spent a weekend importing banjos in West Palm Beach, FL.In this position, the Software Engineer collaborates with Evention's Development team to continuously enhance our current software solutions as well as create new solutions to eliminate the back-office operations and management challenges present"></textarea>
+                          <textarea placeholder="A little about yourself..." name="description">{{$user->description}}</textarea>
                         </div>
   
                         <!-- Input -->
                         <div class="form-group col-lg-6 col-md-12">
-                          <button class="theme-btn btn-style-one">Save</button>
+                          <button type="submit" class="theme-btn btn-style-one">Update Bio Data</button>
                         </div>
                       </div>
                     </form>
@@ -158,35 +164,36 @@
                   </div>
   
                   <div class="widget-content">
-                    <form class="default-form">
+                    <form class="default-form" action="{{route('socialmedia.update', auth()->user()->id)}}" method="post">
+                      @csrf
                       <div class="row">
                         <!-- Input -->
                         <div class="form-group col-lg-6 col-md-12">
                           <label>Facebook</label>
-                          <input type="text" name="name" placeholder="www.facebook.com/Invision">
+                          <input type="text" name="facebook" value="{{$user->facebook}}" placeholder="fb.com/yoourusername" required>
                         </div>
   
                         <!-- Input -->
                         <div class="form-group col-lg-6 col-md-12">
                           <label>Twitter</label>
-                          <input type="text" name="name" placeholder="">
+                          <input type="text" name="twitter" value="{{$user->twitter}}" placeholder="twitter.com/yourusername">
                         </div>
   
                         <!-- Input -->
                         <div class="form-group col-lg-6 col-md-12">
                           <label>Linkedin</label>
-                          <input type="text" name="name" placeholder="">
+                          <input type="text" name="linkedin" value="{{$user->linkedin}}" placeholder="linkedin.com/in/yourusername">
                         </div>
   
                         <!-- Input -->
                         <div class="form-group col-lg-6 col-md-12">
                           <label>Google Plus</label>
-                          <input type="text" name="name" placeholder="">
+                          <input type="text" name="googleplus" {{$user->googleplus}} placeholder="googleplus.com/yourusername">
                         </div>
   
                         <!-- Input -->
                         <div class="form-group col-lg-6 col-md-12">
-                          <button class="theme-btn btn-style-one">Save</button>
+                          <button class="theme-btn btn-style-one">Update Social Media</button>
                         </div>
                       </div>
                     </form>
@@ -202,72 +209,30 @@
                   </div>
   
                   <div class="widget-content">
-                    <form class="default-form">
+                    <form class="default-form" action="{{route('contact.update', auth()->user()->id)}}" method="post">
+                      @csrf
                       <div class="row">
                         <!-- Input -->
                         <div class="form-group col-lg-6 col-md-12">
                           <label>Country</label>
-                          <select class="chosen-select">
-                            <option>Australia</option>
-                            <option>Pakistan</option>
-                            <option>Chaina</option>
-                            <option>Japan</option>
-                            <option>India</option>
-                          </select>
+                          <input type="text" name="country" value="{{$user->country}}" placeholder="Nigeria">
                         </div>
   
                         <!-- Input -->
                         <div class="form-group col-lg-6 col-md-12">
-                          <label>City</label>
-                          <select class="chosen-select">
-                            <option>Melbourne</option>
-                            <option>Pakistan</option>
-                            <option>Chaina</option>
-                            <option>Japan</option>
-                            <option>India</option>
-                          </select>
+                          <label>State</label>
+                          <input type="text" name="state" value="{{$user->state}}" placeholder="Lagos">
                         </div>
   
                         <!-- Input -->
                         <div class="form-group col-lg-12 col-md-12">
                           <label>Complete Address</label>
-                          <input type="text" name="name" placeholder="329 Queensberry Street, North Melbourne VIC 3051, Australia.">
-                        </div>
-  
-                        <!-- Input -->
-                        <div class="form-group col-lg-6 col-md-12">
-                          <label>Find On Map</label>
-                          <input type="text" name="name" placeholder="329 Queensberry Street, North Melbourne VIC 3051, Australia.">
-                        </div>
-  
-                        <!-- Input -->
-                        <div class="form-group col-lg-3 col-md-12">
-                          <label>Latitude</label>
-                          <input type="text" name="name" placeholder="Melbourne">
-                        </div>
-  
-                        <!-- Input -->
-                        <div class="form-group col-lg-3 col-md-12">
-                          <label>Longitude</label>
-                          <input type="text" name="name" placeholder="Melbourne">
+                          <input type="text" name="address" value="{{$user->address}}" placeholder="123 Address Street, LGA 1234">
                         </div>
   
                         <!-- Input -->
                         <div class="form-group col-lg-12 col-md-12">
-                          <button class="theme-btn btn-style-three">Search Location</button>
-                        </div>
-  
-  
-                        <div class="form-group col-lg-12 col-md-12">
-                          <div class="map-outer">
-                            <div class="map-canvas map-height" data-zoom="12" data-lat="-37.817085" data-lng="144.955631" data-type="roadmap" data-hue="#ffc400" data-title="Envato" data-icon-path="images/resource/map-marker.png" data-content="Melbourne VIC 3000, Australia<br><a href='mailto:info@youremail.com'>info@youremail.com</a>">
-                            </div>
-                          </div>
-                        </div>
-  
-                        <!-- Input -->
-                        <div class="form-group col-lg-12 col-md-12">
-                          <button class="theme-btn btn-style-one">Save</button>
+                          <button class="theme-btn btn-style-one">Update Contact Information</button>
                         </div>
                       </div>
                     </form>

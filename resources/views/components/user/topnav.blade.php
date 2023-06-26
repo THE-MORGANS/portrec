@@ -1,6 +1,15 @@
  <!-- Header Span -->
  <span class="header-span"></span>
 
+ @php
+    $user = auth()->user();
+    $username = explode(" ", $user->name);
+    $acronym = "";
+    foreach ($username as $un) {
+      $acronym .= mb_substr($un, 0, 1);
+    }
+ @endphp
+
  <!-- Main Header-->
  <header class="main-header header-shaddow">
    <div class="container-fluid">
@@ -9,7 +18,7 @@
        <!--Nav Outer -->
        <div class="nav-outer">
          <div class="logo-box">
-           <div class="logo"><a href="index.html"><img src="{{asset('images/logo.png')}}" alt="" title="" width="80%"></a></div>
+           <div class="logo"><a href="index.html"><img src="{{asset('images/logos/logo.png')}}" alt="" title="" width="80%"></a></div>
          </div>
 
          <nav class="nav main-menu">
@@ -49,9 +58,17 @@
            <span class="icon la la-bell"></span>
          </button>
 
+         @php
+            $userprofilepicture = App\Models\ProfilePicture::with('user')->first(); 
+         @endphp
+
          <div class="dropdown dashboard-option">
            <a class="dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-             <img src="images/resource/company-6.png" alt="avatar" class="thumb">
+            @if (isset($userprofilepicture))
+            <img src="{{asset($userprofilepicture->image)}}" alt="" class="thumb">
+            @else
+            <button class="btn btn-md btn-outline-primary rounded-circle"> {{substr($username[0], 0, 1).substr($username[1], 0, 1)}} </button>
+            @endif
              <span class="name">My Account</span>
            </a>
            <ul class="dropdown-menu">
@@ -69,18 +86,16 @@
 
    <!-- Mobile Header -->
    <div class="mobile-header">
-     <div class="logo"><a href="index.html"><img src="{{asset('images/logo.png')}}" alt="" title="" width="75%"></a></div>
+     <div class="logo"><a href="index.html"><img src="{{asset('images/logos/logo.png')}}" alt="" title="" width="75%"></a></div>
 
      <!--Nav Box-->
      <div class="nav-outer clearfix">
 
        <div class="outer-box">
          <!-- Login/Register -->
-         <div class="login-box">
-           <a href="login-popup.html" class="call-modal"><span class="icon-user"></span></a>
-         </div>
-
-         <button id="toggle-user-sidebar"><img src="images/resource/company-6.png" alt="avatar" class="thumb"></button>
+         <button class="btn btn-md btn-outline-primary rounded-circle" id="toggle-user-sidebar"> 
+          {{substr($username[0], 0, 1).substr($username[1], 0, 1)}} 
+        </button>
          <a href="#nav-mobile" class="mobile-nav-toggler navbar-trigger"><span class="flaticon-menu-1"></span></a>
        </div>
      </div>
