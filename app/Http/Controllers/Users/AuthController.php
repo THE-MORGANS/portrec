@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\User\LoginUser;
 use Illuminate\Support\Facades\Session;
 use App\Http\Requests\User\RegisterUser;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 use Symfony\Component\Console\Input\Input;
@@ -40,7 +41,7 @@ class AuthController extends Controller
         $input = $this->TraitRegisterUser($request);
         $userdata['name'] = $input['name'];
         $userdata['email'] = $input['email'];
-        $userdata['password'] = bcrypt($input['password']);
+        $userdata['password'] = Hash::make($input['password']);
         User::create($userdata);
    
         return Redirect::to('dashboard')->with('success', 'Registration Successful');

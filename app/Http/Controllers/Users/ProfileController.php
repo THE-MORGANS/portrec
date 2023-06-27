@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Hash;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\User\UpdateUserProfile;
@@ -106,16 +107,20 @@ class ProfileController extends Controller
 
     public function updateUserPassword($id, UpdateUserPassword $request){
         $user = User::find($id);
+        // dd(Hash::check($request->password, $user->password), $user->password, $request->all());
         if (password_verify($request->oldpassword, $user->password)) {
-            if (!Hash($user->password, $request->password)) { 
-                return $this->sendError('New and Old Password Must be Different', ['error'=>'Change Password'], 500);
+            if (Hash::check($request->password, $user->password)) { 
+                return back()->with('error', 'New and Old Password Must be Different');
+                // return $this->sendError('New and Old Password Must be Different', ['error'=>'Change Password'], 500);
             }
             $user->password = bcrypt($request->password);
             if ($user->save()) {
-                return $this->sendResponse('Password Updated', 'User Password Updated');  
+                return back()->with('success', 'Password Updated', 'User Password Updated');
+                // return $this->sendResponse('Password Updated', 'User Password Updated');  
             }
         }else{
-            return $this->sendError('Old Password is Wrong. Pleae Check and Try Again', ['error'=>'Wrong Password'], 401);
+            return back()->with('error', 'Old Password is Wrong. Pleae Check and Try Again');
+            // return $this->sendError('Old Password is Wrong. Pleae Check and Try Again', ['error'=>'Wrong Password'], 401);
         }
     }
 }

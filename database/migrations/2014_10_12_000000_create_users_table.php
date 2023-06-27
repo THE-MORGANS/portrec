@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Support\Facades\Hash;
 
 return new class extends Migration
 {
@@ -42,7 +43,7 @@ return new class extends Migration
         $user = [
             "name"=> "Portrec User",
             "email"=> "portrec.user1@gmail.com",
-            "password"=> bcrypt('12345'),
+            "password"=> Hash::make('12345'),
         ];
 
         DB::table('users')->insert($user);
