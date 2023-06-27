@@ -11,8 +11,8 @@
   <link rel="stylesheet" href="{{ asset('css/style.css') }}">
   <link rel="stylesheet" href="{{ asset('css/responsive.css') }}">
 
-  <link rel="shortcut icon" href="{{ asset('images/favicon.png') }}" type="image/x-icon">
-  <link rel="icon" href="{{ asset('images/favicon.png') }}" type="image/x-icon">
+  <link rel="shortcut icon" href="{{ asset('images/logos/favicon.png') }}" type="image/x-icon">
+  <link rel="icon" href="{{ asset('images/logos/favicon.png') }}" type="image/x-icon">
 
   <!-- Responsive -->
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -36,7 +36,7 @@
           <!--Nav Outer -->
           <div class="nav-outer">
             <div class="logo-box">
-              <div class="logo"><a href="{{url('/')}}"><img src="{{asset('images/logo.png')}}" alt="" title=""></a></div>
+              <div class="logo"><a href="{{url('/')}}"><img src="{{asset('images/logos/logo.png')}}" alt="" title=""></a></div>
             </div>
 
             <nav class="nav main-menu">
@@ -92,7 +92,7 @@
 
           <div class="main-box">
             <div class="logo-box">
-              <div class="sticky-logo"><a href="index.html"><img src="images/logo.svg" alt="" title=""></a></div>
+              <div class="sticky-logo"><a href="index.html"><img src="{{asset('images/logos/logo.png')}}" alt="" title=""></a></div>
             </div>
 
             <!--Keep This Empty / Menu will come through Javascript-->
@@ -102,7 +102,7 @@
 
       <!-- Mobile Header -->
       <div class="mobile-header">
-        <div class="logo"><a href="index.html"><img src="images/logo.svg" alt="" title=""></a></div>
+        <div class="logo"><a href="index.html"><img src="{{asset('images/logos/logo.png')}}" alt="" title=""></a></div>
 
         <!--Nav Box-->
         <div class="nav-outer clearfix">
@@ -134,7 +134,7 @@
           <div class="row">
             <div class="big-column col-xl-3 col-lg-3 col-md-12">
               <div class="footer-column about-widget">
-                <div class="logo"><a href="#"><img src="images/logo-2.svg" alt=""></a></div>
+                <div class="logo"><a href="#"><img src="{{asset('images/logos/logo.png')}}" alt=""></a></div>
                 <p class="phone-num"><span>Call us </span><a href="thebeehost%40support.html">123 456 7890</a></p>
                 <p class="address">329 Queensberry Street, North Melbourne VIC<br> 3051, Australia. <br><a href="mailto:support@superio.com" class="email">support@superio.com</a></p>
               </div>

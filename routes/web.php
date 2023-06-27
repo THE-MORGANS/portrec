@@ -40,6 +40,9 @@ Route::controller(AuthController::class)->group(function(){
             Route::get('/resume', 'loadResumePage')->name('dashboard.loadresumepage');
             Route::get('/cv', 'loadCVPage')->name('dashboard.loadcvmanagerpage');
             Route::get('/jobs', 'loadJobsPage')->name('dashboard.loadjobs');
+            Route::get('/companies', 'loadCompaniesPage')->name('dashboard.companies');
+            Route::get('/appliedjobs/{id}', 'loadUserAppliedJobsPage')->name('dashboard.loaduserappliedjobs');
+            Route::get('/loadupdatepassword/{id}', 'loadChangePasswordPage')->name('dashboard.loadupdatepassword');
         });
 
         Route::controller(EducationController::class)->group(function(){
@@ -89,5 +92,6 @@ Route::controller(AuthController::class)->group(function(){
             Route::post('/profile/contact/update/{id}', 'updateUserContact')->name('contact.update');
             Route::post('/userprofilepicture/{id}', 'uploadUserProfilePicture')->name('userprofilepicture.upload');
             Route::get('/profile/delete/{id}', 'destroy')->name('profile.delete');
+            Route::post('/updatepassword/{id}', 'updateUserPassword')->name('profile.updatepassword');
         });
     });

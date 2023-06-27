@@ -17,6 +17,7 @@ use App\Models\ProfilePicture;
 use App\Models\WorkExperience;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Models\Company;
 use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
@@ -40,8 +41,22 @@ class DashboardController extends Controller
     }
 
     public function loadJobsPage(){
-        $data['jobs'] = Job::latest()->paginate(10);
+        $data['jobs'] = Job::latest()->paginate(12);
         return view('user.jobs', $data);
+    }
+
+    public function loadUserAppliedJobsPage(){
+        $data['applications'] = Application::with('user')->latest()->paginate(12);
+        return view('user.applications', $data);
+    }
+
+    public function loadCompaniesPage(){
+        $data['companies'] = Company::paginate(12);
+        return view('user.companies', $data);
+    }
+
+    public function loadChangePasswordPage(){
+        return view('user.changepassword');
     }
 
     public function getUserPortfolio($id){

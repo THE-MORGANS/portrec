@@ -2,14 +2,21 @@
     <section class="banner-section-ten">
       <!-- Testimonial Carousel -->
       <div class="banner-carousel owl-carousel owl-theme default-nav">
-        <div class="slide-item bg-image" style="background-image: url(images/background/10.jpg);"></div>
-        <div class="slide-item bg-image" style="background-image: url(images/background/7.jpg);"></div>
+        <div class="slide-item bg-image" 
+        style="background:linear-gradient(180deg, rgba(0, 0, 0, 0.74), 
+        rgba(236, 219, 234, 0.355)), 
+        url(images/background/10.jpg);
+        background-size:cover;"></div>
+        <div class="slide-item bg-image" style="background:linear-gradient(35deg, rgba(129, 125, 127, 0.559), 
+        rgba(16, 10, 13, 0.705)), 
+        url(images/background/7.jpg);
+        background-size:cover;"></div>
       </div>
 
       <div class="auto-container">
         <div class="cotnent-box">
           <div class="title-box wow fadeInUp" data-wow-delay="500ms">
-            <h3>Your Dream Jobs is Waiting</h3>
+            <h3>Start a Winning Career Today</h3>
           </div>
 
           <!-- Job Search Form -->
