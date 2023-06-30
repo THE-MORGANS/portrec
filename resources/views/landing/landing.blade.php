@@ -1,12 +1,38 @@
 <x-landing.layout>
 
-<x-landing.slider />
-<x-landing.userclass />
-<x-landing.jobs :jobs="$jobs" :latestjobs="$latestjobs"/>
-<x-landing.testimonials />
-{{-- <x-landing.facts /> --}}
-{{-- <x-landing.topjobs /> --}}
-{{-- <x-landing.candidates /> --}}
-<x-landing.browse-jobs />
+    <!-- ======================= Home Banner ======================== -->
+    <x-landing.home-banner />
+	<!-- ======================= Home Banner ======================== -->
+
+
+    <!-- ================================ Tag Award ================================ -->
+    <x-landing.tag-award />
+	<!-- ================================ Tag Award ================================ -->
+
+    <!-- ======================= Job List ======================== -->
+    <x-landing.job-list :latestjobs="$latestjobs"/>
+    <!-- ======================= Job List ======================== -->
+
+    <!-- ======================= All Industries ======================== -->
+    <x-landing.job-industries :industries="$industries"/>	
+	<!-- ======================= All Industries ======================== -->
+
+     <!-- ======================= Job List ======================== -->
+     <x-landing.job-list-2 :jobs="$jobs"/>
+     <!-- ======================= Job List ======================== -->
+
+     <!-- ======================= Customer Review ======================== -->
+        <x-landing.customer-review />
+     <!-- ======================= Customer Review ======================== -->
+
+     <!-- ======================= Blog ======================== -->
+     <x-landing.blog-preview />
+     <!-- ======================= Blog ======================== -->
+
+     <!-- ======================= Newsletter Start ============================ -->
+     <x-landing.newsletter />
+	<!-- ======================= Newsletter Start ============================ -->
+
+{{-- <x-landing.browse-jobs /> --}}
 
 </x-landing.layout>

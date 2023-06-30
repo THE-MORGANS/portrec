@@ -1,20 +1,26 @@
-<!-- Sidebar Backdrop -->
-<div class="sidebar-backdrop"></div>
+<a class="mobNavigation" data-toggle="collapse" href="#MobNav" role="button" aria-expanded="false" aria-controls="MobNav">
+  <i class="fas fa-bars mr-2"></i>Dashboard Navigation
+</a>
 
-<!-- User Sidebar -->
-<div class="user-sidebar">
-
-  <div class="sidebar-inner">
-    <ul class="navigation">
-      <li><a href="{{route('dashboard.index')}}"><i class="la la-home"></i> Home </a></li>
-      <li><a href="{{route('dashboard.loadjobs')}}"><i class="la la-briefcase"></i> Jobs </a></li>
-      <li><a href="{{route('dashboard.loaduserappliedjobs', auth()->user()->id)}}"><i class="las la-check-circle"></i> Applied Jobs </a></li>
-      <li><a href="{{route('dashboard.loadresumepage')}}"><i class="la la-business-time"></i> My Resume </a></li>
-      <li><a href="{{route('dashboard.loadcvmanagerpage')}}"><i class="la la-file"></i> CV Manager </a></li>
-      <li><a href="{{route('dashboard.companies')}}"><i class="las la-industry"></i> Companies </a></li>
-      <li><a href="{{route('dashboard.loadupdatepassword', auth()->user()->id)}}"><i class="las la-key"></i> Change Password </a></li>
-      <li><a href="{{route('user.logout')}}"><i class="la la-sign-out"></i>Logout</a></li>
-    </ul>
+      <div class="collapse" id="MobNav">
+      <div class="dashboard-nav">
+          <div class="dashboard-inner">
+              <ul data-submenu-title="Main Navigation">
+                  <li class="active"><a href="candidate-dashboard.html"><i class="lni lni-dashboard mr-2"></i>Dashboard</a></li>
+                  <li><a href="dashboard-manage-resume.html"><i class="lni lni-files mr-2"></i>Manage Resumes</a></li>
+                  <li><a href="dashboard-add-resume.html"><i class="lni lni-add-files mr-2"></i>Create Resume</a></li>
+                  <li><a href="dashboard-applied-jobs.html"><i class="lni lni-briefcase mr-2"></i>Applied jobs</a></li>
+                  <li><a href="dashboard-alert-job.html"><i class="ti-bell mr-2"></i>Alert Jobs<span class="count-tag bg-warning">4</span></a></li>
+                  <li><a href="dashboard-saved-jobs.html"><i class="lni lni-bookmark mr-2"></i>Bookmark Jobs</a></li>
+                  <li><a href="dashboard-packages.html"><i class="lni lni-mastercard mr-2"></i>Packages</a></li>
+                  <li><a href="dashboard-messages.html"><i class="lni lni-envelope mr-2"></i>Messages<span class="count-tag">4</span></a></li>
+              </ul>
+              <ul data-submenu-title="My Accounts">
+                  <li><a href="dashboard-my-profile.html"><i class="lni lni-user mr-2"></i>My Profile </a></li>
+                  <li><a href="dashboard-change-password.html"><i class="lni lni-lock-alt mr-2"></i>Change Password</a></li>
+                  <li><a href="javascript:void(0);"><i class="lni lni-trash-can mr-2"></i>Delete Account</a></li>
+                  <li><a href="login.html"><i class="lni lni-power-switch mr-2"></i>Log Out</a></li>
+              </ul>
+          </div>					
+      </div>
   </div>
-</div>
-<!-- End User Sidebar -->

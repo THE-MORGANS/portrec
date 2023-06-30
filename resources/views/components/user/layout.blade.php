@@ -1,102 +1,136 @@
 <!DOCTYPE html>
-<html lang="en">
-
-
-<!-- Mirrored from creativelayers.net/themes/superio/dashboard.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 05 Jun 2023 11:11:31 GMT -->
-
+<html lang="zxx">
+	
+<!-- Mirrored from themezhub.net/live-workplex/workplex/candidate-dashboard.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 12 Jan 2023 14:17:35 GMT -->
 <head>
-    <meta charset="utf-8">
-    <title>Portrec Dashboard</title>
-
-    <!-- Stylesheets -->
-    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/responsive.css') }}" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+		<meta charset="utf-8" />
+		<meta name="author" content="Portrec Dashboard" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		
+        <title>Portrec</title>
+		 
+        <!-- Custom CSS -->
+        <link href="{{asset('css/styles.css')}}" rel="stylesheet">
+		
+        <link href="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css') }}" rel="stylesheet">
     
-    <link href="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css') }}" rel="stylesheet">
-    
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
-    <link href="{{ asset('css/jquery.datetimepicker.css') }}" rel="stylesheet">
-
-    <link rel="shortcut icon" href="{{ asset('images/favicon.png') }}" type="image/x-icon">
-    <link rel="icon" href="{{ asset('images/favicon.png') }}" type="image/x-icon">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+        <link href="{{ asset('css/jquery.datetimepicker.css') }}" rel="stylesheet">
 
 
+    </head>
+	
+    <body>
+	
+		 <!-- ============================================================== -->
+        <!-- Preloader - style you can find in spinners.css -->
+        <!-- ============================================================== -->
+       <div class="preloader"></div>
+		
+        <!-- ============================================================== -->
+        <!-- Main wrapper - style you can find in pages.scss -->
+        <!-- ============================================================== -->
+        <div id="main-wrapper">
+		
+            <!-- ============================================================== -->
+            <!-- Top header  -->
+            <!-- ============================================================== -->
+            <!-- Start Navigation -->
+			<div class="header header-light dark-text head-shadow">
+				<div class="container">
+					<nav id="navigation" class="navigation navigation-landscape">
+						<div class="nav-header">
+							<a class="nav-brand" href="#">
+								<img src="{{asset('img/logo/logo.png')}}" class="logo" alt="" />
+							</a>
+							<div class="nav-toggle"></div>
+							<div class="mobile_nav">
+								<ul>
+								<li>
+									<a href="{{route('user.logout')}}" class="crs_yuo12 w-auto text-dark gray">
+										<span class="embos_45"><i class="lni lni-power-switch mr-1 mr-1"></i>Logout</span>
+									</a>
+								</li>
+								</ul>
+							</div>
+						</div>
+						<div class="nav-menus-wrapper" style="transition-property: none;">
+							<ul class="nav-menu">
+								<li><a href="{{route('dashboard.index')}}">Home</a></li>
+							</ul>
+							
+							<ul class="nav-menu nav-menu-social align-to-right">
+								<li class="add-listing gray">
+									<a href="{{route('user.logout')}}" >
+										<i class="lni lni-power-switch mr-1"></i> Logout
+									</a>
+								</li>
+							</ul>
+						</div>
+					</nav>
+				</div>
+			</div>
+			<!-- End Navigation -->
+			<div class="clearfix"></div>
+			<!-- ============================================================== -->
+			<!-- Top header  -->
+			<!-- ============================================================== -->
+			
+			<!-- ======================= dashboard Detail ======================== -->
+			
+			<div class="dashboard-wrap bg-light">
+			
+                {{-- Side Nav --}}
+                <x-user.sidenav />
+                {{-- Side Nav --}}
 
-    <!-- Responsive -->
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-    <!--[if lt IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script><![endif]-->
-    <!--[if lt IE 9]><script src="js/respond.js"></script><![endif]-->
-</head>
+				
+				<div class="dashboard-content">
+					
 
-<body>
+                    {{ $slot }}
+					
+					<!-- footer -->
+					<div class="row">
+						<div class="col-md-12">
+							<div class="py-3">© {{date('Y')}} Portrec.</div>
+						</div>
+					</div>
+		
+				</div>
+				
+			</div>
+			<!-- ======================= dashboard Detail End ======================== -->
+			
+			<a id="back2Top" class="top-scroll" title="Back to top" href="#"><i class="ti-arrow-up"></i></a>
+			
 
-    <div class="page-wrapper dashboard ">
+		</div>
+		<!-- ============================================================== -->
+		<!-- End Wrapper -->
+		<!-- ============================================================== -->
 
-        <!-- Preloader -->
-        <div class="preloader"></div>
-
-        <x-user.topnav/>
-        <x-user.sidenav />
-
-
-
-        {{ $slot }}
-
-
-
-        <!-- Copyright -->
-        <div class="copyright-text">
-            <p>© {{ date('Y') }} The Morgans Consortium. All Right Reserved.</p>
-        </div>
-
-
-    </div><!-- End Page Wrapper -->
-
-
-    <script src="{{ asset('js/jquery.js') }}"></script>
-    <script src="{{ asset('js/popper.min.js') }}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
-    </script>
-    <script src="{{ asset('js/chosen.min.js') }}"></script>
-    <script src="{{ asset('js/jquery-ui.min.js') }}"></script>
-    <script src="{{ asset('js/jquery.fancybox.js') }}"></script>
-    <script src="{{ asset('js/jquery.datetimepicker.full.min.js') }}"></script>
-    <script src="{{ asset('js/jquery.modal.min.js') }}"></script>
-    <script src="{{ asset('js/mmenu.polyfills.js') }}"></script>
-    <script src="{{ asset('js/mmenu.js') }}"></script>
-    <script src="{{ asset('js/appear.js') }}"></script>
-    <script src="{{ asset('js/ScrollMagic.min.js') }}"></script>
-    <script src="{{ asset('js/rellax.min.js') }}"></script>
-    <script src="{{ asset('js/owl.js') }}"></script>
-    <script src="{{ asset('js/wow.js') }}"></script>
-    <script src="{{ asset('js/knob.js') }}"></script>
-    <script src="{{ asset('js/script.js') }}"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+		<!-- ============================================================== -->
+		<!-- All Jquery -->
+		<!-- ============================================================== -->
+		<script src="{{asset('js/jquery.min.js')}}"></script>
+		<script src="{{asset('js/popper.min.js')}}"></script>
+		<script src="{{asset('js/bootstrap.min.js')}}"></script>
+		<script src="{{asset('js/slick.js')}}"></script>
+		<script src="{{asset('js/slider-bg.js')}}"></script>
+		<script src="{{asset('js/smoothproducts.js')}}"></script>
+		<script src="{{asset('js/snackbar.min.js')}}"></script>
+		<script src="{{asset('js/jQuery.style.switcher.js')}}"></script>
+		<script src="{{asset('js/custom.js')}}"></script>
+        <script src="{{ asset('js/jquery.datetimepicker.full.min.js') }}"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@eonasdan/tempus-dominus@6.7.7/dist/js/tempus-dominus.min.js"
         crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
-    <script>
-        $('.my-select').selectpicker();
-    </script>
+		<!-- ============================================================== -->
+		<!-- This page plugins -->
+		<!-- ============================================================== -->	
 
-    <!--Google Map APi Key-->
-    <script src="http://maps.google.com/maps/api/js?key=AIzaSyDaaCBm4FEmgKs5cfVrh3JYue3Chj1kJMw&amp;ver=5.2.4"></script>
-    <script src="{{ asset('js/map-script.js') }}"></script>
-    <!--End Google Map APi-->
-
-    <x-user.chartjs />
-
-    <x-general.flash-message />
-
-
-    <x-user.modals />
-
-
-</body>
+        <x-general.flash-message />
+	</body>
 
 </html>

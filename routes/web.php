@@ -22,7 +22,9 @@ use App\Http\Controllers\Users\WorkExperienceController;
 |
 */
 
-Route::get('/', [LandingPageController::class, 'loadLandingPage'])->name('user.loadlandingpage');
+Route::get('/', [LandingPageController::class, 'loadLandingPage'])->name('landing.loadhomepage');
+Route::get('/about', [LandingPageController::class, 'loadAboutPage'])->name('landing.loadaboutpage');
+Route::get('/contact', [LandingPageController::class, 'loadContactPage'])->name('landing.loadcontactpage');
 
 
 Route::controller(AuthController::class)->group(function(){

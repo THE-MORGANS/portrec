@@ -48,23 +48,24 @@ class AuthController extends Controller
 
     }
 
-    public function loginUser(LoginUser $request) {
+    public function loginUser(Request $request) {
         
         $rules = [
-            'email' => 'required|email',
-            'password' => 'required',
+            'loginemail' => 'required|email',
+            'loginpassword' => 'required',
         ];
         $validator = Validator::make($request->input() , $rules);
         
         if ($validator->fails()){
-        return Redirect::to('login')->withErrors($validator)->withInput($request->except('password'));
+        return Redirect::to('login')->withErrors($validator)->withInput($request->except('loginpassword'));
         }
-        if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
+
+        if (Auth::attempt(['email' => $request->loginemail, 'password' => $request->loginpassword])) {
             /** @var \App\Models\User $user **/
             $data['user'] = Auth::user(); 
             return Redirect::to('dashboard')->with('success', 'Login Successful');
         }else{
-            return Redirect::to('login')->with('error', 'Username/Password Incorrect')->withInput($request->except('password'));
+            return Redirect::to('login')->with('error', 'Username/Password Incorrect')->withInput($request->except('loginpassword'));
         }
     }
 

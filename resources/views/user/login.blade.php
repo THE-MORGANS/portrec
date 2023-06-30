@@ -1,155 +1,130 @@
-<!DOCTYPE html>
-<html lang="en">
+<x-landing.layout>
 
-
-<!-- Mirrored from creativelayers.net/themes/superio/login.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 05 Jun 2023 11:11:47 GMT -->
-<head>
-  <meta charset="utf-8">
-  <title>Login - Portrec</title>
-
-  <!-- Stylesheets -->
-  <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet">
-  <link href="{{ asset('css/style.css') }}" rel="stylesheet">
-  <link href="{{ asset('css/responsive.css') }}" rel="stylesheet">
-  <link href="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css') }}" rel="stylesheet">
-
-  <link rel="shortcut icon" href="{{ asset('images/favicon.png') }}" type="image/x-icon">
-  <link rel="icon" href="{{ asset('images/favicon.png') }}" type="image/x-icon">
-
-  <!-- Responsive -->
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-  <!--[if lt IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script><![endif]-->
-  <!--[if lt IE 9]><script src="js/respond.js"></script><![endif]-->
-</head>
-
-<body>
-
-  <div class="page-wrapper">
-
-    <!-- Preloader -->
-    <div class="preloader"></div>
-
-    <!-- Main Header-->
-    <header class="main-header">
-      <div class="container-fluid">
-        <!-- Main box -->
-        <div class="main-box">
-          <!--Nav Outer -->
-          <div class="nav-outer">
-            <div class="logo-box">
-              <div class="logo"><a href="{{url('/')}}"><img src="images/logo.png" alt="" title=""></a></div>
+    <!-- ======================= Top Breadcrubms ======================== -->
+    {{-- <div class="gray py-3">
+        <div class="container">
+            <div class="row">
+                <div class="colxl-12 col-lg-12 col-md-12">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="#">Home</a></li>
+                            <li class="breadcrumb-item"><a href="#">Pages</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Contact Us</li>
+                        </ol>
+                    </nav>
+                </div>
             </div>
-          </div>
-
-          <div class="outer-box">
-            <!-- Login/Register -->
-            <div class="btn-box">
-              <a href="{{url('/register')}}" class="theme-btn btn-style-three">Register</a>
-            </div>
-          </div>
         </div>
-      </div>
-
-      <!-- Mobile Header -->
-      <div class="mobile-header">
-        <div class="logo"><a href="{{url('/')}}"><img src="images/logo.svg" alt="" title=""></a></div>
-      </div>
-
-      <!-- Mobile Nav -->
-      <div id="nav-mobile"></div>
-    </header>
-    <!--End Main Header -->
-
-    <!-- Info Section -->
-    <div class="login-section">
-      <div class="image-layer" style="background-image: url(images/background/12.jpg);"></div>
-      <div class="outer-box">
-        <!-- Login Form -->
-        <div class="login-form default-form">
-          <div class="form-inner">
-            <h3>Login to Portrec</h3>
-            
-            <!--Login Form-->
-            <form method="post" action="/login">
-              {{csrf_field()}}
-              <div class="form-group">
-                <label>Email</label>
-                <input type="text" name="email" value="{{ old('email') }}" placeholder="Email" required>
-                @if ($errors->has('email'))
-                <span class="text-danger">{{ $errors->first('email') }}</span>
-                @endif
-              </div>
-
-              <div class="form-group">
-                <label>Password</label>
-                <input id="password-field" type="password" name="password" value="" placeholder="Password" required>
-                @if ($errors->has('password'))
-                <span class="text-danger">{{ $errors->first('password') }}</span>
-                @endif
-              </div>
-
-              <div class="form-group">
-                <div class="field-outer">
-                  <div class="input-group checkboxes square">
-                    <input type="checkbox" name="remember-me" value="" id="remember">
-                    <label for="remember" class="remember"><span class="custom-checkbox"></span> Remember me</label>
-                  </div>
-                  <a href="#" class="pwd">Forgot password?</a>
-                </div>
-              </div>
-
-              <div class="form-group">
-                <button class="theme-btn btn-style-one" type="submit" name="log-in">Log In</button>
-              </div>
-            </form>
-
-            {{-- <div class="bottom-box">
-              <div class="text">Don't have an account? <a href="register.html">Signup</a></div>
-              <div class="divider"><span>or</span></div>
-              <div class="btn-box row">
-                <div class="col-lg-6 col-md-12">
-                  <a href="#" class="theme-btn social-btn-two facebook-btn"><i class="fab fa-facebook-f"></i> Log In via Facebook</a>
-                </div>
-                <div class="col-lg-6 col-md-12">
-                  <a href="#" class="theme-btn social-btn-two google-btn"><i class="fab fa-google"></i> Log In via Gmail</a>
-                </div>
-              </div>
-            </div> --}}
-
-
-          </div>
-        </div>
-        <!--End Login Form -->
-      </div>
-    </div>
-    <!-- End Info Section -->
-
-
-  </div><!-- End Page Wrapper -->
-
-  <script src="{{asset('js/jquery.js')}}"></script>
-  <script src="{{asset('js/popper.min.js')}}"></script>
-  <script src="{{asset('js/chosen.min.js')}}"></script>
-  <script src="{{asset('js/bootstrap.min.js')}}"></script>
-  <script src="{{asset('js/jquery-ui.min.js')}}"></script>
-  <script src="{{asset('js/jquery.fancybox.js')}}"></script>
-  <script src="{{asset('js/jquery.modal.min.js')}}"></script>
-  <script src="{{asset('js/mmenu.polyfills.js')}}"></script>
-  <script src="{{asset('js/mmenu.js')}}"></script>
-  <script src="{{asset('js/appear.js')}}"></script>
-  <script src="{{asset('js/ScrollMagic.min.js')}}"></script>
-  <script src="{{asset('js/rellax.min.js')}}"></script>
-  <script src="{{asset('js/owl.js')}}"></script>
-  <script src="{{asset('js/wow.js')}}"></script>
-  <script src="{{asset('js/script.js')}}"></script>
-  <script src="{{asset('https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js')}}"></script>
-
-  <x-general.flash-message />
-  
-  
-</body>
-
-
-<!-- Mirrored from creativelayers.net/themes/superio/login.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 05 Jun 2023 11:11:47 GMT -->
-</html>
+    </div> --}}
+    <!-- ======================= Top Breadcrubms ======================== -->
+    
+    <!-- ======================= Login Detail ======================== -->
+			<section class="middle">
+				<div class="container">
+					<div class="row align-items-start justify-content-between">
+					
+						<div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+							<form class="border p-3 rounded" method="POST" action="/login">		
+                                @csrf		
+								<div class="form-group">
+									<label>Email *</label>
+									<input type="text" name="loginemail" class="form-control" value="{{ old('loginemail') }}" placeholder="Email" required>
+										@if ($errors->has('loginemail'))
+										<span class="text-danger">{{ $errors->first('loginemail') }}</span>
+										@endif
+								</div>
+								
+								<div class="form-group">
+									<label>Password *</label>
+									<input id="password-field" class="form-control" type="password" name="loginpassword" value="" placeholder="Password" required>
+										@if ($errors->has('loginpassword'))
+										<span class="text-danger">{{ $errors->first('loginpassword') }}</span>
+										@endif
+								</div>
+								
+								<div class="form-group">
+									<div class="d-flex align-items-center justify-content-between">
+										<div class="flex-1">
+											<input id="dd" class="checkbox-custom" name="dd" type="checkbox">
+											<label for="dd" class="checkbox-custom-label">Remember Me</label>
+										</div>	
+										<div class="eltio_k2">
+											<a href="#">Lost Your Password?</a>
+										</div>	
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<button type="submit" class="btn btn-md full-width theme-bg text-light fs-md ft-medium">Login</button>
+								</div>
+							</form>
+						</div>
+    <!-- ======================= Login Detail End======================== -->
+    
+    
+    <!-- ======================= Register Detail End======================== -->					
+						<div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mfliud">
+							<form method="post" action="/register">
+                                {{csrf_field()}}
+								
+								<div class="form-group">
+									<label>Full Name *</label>
+                                    <input type="text" name="fullname" class="form-control" placeholder="Full Name" value="{{ old('fullname') }}">
+                                    @if ($errors->has('fullname'))
+                                    <span class="text-danger">{{ $errors->first('fullname') }}</span>
+                                    @endif
+								</div>
+								
+								<div class="form-group">
+									<label>Email *</label>
+									<input type="email" name="email" class="form-control" placeholder="Email" value="{{ old('email') }}" required>
+                                    @if ($errors->has('email'))
+                                    <span class="text-danger">{{ $errors->first('email') }}</span>
+                                    @endif
+								</div>
+								
+								<div class="row">
+									<div class="form-group col-md-6">
+										<label>Password *</label>
+										<input id="password-field" type="password" class="form-control" name="password" value="" placeholder="Password">
+                                        @if ($errors->has('password'))
+                                        <span class="text-danger">{{ $errors->first('password') }}</span>
+                                        @endif
+									</div>
+									
+									<div class="form-group col-md-6">
+										<label>Confirm Password *</label>
+										<input type="password_comfirmation" class="form-control" placeholder="Confirm Password*">
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<p>By registering your details, you agree with our <a href="#">Terms & Conditions</a>, and <a href="#">Privacy and Cookie Policy</a>.</p>
+								</div>
+								
+								<div class="form-group">
+									<div class="d-flex align-items-center justify-content-between">
+										<div class="flex-1">
+											<input id="ddd" class="checkbox-custom" name="ddd" type="checkbox">
+											<label for="ddd" class="checkbox-custom-label">Sign me up for the Newsletter!</label>
+										</div>		
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<button type="submit" class="btn btn-md full-width theme-bg text-light fs-md ft-medium">Create An Account</button>
+								</div>
+							</form>
+						</div>
+						
+					</div>
+				</div>
+			</section>
+			<!-- ======================= Login End ======================== -->
+    
+    
+         <!-- ======================= Newsletter Start ============================ -->
+         <x-landing.newsletter />
+        <!-- ======================= Newsletter Start ============================ -->
+    
+    </x-landing.layout>
