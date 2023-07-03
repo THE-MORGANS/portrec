@@ -31,12 +31,10 @@ class DashboardController extends Controller
     }
 
     public function index(){
-        $user = Auth::user();
         $data['applications'] = Application::with('user')->get();
         $data['cv'] = CV::with('user')->get();
         $data['coverletter'] = CoverLetter::with('user')->get();
         $data['jobs'] = Job::all()->sortDesc()->take(4);
-        // $data['userprofilepicture'] = ProfilePicture::with('user')->first();
         return view('user.dashboard', $data);
     }
 

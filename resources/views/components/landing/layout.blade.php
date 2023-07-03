@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="zxx">
 	
-<!-- Mirrored from themezhub.net/live-workplex/workplex/home-5.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 12 Jan 2023 14:10:04 GMT -->
 <head>
 		<meta charset="utf-8" />
 		<meta name="author" content="Portrec" />
@@ -12,6 +11,8 @@
         <!-- Custom CSS -->
         {{-- <link href="assets/css/styles.css" rel="stylesheet"> --}}
         <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
+		<link href="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css') }}" rel="stylesheet">
+		
 		
     </head>
 	
@@ -70,7 +71,7 @@
 									</a>
 								</li>
 								<li class="add-listing theme-bg">
-									<a href="dashboard-post-job.html" >
+									<a href="#" >
 										<i class="lni lni-circle-plus mr-1"></i> Post a Job
 									</a>
 								</li>
@@ -202,17 +203,17 @@
 								{{csrf_field()}}				
 								<div class="form-group">
 									<label>User Name</label>
-									<input type="text" name="email" class="form-control" value="{{ old('email') }}" placeholder="Email" required>
-										@if ($errors->has('email'))
-										<span class="text-danger">{{ $errors->first('email') }}</span>
+									<input type="text" name="loginemail" class="form-control" value="{{ old('loginemail') }}" placeholder="Email" required>
+										@if ($errors->has('loginemail'))
+										<span class="text-danger">{{ $errors->first('loginemail') }}</span>
 										@endif
 								</div>
 								
 								<div class="form-group">
 									<label>Password</label>
-									<input id="password-field" class="form-control" type="password" name="password" value="" placeholder="Password" required>
-										@if ($errors->has('password'))
-										<span class="text-danger">{{ $errors->first('password') }}</span>
+									<input id="password-field" class="form-control" type="password" name="loginpassword" value="" placeholder="Password" required>
+										@if ($errors->has('loginpassword'))
+										<span class="text-danger">{{ $errors->first('loginpassword') }}</span>
 										@endif
 								</div>
 								
@@ -263,10 +264,12 @@
 		<script src="{{ asset('js/snackbar.min.js') }}"></script>
 		<script src="{{ asset('js/jQuery.style.switcher.js') }}"></script>
 		<script src="{{ asset('js/custom.js') }}"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 		<!-- ============================================================== -->
 		<!-- This page plugins -->
 		<!-- ============================================================== -->			
 
+		<x-general.flash-message />
 	</body>
 
 </html>

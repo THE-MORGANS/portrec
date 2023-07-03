@@ -897,8 +897,8 @@ html body .bg-light-inverse {
 html body .bg-light-purple {
   background-color:#eeebff; }
   
-html body .bg-light {
-  background-color:#f5f7f9; }
+html body .bg-grey {
+  background-color:#dde4eb; }
 
 html body .bg-white {
   background-color: #ffffff; }
@@ -1110,7 +1110,7 @@ button.close {
     display: table;
     padding-left: 0;
     border-radius: 4px;
-    margin:20px auto 0 !important;
+    margin:5px auto 5px !important;
 }
 
 .pagination>li>a, .pagination>li>a, .pagination>li>span {

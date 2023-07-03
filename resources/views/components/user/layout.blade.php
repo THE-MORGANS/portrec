@@ -17,6 +17,7 @@
         <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
         <link href="{{ asset('css/jquery.datetimepicker.css') }}" rel="stylesheet">
 
+		<script src="https://kit.fontawesome.com/3f1ad882de.js" crossorigin="anonymous"></script>
 
     </head>
 	
@@ -85,13 +86,13 @@
                 {{-- Side Nav --}}
 
 				
-				<div class="dashboard-content">
+				<div class="dashboard-content pb-5">
 					
 
                     {{ $slot }}
 					
 					<!-- footer -->
-					<div class="row">
+					<div class="row fixed-bottom text-center mt-3 bg-white">
 						<div class="col-md-12">
 							<div class="py-3">© {{date('Y')}} Portrec.</div>
 						</div>
